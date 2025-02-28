@@ -166,3 +166,6 @@ SUUMOの「路線から探す」のようなUIをイメージ。
 
 # 画面遷移図
 Figma：https://www.figma.com/design/vvQNkjdqrSXjCXh7GDSnUg/%E3%80%90%E5%8D%92%E6%A5%AD%E5%88%B6%E4%BD%9C%E3%80%91%E3%81%88%E3%81%8D%E3%81%B7%E3%82%89%E3%81%A3%E3%81%A8?node-id=0-1&p=f&t=F7CuWKA2seS99ZK0-0
+
+# ER図
+https://gyazo.com/b72d4e157ea3211b41568b8809bf65e7
