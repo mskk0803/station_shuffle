@@ -75,9 +75,8 @@ test:
 # the values provided in this file. Alternatively, you can specify a connection
 # URL environment variable explicitly:
 #
-# デプロイ時に以下に変更
-  production:
-    url: <%= ENV["MY_APP_DATABASE_URL"] %>
+  # production:
+  #   url: <%= ENV["MY_APP_DATABASE_URL"] %>
 #
 # Read https://guides.rubyonrails.org/configuring.html#configuring-a-database
 # for a full overview on how database connection configuration can be specified.
@@ -85,6 +84,7 @@ test:
 production:
   primary: &primary_production
     <<: *default
+    url: <%= ENV["MY_APP_DATABASE_URL"] %> # デプロイ時に変更
     database: station_shuffle_production
     username: station_shuffle
     password: <%= ENV["STATION_SHUFFLE_DATABASE_PASSWORD"] %>
