@@ -45,8 +45,8 @@ log/*.pid
 log/*.lock
 log/*.keep
 
-# DByml
-/config/database.yml
+# # DByml
+# /config/database.yml
 
 # deploy.yml
 /config/deploy.yml
