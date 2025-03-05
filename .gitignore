@@ -51,9 +51,6 @@ log/*.keep
 # deploy.yml
 /config/deploy.yml
 
-# binファイル
-bin/*
-
 # tmpファイル
 tmp/*
 
