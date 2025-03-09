@@ -82,6 +82,10 @@ Rails.application.configure do
   # Only use :id for inspections in production.
   config.active_record.attributes_for_inspect = [ :id ]
 
+  # 2025-03-09 ActionMailerの設定。URLは本番環境のものを設定する。
+  # 参考：https://railsguides.jp/action_mailer_basics.html
+  config.action_mailer.default_url_options = "https://station-shuffle.onrender.com"
+
   # Enable DNS rebinding protection and other `Host` header attacks.
   # config.hosts = [
   #   "example.com",     # Allow requests from example.com
