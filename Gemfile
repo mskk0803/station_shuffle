@@ -63,3 +63,6 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+# 2025-03-09 devise導入
+gem "devise", "~> 4.9"
