@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   root "home#index"
 
   # 2025-03-10 postのルーティング定義
-  resources :posts, only: %i[index, new, create, destroy]
+  resources :posts, only: %i[index new create destroy]
 
   # 2025-03-09 devise導入。各画面表示用のルーティング定義。
   devise_for :users, controllers: {
