@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get "posts/index"
+  get "posts/new"
+  get "posts/create"
+  get "posts/destroy"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
   # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
