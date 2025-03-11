@@ -25,8 +25,9 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
     assert post.valid?
   end
 
-  # test "should get destroy" do
-  #   get posts_destroy_url
-  #   assert_response :success
-  # end
+  test "should get destroy" do
+    post = posts(:post_one)
+    delete post_path(post)
+    assert_not Post.exists?(post.id)
+  end
 end
