@@ -6,7 +6,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # GET /resource/sign_up
   def new
-    super
+    # super
+    @user = User.new
   end
 
   # POST /resource
@@ -14,7 +15,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     # super
     @user = User.new(sign_up_params)
     if @user.save
-      redirect_to root_path
+      redirect_to posts_path
     else
       render :new
     end

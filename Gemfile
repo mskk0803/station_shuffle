@@ -66,3 +66,6 @@ end
 
 # 2025-03-09 devise導入
 gem "devise", "~> 4.9"
+
+# 2025-03-11 binding.pry導入
+gem "pry-rails"

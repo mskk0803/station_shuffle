@@ -2,8 +2,9 @@
 
 class DeviseCreateUsers < ActiveRecord::Migration[7.2]
   def change
-    create_table :users do |t|
+    create_table :users, id: false do |t|
       ## Database authenticatable
+      t.uuid   :id, primary_key: true, null: false, default: -> { "gen_random_uuid()" }
       t.string :email,              null: false, default: ""
       t.string :encrypted_password, null: false, default: ""
 
