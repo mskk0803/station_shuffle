@@ -12,12 +12,11 @@ class PostsController < ApplicationController
 
     if post.save!
       # 後で変更
-      redirect_to posts_path, success: 'Post created successfully'
+      redirect_to posts_path, success: "Post created successfully"
     else
-      flash.now[:danger] = 'Post creation failed'
+      flash.now[:danger] = "Post creation failed"
       render :new, status: :unprocessable_entity
     end
-
   end
 
   def destroy
