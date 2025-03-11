@@ -4,8 +4,10 @@
 <% @posts.each do |post| %>
     <%= post.user.name %>
     <%= post.content %>
+    <%= button_to 'delete', post_path(post), method: :delete %>
 <% end %>
 
 <%= link_to 'New Post', new_post_path %>
+
 
 <%= button_to 'Sign Out', destroy_user_session_path, method: :delete %>
