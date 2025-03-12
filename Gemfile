@@ -71,7 +71,7 @@ gem "devise", "~> 4.9"
 gem "pry-rails"
 
 # 2025-03-12 dotenv-rails導入
-gem 'dotenv-rails'
+gem "dotenv-rails"
 
 # 2025-03-13 google_places導入
-gem 'google_places'
+gem "google_places"
