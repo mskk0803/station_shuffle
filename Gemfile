@@ -69,3 +69,9 @@ gem "devise", "~> 4.9"
 
 # 2025-03-11 binding.pry導入
 gem "pry-rails"
+
+# 2025-03-12 dotenv-rails導入
+gem 'dotenv-rails'
+
+# 2025-03-13 google_places導入
+gem 'google_places'
