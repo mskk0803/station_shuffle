@@ -2,7 +2,7 @@ require "test_helper"
 
 class DestinationsControllerTest < ActionDispatch::IntegrationTest
   test "should get new" do
-    get destinations_new_url
+    get new_destination_path
     assert_response :success
   end
 end
