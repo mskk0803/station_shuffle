@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  get "destinations/new"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
   # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
@@ -10,6 +9,13 @@ Rails.application.routes.draw do
 
   # 2025-03-10 postのルーティング定義
   resources :posts, only: %i[index new create destroy]
+
+  # 2025-03-15 destinationのルーティング定義
+  resources :destinations, only: %i[new] do
+    collection do
+      post :get_location
+    end
+  end
 
   # 2025-03-09 devise導入。各画面表示用のルーティング定義。
   devise_for :users, controllers: {
