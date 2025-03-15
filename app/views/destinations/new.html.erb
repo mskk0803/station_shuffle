@@ -1,2 +1,14 @@
 <h1>Destinations#new</h1>
 <p>Find me in app/views/destinations/new.html.erb</p>
+
+<div data-controller="destinations">
+  <button
+    data-destinations-target="button"
+    data-action="destinations#getGeoLocation">
+    現在地を取得
+  </button>
+    <div data-destinations-target="list">
+    <!-- 駅データをここに表示 -->
+    </div>
+
+</div>
