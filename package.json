@@ -6,12 +6,10 @@
   },
   "scripts": {
     "build": "esbuild app/javascript/*.* --bundle --sourcemap --format=esm --outdir=app/assets/builds --public-path=/assets",
-    "build:css": "npx @tailwindcss/cli -i ./app/assets/stylesheets/application.tailwind.css -o ./app/assets/builds/application.css --minify"
+    "build:css": "esbuild app/assets/stylesheets/application.css --outdir=app/assets/builds"
   },
   "dependencies": {
     "@hotwired/stimulus": "^3.2.2",
-    "@hotwired/turbo-rails": "^8.0.13",
-    "@tailwindcss/cli": "^4.0.9",
-    "tailwindcss": "^4.0.9"
+    "@hotwired/turbo-rails": "^8.0.13"
   }
 }
