@@ -3,8 +3,14 @@ import { Controller } from "@hotwired/stimulus"
 // Connects to data-controller="destinations"
 export default class extends Controller {
 
-  // 入力フォームと表示させるためのリストを取得
-  static targets = ["input","list", "result"];  
+  // 入力フォームと表示させるためのターゲットを取得
+  static targets = ["input","list", "result","all"];  
+
+  // value定義
+  static values = {
+    stationName: String
+  }
+
   // button押下時に発火するイベント
   getGeoLocation(){
     navigator.geolocation.getCurrentPosition(
@@ -16,6 +22,7 @@ export default class extends Controller {
   success(position){
     const lat = position.coords.latitude
     const lon = position.coords.longitude
+    // ここをもっと疎にする
     const radius = parseInt(this.inputTarget.value, 10)
     if (this.checkRadius(radius)){
       // Railsにデータを送信
@@ -47,7 +54,6 @@ export default class extends Controller {
     return true;
   }
   
-
   // データ送信メソッド
   sendLocation(lat, lon, radius){
     // Railsのcontrollerに送信
@@ -72,13 +78,10 @@ export default class extends Controller {
           noStationsTextEle.textContent = "指定の検索範囲では駅が見つかりませんでした。"
           this.listTarget.appendChild(noStationsTextEle);
         }else{
-          // リストが空でない場合に、チェックボックスとシャッフルボタンを追加
+          // リストが空でない場合に、チェックボックスを追加
           this.updateStationList(data.stations);
-
-          const shuffleButton = document.createElement("button")
-          shuffleButton.textContent = "行き先を決める！"
-          shuffleButton.setAttribute("data-action","destinations#shuffleStation")
-          this.listTarget.appendChild(shuffleButton)
+          // シャッフルボタンの作成関数
+          this.createShuffleButton();
         }
       }
     })
@@ -93,7 +96,6 @@ export default class extends Controller {
     stations.forEach((stationName) => {
       this.listTarget.appendChild(this.createCheckbox(stationName))
     })
-
   }
 
   // チェックボックス生成
@@ -116,7 +118,15 @@ export default class extends Controller {
     return divElement;
   }
 
-  // 駅をシャッフルする
+  // シャッフルボタンの作成関数
+  createShuffleButton(){
+    const shuffleButton = document.createElement("button")
+    shuffleButton.textContent = "行き先を決める！"
+    shuffleButton.setAttribute("data-action","destinations#shuffleStation")
+    this.listTarget.appendChild(shuffleButton)
+  }
+
+  // 駅をシャッフルする関数
   shuffleStation (){
     // HTML要素を削除する
     this.resultTarget.innerHTML = "";
@@ -134,5 +144,35 @@ export default class extends Controller {
     const stationEle = document.createElement("p")
     stationEle.textContent = `行き先は${station}に決定しました。`
     this.resultTarget.appendChild(stationEle)
+
+    const letsGoEle = document.createElement("button")
+    letsGoEle.textContent = "この駅に行く！";
+    // 参考：https://qiita.com/kaorumori/items/e944c21e4d32fec884c6
+    // valueを追加
+    letsGoEle.setAttribute("data-loader-stationName-value", `${station}`)
+    letsGoEle.setAttribute("data-action","destinations#goToStation")
+    this.resultTarget.appendChild(letsGoEle)
   }
+
+  // この駅に行く、の後の画面
+  goToStation(){
+    this.allTarget.innerHTML = "";
+    // 文言を追加
+    const goToStationText = document.createElement("p")
+    goToStationText.textContent = `${this.stationNameValue}へ移動中…`
+    // ボタンを作成
+    const updateGeoLocationButtuon = document.createElement("button")
+    updateGeoLocationButtuon.textContent = "位置情報を更新！"
+    updateGeoLocationButtuon.setAttribute("data-action","destinations#updateGeoLocation")
+
+    // 子要素に追加
+    this.allTarget.appendChild(goToStationText)
+    this.allTarget.appendChild(updateGeoLocationButtuon)
+  }
+
+  // 位置情報の取得
+  updateGeoLocation(){
+
+  }
+
 }
