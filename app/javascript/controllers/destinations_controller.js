@@ -118,11 +118,11 @@ export default class extends Controller {
 
   // 駅をシャッフルする
   shuffleStation (){
+    // HTML要素を削除する
+    this.resultTarget.innerHTML = "";
+    
     // 参考URL：https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/from
     const selectedStations = Array.from(this.listTarget.querySelectorAll("input[name='station']:checked"), (selected) => selected.value )
-
-
-    // const selectedStations = Array.from(this.listTarget.querySelectorAll("input[name='station']:checked)"), (selected) => selected.value )
 
     if(!selectedStations.length) {
       alert("駅を選択してください。")
