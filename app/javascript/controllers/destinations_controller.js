@@ -62,9 +62,9 @@ export default class extends Controller {
     .then(data => {
       console.log(data)
       if (this.hasListTarget) { 
-        let stationElement = document.createElement("p");
-        stationElement.textContent = `緯度: ${data.latitude}, 経度: ${data.longitude}, 半径: ${data.radius}`;
-        this.listTarget.appendChild(stationElement);
+        // let stationElement = document.createElement("p");
+        // stationElement.textContent = `緯度: ${data.latitude}, 経度: ${data.longitude}, 半径: ${data.radius}`;
+        // this.listTarget.appendChild(stationElement);
       } else {
         console.error("listTarget が見つかりません");
       }

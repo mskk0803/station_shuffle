@@ -11,13 +11,16 @@ class DestinationsController < ApplicationController
     lon = location_params[:lon]
     radius = location_params[:radius].to_i
 
-    render json: { latitude: lat, longitude: lon , radius: radius }
+    stations_names = get_stations(lat, lon, radius)
+
+    render json: { stations: stations_names }
   end
 
   # APIで駅を取得する
   def get_stations(lat, lon, radius)
     client = GooglePlaces::Client.new(ENV['GOOGLE_API_KEY'])
-
-
+    stations_data = client.spots(lat, lon, types: "train_station", radius: radius, fields: "name")
+    stations_names = stations_data.map { |station| station.name }
+    stations_names
   end
 end
