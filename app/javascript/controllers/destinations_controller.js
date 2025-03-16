@@ -4,7 +4,7 @@ import { Controller } from "@hotwired/stimulus"
 export default class extends Controller {
 
   // 入力フォームと表示させるためのリストを取得
-  static targets = ["input","list"];  
+  static targets = ["input","list", "result"];  
   // button押下時に発火するイベント
   getGeoLocation(){
     navigator.geolocation.getCurrentPosition(
@@ -38,6 +38,7 @@ export default class extends Controller {
       return false;
     }
     // 許可する半径は1kmから50kmまで
+    // Arayfromで配列に変える
     const allowedRadius = Array.from({length:50}, (_,i) => (i+1)*1000);
     if (!allowedRadius.includes(radius)){
       alert("半径は1kmから50kmまでの間で入力してください")
@@ -71,7 +72,13 @@ export default class extends Controller {
           noStationsTextEle.textContent = "指定の検索範囲では駅が見つかりませんでした。"
           this.listTarget.appendChild(noStationsTextEle);
         }else{
+          // リストが空でない場合に、チェックボックスとシャッフルボタンを追加
           this.updateStationList(data.stations);
+
+          const shuffleButton = document.createElement("button")
+          shuffleButton.textContent = "行き先を決める！"
+          shuffleButton.setAttribute("data-action","destinations#shuffleStation")
+          this.listTarget.appendChild(shuffleButton)
         }
       }
     })
@@ -97,7 +104,7 @@ export default class extends Controller {
 
     checkBoxElement.type = "checkbox";
     checkBoxElement.id = stationName;
-    checkBoxElement.name = "stations";
+    checkBoxElement.name = "station";
     checkBoxElement.value = stationName;
 
     labelElement.htmlFor = stationName;
@@ -107,5 +114,25 @@ export default class extends Controller {
     divElement.appendChild(labelElement);
 
     return divElement;
+  }
+
+  // 駅をシャッフルする
+  shuffleStation (){
+    // 参考URL：https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/from
+    const selectedStations = Array.from(this.listTarget.querySelectorAll("input[name='station']:checked"), (selected) => selected.value )
+
+
+    // const selectedStations = Array.from(this.listTarget.querySelectorAll("input[name='station']:checked)"), (selected) => selected.value )
+
+    if(!selectedStations.length) {
+      alert("駅を選択してください。")
+      return
+    }
+    const randomIndex = Math.floor(Math.random() * selectedStations.length )
+    const station = selectedStations[randomIndex]
+
+    const stationEle = document.createElement("p")
+    stationEle.textContent = `行き先は${station}に決定しました。`
+    this.resultTarget.appendChild(stationEle)
   }
 }
