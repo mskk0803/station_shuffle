@@ -2,10 +2,18 @@
 <p>Find me in app/views/destinations/new.html.erb</p>
 
 <div data-controller="destinations">
+  <label>検索範囲(km)</label>
+  <select 
+    name="radius"
+    data-destinations-target="input">
+    <% (1..50).each do |km| %>
+      <option value="<%= 1000 * km %>"><%= km %></option>
+    <% end %>
+  </select>
   <button
     data-destinations-target="button"
     data-action="destinations#getGeoLocation">
-    現在地を取得
+    周辺の駅を検索
   </button>
     <div data-destinations-target="list">
     <!-- 駅データをここに表示 -->
