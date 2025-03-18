@@ -127,8 +127,8 @@ export default class extends Controller {
     checkBoxElement.dataset.lat = station.lat;
     checkBoxElement.dataset.lon = station.lon;
 
-    labelElement.htmlFor = stationName;
-    labelElement.textContent = stationName;
+    labelElement.htmlFor = station.name;
+    labelElement.textContent = station.name;
 
     divElement.appendChild(checkBoxElement);
     divElement.appendChild(labelElement);
@@ -173,10 +173,11 @@ export default class extends Controller {
     const letsGoEle = document.createElement("button")
     letsGoEle.textContent = "この駅に行く！";
     // 参考：https://qiita.com/kaorumori/items/e944c21e4d32fec884c6
-    // valueを追加
-    letsGoEle.setAttribute("data-loader-stationName-value", `${station}`)
-    letsGoEle.setAttribute("data-loader-stationLat-value", `${lat}`)
-    letsGoEle.setAttribute("data-loader-stationLon-value", `${lon}`)
+    // sessionに保存
+    sessionStorage.stationName = station
+    sessionStorage.stationLat = lat
+    sessionStorage.stationLon = lon
+
     letsGoEle.setAttribute("data-action","destinations#goToStation")
     this.resultTarget.appendChild(letsGoEle)
   }
@@ -185,8 +186,9 @@ export default class extends Controller {
   goToStation(){
     this.allTarget.innerHTML = "";
     // 文言を追加
+    const stationName = sessionStorage.getItem("stationName")
     const goToStationText = document.createElement("p")
-    goToStationText.textContent = `${this.stationNameValue}へ移動中…`
+    goToStationText.textContent = `${stationName}へ移動中…`
     // ボタンを作成
     const updateGeoLocationButtuon = document.createElement("button")
     updateGeoLocationButtuon.textContent = "位置情報を更新！"
@@ -212,6 +214,47 @@ export default class extends Controller {
 
     // 不正移動検知 true なら不正でない
     if (this.checkMovingValidation(currentLat, currentLon, currentTime)){
+      // 300m以内ならチェックイン可能
+      console.log("駅の取得:",this.stationLatValue)
+      const stationName = sessionStorage.getItem("stationName")
+      const stationLat = parseFloat(sessionStorage.getItem("stationLat"))
+      const stationLon = parseFloat(sessionStorage.getItem("stationLon"))
+
+      const distance = this.getDistanse(currentLat, currentLon, stationLat, stationLon)
+      if(distance * 1000 <= 300){
+        // チェックインボタンを表示
+        this.allTarget.innerHTML = "";
+        const checkinText = document.createElement("p")
+        checkinText.textContent = `${stationName}に到着！`
+        // controllerのcheckin/createに遷移する
+        const checkinButton = document.createElement("button")
+        checkinButton.textContent = "チェックイン！"
+        // checkinButton
+
+      }else{
+        // チェックイン可能でない場合
+        // 残りdistanceを表示
+        this.allTarget.innerHTML = "";
+        const goToStationText = document.createElement("p")
+        goToStationText.textContent = `${stationName}へ移動中…`
+        const distanceText = document.createElement("p")
+
+        // 四捨五入
+        let aroundDistance = distance*100
+        aroundDistance = Math.round(aroundDistance) / 100
+
+        distanceText.textContent = `${stationName}まで、残り約${aroundDistance}km`
+        // ボタンを作成
+        const updateGeoLocationButtuon = document.createElement("button")
+        updateGeoLocationButtuon.textContent = "位置情報を更新！"
+        updateGeoLocationButtuon.setAttribute("data-action","destinations#updateGeoLocation")
+
+        // 子要素に追加
+        this.allTarget.appendChild(goToStationText)
+        this.allTarget.appendChild(distanceText)
+        this.allTarget.appendChild(updateGeoLocationButtuon)
+
+      }
 
     } else {
       return 
@@ -220,7 +263,6 @@ export default class extends Controller {
   
   // 不正移動検知関数
   checkMovingValidation(currentLat, currentLon, currentTime){
-
     // 前回の値を取得して文字列から数値型に変換する
     let preLat = sessionStorage.getItem("lat")
     let preLon = sessionStorage.getItem("lon")
