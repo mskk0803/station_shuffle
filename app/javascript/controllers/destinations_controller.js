@@ -8,7 +8,9 @@ export default class extends Controller {
 
   // value定義
   static values = {
-    stationName: String
+    stationName: String,
+    stationLat: Number,
+    stationLon: Number
   }
 
   // button押下時に発火するイベント
@@ -106,21 +108,24 @@ export default class extends Controller {
   // 駅リストの更新関数
   updateStationList(stations){
     this.listTarget.innerHTML = "";
-    stations.forEach((stationName) => {
-      this.listTarget.appendChild(this.createCheckbox(stationName))
+    stations.forEach((station) => {
+      this.listTarget.appendChild(this.createCheckbox(station))
     })
   }
 
   // チェックボックス生成
-  createCheckbox(stationName){
+  createCheckbox(station){
     const divElement = document.createElement("div");
     const checkBoxElement = document.createElement("input");
     const labelElement = document.createElement("label");
 
     checkBoxElement.type = "checkbox";
-    checkBoxElement.id = stationName;
+    checkBoxElement.id = station.name;
     checkBoxElement.name = "station";
-    checkBoxElement.value = stationName;
+    checkBoxElement.value = station.name;
+    // 緯度経度の情報を持たせる
+    checkBoxElement.dataset.lat = station.lat;
+    checkBoxElement.dataset.lon = station.lon;
 
     labelElement.htmlFor = stationName;
     labelElement.textContent = stationName;
@@ -145,14 +150,21 @@ export default class extends Controller {
     this.resultTarget.innerHTML = "";
     
     // 参考URL：https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/from
-    const selectedStations = Array.from(this.listTarget.querySelectorAll("input[name='station']:checked"), (selected) => selected.value )
+    const selectedStations = Array.from(this.listTarget.querySelectorAll("input[name='station']:checked"), 
+                            (selected) => ({
+                              name: selected.value,
+                              lat: selected.dataset.lat,
+                              lon: selected.dataset.lon
+                            }))
 
     if(!selectedStations.length) {
       alert("駅を選択してください。")
       return
     }
     const randomIndex = Math.floor(Math.random() * selectedStations.length )
-    const station = selectedStations[randomIndex]
+    const station = selectedStations[randomIndex].name
+    const lat = selectedStations[randomIndex].lat
+    const lon = selectedStations[randomIndex].lon
 
     const stationEle = document.createElement("p")
     stationEle.textContent = `行き先は${station}に決定しました。`
@@ -163,6 +175,8 @@ export default class extends Controller {
     // 参考：https://qiita.com/kaorumori/items/e944c21e4d32fec884c6
     // valueを追加
     letsGoEle.setAttribute("data-loader-stationName-value", `${station}`)
+    letsGoEle.setAttribute("data-loader-stationLat-value", `${lat}`)
+    letsGoEle.setAttribute("data-loader-stationLon-value", `${lon}`)
     letsGoEle.setAttribute("data-action","destinations#goToStation")
     this.resultTarget.appendChild(letsGoEle)
   }
@@ -189,14 +203,6 @@ export default class extends Controller {
       this.updateSuccess.bind(this),
       this.error.bind(this)
     )
-
-    // 計算する
-    // 計算結果が新幹線の速さ以上の場合、return
-    // そうでない場合、Railsに、今回の緯度経度と半径300m、目的の駅名を送信する
-
-    // Rails側で、目的の駅名がヒットした場合、チェックイン画面に戦士
-    // そうでなければ、あと○○kmと表示
-
   }
 
   updateSuccess(position){
