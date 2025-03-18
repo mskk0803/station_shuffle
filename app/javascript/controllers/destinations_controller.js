@@ -22,7 +22,10 @@ export default class extends Controller {
   success(position){
     const lat = position.coords.latitude
     const lon = position.coords.longitude
-    // ここをもっと疎にする
+
+    // session保存
+    this.setSession(lat,lon)
+
     const radius = parseInt(this.inputTarget.value, 10)
     if (this.checkRadius(radius)){
       // Railsにデータを送信
@@ -31,6 +34,18 @@ export default class extends Controller {
     else{
       return;
     }
+  }
+
+  // セッション保存関数
+  setSession(lat, lon){
+    // 1970 年 1 月 1 日 0 時 0 分 0 秒 から現在までの経過時間をミリ秒単位で取得
+    const time = Date.now();
+
+    // 参考URL：https://qiita.com/uralogical/items/ade858ccfa164d164a3b
+    // 文字列として保存される
+    sessionStorage.lat = lat;
+    sessionStorage.lon = lon;
+    sessionStorage.time = time;
   }
 
   error(err){
@@ -67,8 +82,6 @@ export default class extends Controller {
     })
     .then(response => response.json())
     .then(data => {
-      console.log(data.stations)
-      console.log(!data.stations.length)
       if (this.hasListTarget) { 
         // リストが空の場合
         // 参考：https://www.freecodecamp.org/japanese/news/check-if-javascript-array-is-empty-or-not-with-length/
@@ -172,7 +185,93 @@ export default class extends Controller {
 
   // 位置情報の取得
   updateGeoLocation(){
+    navigator.geolocation.getCurrentPosition(
+      this.updateSuccess.bind(this),
+      this.error.bind(this)
+    )
+
+    // 計算する
+    // 計算結果が新幹線の速さ以上の場合、return
+    // そうでない場合、Railsに、今回の緯度経度と半径300m、目的の駅名を送信する
+
+    // Rails側で、目的の駅名がヒットした場合、チェックイン画面に戦士
+    // そうでなければ、あと○○kmと表示
 
   }
 
+  updateSuccess(position){
+    const currentLat = position.coords.latitude
+    const currentLon = position.coords.longitude
+    const currentTime = Date.now()
+
+    // 不正移動検知 true なら不正でない
+    if (this.checkMovingValidation(currentLat, currentLon, currentTime)){
+
+    } else {
+      return 
+    }
+  }
+  
+  // 不正移動検知関数
+  checkMovingValidation(currentLat, currentLon, currentTime){
+
+    // 前回の値を取得して文字列から数値型に変換する
+    let preLat = sessionStorage.getItem("lat")
+    let preLon = sessionStorage.getItem("lon")
+    let preTime = sessionStorage.getItem("time")
+
+    // 存在確認
+    if(preLat && preLon && preTime ){
+      preLat = parseFloat(preLat)
+      preLon = parseFloat(preLon)
+      preTime = parseInt(preTime, 10)
+
+      // 速度計算
+      // km
+      const distance = this.getDistanse(currentLat, currentLon, preLat, preLon)  
+      // 秒数
+      const time = (currentTime - preTime) / 1000;  
+      // 新幹線：秒速8㎞で計算
+      const speed = distance / time;
+      if(speed > 8){
+          alert("不正移動が検出されました。TOP画面に戻ります。")
+          window.location.href = "/";
+          return false;
+      } 
+      return true
+    }
+    return true
+  }
+
+
+  // 緯度と経度から距離を計算する関数 
+  // 参考URL：https://qiita.com/kawanet/items/a2e111b17b8eb5ac859a
+  // 計算式：https://www.movable-type.co.uk/scripts/latlong.html
+  // 公式：Haversineの公式
+  getDistanse(lat, lon, preLat, preLon){
+
+    // 赤道半径(km)
+    const EARTHRAD =  6378.137;
+
+    // 角度をラジアンに変換
+    const toRad = (a) => a * (Math.PI / 180);
+
+    const lat1 = toRad(preLat)
+    const lon1 = toRad(preLon)
+    const lat2 = toRad(lat)
+    const lon2 = toRad(lon)
+
+    // 差分計算
+    const dLat = lat2 - lat1
+    const dLon = lon2 - lon1
+
+    const a = Math.sin(dLat / 2)**2 +
+              Math.cos(lat1) * Math.cos(lat2)  *Math.sin(dLon / 2)**2
+
+    const c = 2 * Math.atan2( Math.sqrt(a), Math.sqrt(1-a) )
+
+    const distance = EARTHRAD * c
+
+    return distance;
+  }
 }
