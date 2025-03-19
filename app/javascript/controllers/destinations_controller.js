@@ -324,16 +324,16 @@ export default class extends Controller {
 
   // Railsにチェックインした駅を送る関数
   sendData(){
-    const stationName = sessionStorage.getItem("stationName")
+    const station = sessionStorage.getItem("stationName")
     
     // 送信
-    fetch("/checkins/create", {
+    fetch("/checkins", {
       method: "Post",
       headers: {
         "Content-Type": "application/json",
         "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
       },
-      body: JSON.stringify({checkin: {stationName}})
+      body: JSON.stringify({checkin: {station}})
     })
     .then(response => {
       if(!response.ok){
@@ -345,7 +345,7 @@ export default class extends Controller {
       // ログインしている場合とそうでない場合に遷移を分ける
       alert("チェックイン成功！")
       // 投稿ページに遷移
-      window.location.href = `/post/new`
+      window.location.href = `/posts/new`
     })
     .catch((error) => {
       console.error('Error:', error);

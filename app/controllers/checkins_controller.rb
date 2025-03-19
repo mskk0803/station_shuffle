@@ -4,14 +4,14 @@ class CheckinsController < ApplicationController
 
     # 参考URL：https://railsguides.jp/api_app.html
     if checkin.save!
-      render: json: checkin, status: :created
+      render json: checkin, status: :created
     else
-      render: json: checkin.errors, status: :unprocessable_entity
+      render json: checkin.errors, status: :unprocessable_entity
     end
   end
 
   private
   def checkin_params
-    params.require(:checkins).permit(:station)
+    params.require(:checkin).permit(:station)
   end
 end
