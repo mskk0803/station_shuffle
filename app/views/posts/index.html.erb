@@ -5,6 +5,7 @@
     <%= post.user.name %>
     <%= post.content %>
     <%= button_to 'delete', post_path(post), method: :delete %>
+    <%= render "like_buttons", {post: post} %>
 <% end %>
 
 <%= link_to 'New Post', new_post_path %>
