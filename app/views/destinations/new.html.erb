@@ -1,5 +1,6 @@
 <h1>Destinations#new</h1>
 <p>Find me in app/views/destinations/new.html.erb</p>
+<p>APIの仕様上、20件までしか取得されません、すみません、</p>
 
 <div 
   data-controller="destinations"
@@ -9,7 +10,7 @@
   <select 
     name="radius"
     data-destinations-target="input">
-    <% (1..50).each do |km| %>
+    <% (1..5).each do |km| %>
       <option value="<%= 1000 * km %>"><%= km %></option>
     <% end %>
   </select>

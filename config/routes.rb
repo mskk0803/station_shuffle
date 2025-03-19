@@ -17,6 +17,9 @@ Rails.application.routes.draw do
     end
   end
 
+  # 2025-03-19 checkinのルーティング作成
+  resources :checkins, only: %i[create]
+
   # 2025-03-09 devise導入。各画面表示用のルーティング定義。
   devise_for :users, controllers: {
     registrations: "users/registrations",

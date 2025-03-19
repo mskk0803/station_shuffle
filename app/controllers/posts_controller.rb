@@ -4,7 +4,10 @@ class PostsController < ApplicationController
   end
 
   def new
+    # 参考URL:https://tech.hukurouo.com/articles/2021-09-03-rails-form-preset
     @post = Post.new
+    station = current_user.checkins.last.station
+    @post.content = "#{station}に到着！"
   end
 
   def create

@@ -8,9 +8,7 @@ export default class extends Controller {
 
   // value定義
   static values = {
-    stationName: String,
-    stationLat: Number,
-    stationLon: Number
+    stationName: String
   }
 
   // button押下時に発火するイベント
@@ -61,9 +59,9 @@ export default class extends Controller {
       alert("半径は数値で入力してください")
       return false;
     }
-    // 許可する半径は1kmから50kmまで
+    // 許可する半径は1kmから5kmまで
     // Arayfromで配列に変える
-    const allowedRadius = Array.from({length:50}, (_,i) => (i+1)*1000);
+    const allowedRadius = Array.from({length:5}, (_,i) => (i+1)*1000);
     if (!allowedRadius.includes(radius)){
       alert("半径は1kmから50kmまでの間で入力してください")
       return false;
@@ -226,10 +224,11 @@ export default class extends Controller {
         this.allTarget.innerHTML = "";
         const checkinText = document.createElement("p")
         checkinText.textContent = `${stationName}に到着！`
-        // controllerのcheckin/createに遷移する
+
+        // checkinButton
         const checkinButton = document.createElement("button")
         checkinButton.textContent = "チェックイン！"
-        // checkinButton
+        checkinButton.setAttribute("data-action", "destinations#sendData")
 
       }else{
         // チェックイン可能でない場合
@@ -321,5 +320,36 @@ export default class extends Controller {
     const distance = EARTHRAD * c
 
     return distance;
+  }
+
+  // Railsにチェックインした駅を送る関数
+  sendData(){
+    const station = sessionStorage.getItem("stationName")
+    
+    // 送信
+    fetch("/checkins", {
+      method: "Post",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
+      },
+      body: JSON.stringify({checkin: {station}})
+    })
+    .then(response => {
+      if(!response.ok){
+        alert("チェックインに失敗しました。")
+      }
+      return response.json();
+    })
+    .then(data => {
+      // ログインしている場合とそうでない場合に遷移を分ける
+      alert("チェックイン成功！")
+      // 投稿ページに遷移
+      window.location.href = `/posts/new`
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+      alert("エラーが発生しました。")
+    })
   }
 }
