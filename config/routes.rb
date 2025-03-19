@@ -8,7 +8,11 @@ Rails.application.routes.draw do
   root "home#index"
 
   # 2025-03-10 postのルーティング定義
-  resources :posts, only: %i[index new create destroy]
+  resources :posts, only: %i[index new create destroy] do
+    collection do
+      get :likes
+    end
+  end
 
   # 2025-03-15 destinationのルーティング定義
   resources :destinations, only: %i[new] do
@@ -19,6 +23,9 @@ Rails.application.routes.draw do
 
   # 2025-03-19 checkinのルーティング作成
   resources :checkins, only: %i[create]
+
+  # 2025-03-19 likeのルーティング定義
+  resources :likes, only: %i[create destroy]
 
   # 2025-03-09 devise導入。各画面表示用のルーティング定義。
   devise_for :users, controllers: {
