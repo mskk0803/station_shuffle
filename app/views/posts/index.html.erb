@@ -4,7 +4,7 @@
 <% @posts.each do |post| %>
     <%= post.user.name %>
     <%= post.content %>
-    <%= button_to 'delete', post_path(post), method: :delete %>
+    <%= button_to 'delete', post_path(post), method: :delete, class: "btn btn-primary" %>
     <%= render "like_buttons", {post: post} %>
 <% end %>
 
