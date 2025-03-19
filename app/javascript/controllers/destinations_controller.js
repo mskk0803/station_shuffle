@@ -327,13 +327,13 @@ export default class extends Controller {
     const stationName = sessionStorage.getItem("stationName")
     
     // 送信
-    fetch("/checkin/create", {
+    fetch("/checkins/create", {
       method: "Post",
       headers: {
         "Content-Type": "application/json",
         "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
       },
-      body: JSON.stringify({destination: {stationName}})
+      body: JSON.stringify({checkin: {stationName}})
     })
     .then(response => {
       if(!response.ok){
