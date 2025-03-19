@@ -23,10 +23,6 @@ export default class extends Controller {
     const lat = position.coords.latitude
     const lon = position.coords.longitude
 
-    // テスト
-    console.log(lat)
-    console.log(lon)
-
     // session保存
     this.setSession(lat,lon)
 
@@ -63,9 +59,9 @@ export default class extends Controller {
       alert("半径は数値で入力してください")
       return false;
     }
-    // 許可する半径は1kmから50kmまで
+    // 許可する半径は1kmから5kmまで
     // Arayfromで配列に変える
-    const allowedRadius = Array.from({length:10}, (_,i) => (i+1)*1000);
+    const allowedRadius = Array.from({length:5}, (_,i) => (i+1)*1000);
     if (!allowedRadius.includes(radius)){
       alert("半径は1kmから50kmまでの間で入力してください")
       return false;

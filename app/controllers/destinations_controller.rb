@@ -19,6 +19,10 @@ class DestinationsController < ApplicationController
   # APIで駅を取得する
   def get_stations(lat, lon, radius)
     client = GooglePlaces::Client.new(ENV["GOOGLE_API_KEY"])
+
+    # 3回まで取得できる
+    # 必要になったら書く
+    # 一番最後のnextpagetokenを取得し、client.spots_by_pagetoken(token)で対応する
     stations_data = client.spots(lat, lon, types: "train_station", language:"ja", radius: radius)
     stations = stations_data.map do |s|
       {
