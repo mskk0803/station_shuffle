@@ -1,3 +1,3 @@
 <%= link_to like_path(current_user.likes.find_by(post_id: post.id)), data: {turbo_method: :delete} do %>
-❤
+    <i class="fa-solid fa-heart"></i>
 <% end %>

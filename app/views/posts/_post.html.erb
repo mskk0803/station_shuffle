@@ -1,0 +1,29 @@
+<% if current_user.post?(post) %>
+    <div class="chat chat-end">
+        <div class="chat-header">
+            <%= post.user.name %>
+            <time class="text-xs opacity-50"><%= post.created_at %></time>
+        </div>
+        <div class="chat-bubble">
+            <%= post.content %>
+        </div>
+        <div class="chat-footer opacity-50">
+            <%= button_to '削除', post_path(post), method: :delete, class: "btn btn-sm" %>
+        </div>
+    </div>
+<% else %>
+    <div class="chat chat-start">
+        <div class="chat-header">
+            <%= post.user.name %>
+            <time class="text-xs opacity-50"><%= post.created_at %></time>
+        </div>
+        <div class="chat-bubble">
+            <%= post.content %>
+        </div>
+        <div class="chat-footer opacity-50">
+            <%= render "like_buttons", {post: post} %>
+        </div>
+    </div>
+<% end %>
+
+

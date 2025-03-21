@@ -18,11 +18,14 @@
     <link rel="apple-touch-icon" href="/icon.png">
 
     <%# Includes all stylesheet files in app/assets/stylesheets %>
+    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
+    <script src="https://kit.fontawesome.com/aae308f39f.js" crossorigin="anonymous"></script>
   </head>
 
   <body>
+    <%= render "shared/header" %>
   <%
 =begin%>
   devise用のアラートメッセージを表示するためのコード
@@ -31,5 +34,6 @@
       <p class="notice"><%= notice %></p>
       <p class="alert"><%= alert %></p>
     <%= yield %>
+    <%= render "shared/footer" %>
   </body>
 </html>

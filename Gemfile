@@ -75,3 +75,7 @@ gem "dotenv-rails"
 
 # 2025-03-13 google_places導入
 gem "google_places"
+
+# 2025-03-19 taileindcssのインストール
+gem "tailwindcss-rails"
+gem "tailwindcss-ruby", "3.4.17"
