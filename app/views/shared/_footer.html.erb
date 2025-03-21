@@ -1,0 +1,14 @@
+<div class="btm-nav">
+  <%= button_to posts_path, method: :get do %>
+    <i class="fa-solid fa-house fa-2x"></i>
+  <% end %>
+  <%= button_to "#", method: :get, class: "active" do %>
+    <i class="fa-solid fa-bell fa-2x"></i>
+  <% end %>
+  <%= button_to new_destination_path, method: :get do %>
+    <i class="fa-solid fa-train-subway fa-2x"></i>
+  <% end %>
+  <%= button_to "#", method: :get do %>
+    <i class="fa-solid fa-user fa-2x"></i>
+  <% end %>
+</div>
