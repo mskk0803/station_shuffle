@@ -13,7 +13,7 @@ class CheckinsController < ApplicationController
         render json: checkin.errors, status: :unprocessable_entity
       end
     else
-      render json: {text: "ログインするとチェックインの記録ができるようになります！"}
+      render json: { text: "ログインするとチェックインの記録ができるようになります！" }
     end
   end
 
