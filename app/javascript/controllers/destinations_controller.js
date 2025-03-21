@@ -358,9 +358,14 @@ export default class extends Controller {
     })
     .then(data => {
       // ログインしている場合とそうでない場合に遷移を分ける
-      alert("チェックイン成功！")
-      // 投稿ページに遷移
-      window.location.href = `/posts/new`
+      if(data.text){
+        alert(data.text)
+        window.location.href = "/";
+      }else{
+        alert("チェックイン成功！")
+        // 投稿ページに遷移
+        window.location.href = `/posts/new`
+      }
     })
     .catch((error) => {
       console.error('Error:', error);

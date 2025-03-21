@@ -1,12 +1,19 @@
 class CheckinsController < ApplicationController
-  def create
-    checkin = current_user.checkins.build(checkin_params)
+  skip_before_action :authenticate_user!
 
-    # 参考URL：https://railsguides.jp/api_app.html
-    if checkin.save!
-      render json: checkin, status: :created
+  def create
+    # ログインしているかどうかを確認
+    if user_signed_in?
+      checkin = current_user.checkins.build(checkin_params)
+
+      # 参考URL：https://railsguides.jp/api_app.html
+      if checkin.save!
+        render json: checkin, status: :created
+      else
+        render json: checkin.errors, status: :unprocessable_entity
+      end
     else
-      render json: checkin.errors, status: :unprocessable_entity
+      render json: {text: "ログインするとチェックインの記録ができるようになります！"}
     end
   end
 
