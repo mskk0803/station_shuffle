@@ -27,6 +27,9 @@ Rails.application.routes.draw do
   # 2025-03-19 likeのルーティング定義
   resources :likes, only: %i[create destroy]
 
+  # 2025-04-11 mypageのルーティング定義
+  resources :mypages, only: %i[show]
+
   # 2025-03-09 devise導入。各画面表示用のルーティング定義。
   devise_for :users, controllers: {
     registrations: "users/registrations",
