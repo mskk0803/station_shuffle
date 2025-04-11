@@ -3,13 +3,13 @@
     <div class="navbar-center">
         <ul class="menu menu-horizontal m-1">
         <li>
-            <%= link_to '投稿一覧', profile_posts_path(current_user.id), class: "#{'active' if action_name == 'posts'}" %>
+            <%= link_to "投稿一覧", profile_posts_path(current_user.id), class: "#{"active" if action_name == "posts"}" %>
         </li>
         <li>
-            <%= link_to 'いいね一覧', profile_likes_path(current_user.id), class: "#{'active' if action_name == 'likes'}" %>
+            <%= link_to "いいね一覧", profile_likes_path(current_user.id), class: "#{"active" if action_name == "likes"}" %>
         </li>
         <li>
-            <%= link_to 'チェックイン履歴', profile_checkins_path(current_user.id), class: "#{'active' if action_name == 'checkins'}" %>
+            <%= link_to "チェックイン履歴", profile_checkins_path(current_user.id), class: "#{"active" if action_name == "checkins"}" %>
         </li>
         </ul>
     </div>
@@ -17,10 +17,10 @@
   <div class="mypage-content">
   <%= case action_name
      when "posts"
-       render partial: 'posts', locals: { posts: @posts }
+       render partial: "posts", locals: { posts: @posts }
      when "likes"
-       render partial: 'likes', locals: { likes: @likes }
+       render partial: "likes", locals: { likes: @likes }
      when "checkins"
-       render partial: 'checkins', locals: { checkins: @checkins }
+       render partial: "checkins", locals: { checkins: @checkins }
      end %>
 </div>
