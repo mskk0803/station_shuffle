@@ -1,0 +1,12 @@
+<% posts.each do |post| %>
+  <div class="post">
+    <p><%= post.title %></p>
+    <p><%= post.body %></p>
+  </div>
+<% end %>
+
+postです
+
+<% if posts.empty? %>
+  <p>投稿はありません。</p>
+<% end %>
