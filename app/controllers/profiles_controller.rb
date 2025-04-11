@@ -18,12 +18,12 @@ class ProfilesController < ApplicationController
   end
 
   def likes
-    @likes = current_user.likes.includes(:post)
+    @likes = current_user.like_posts
     render :show
   end
 
   def checkins
-    @checkins = current_user.checkins
+    @checkins = current_user.checkins.order(created_at: :desc)
     render :show
   end
 
