@@ -1,9 +1,15 @@
-class MypagesController < ApplicationController
+class ProfilesController < ApplicationController
   before_action :authenticate_user!, only: %i[show]
   before_action :set_user, only: %i[posts likes checkins]
 
   def show
-    redirect_to mypage_posts_path(current_user.id)
+    redirect_to profile_posts_path(current_user.id)
+  end
+
+  def edit
+  end
+
+  def update
   end
 
   def posts

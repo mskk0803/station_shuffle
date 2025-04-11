@@ -3,13 +3,13 @@
     <div class="navbar-center">
         <ul class="menu menu-horizontal m-1">
         <li>
-            <%= link_to '投稿一覧', mypage_posts_path(current_user.id), class: "#{'active' if action_name == 'posts'}" %>
+            <%= link_to '投稿一覧', profile_posts_path(current_user.id), class: "#{'active' if action_name == 'posts'}" %>
         </li>
         <li>
-            <%= link_to 'いいね一覧', mypage_likes_path(current_user.id), class: "#{'active' if action_name == 'likes'}" %>
+            <%= link_to 'いいね一覧', profile_likes_path(current_user.id), class: "#{'active' if action_name == 'likes'}" %>
         </li>
         <li>
-            <%= link_to 'チェックイン履歴', mypage_checkins_path(current_user.id), class: "#{'active' if action_name == 'checkins'}" %>
+            <%= link_to 'チェックイン履歴', profile_checkins_path(current_user.id), class: "#{'active' if action_name == 'checkins'}" %>
         </li>
         </ul>
     </div>
