@@ -28,7 +28,7 @@ Rails.application.routes.draw do
   resources :likes, only: %i[create destroy]
 
   # 2025-04-11 mypageのルーティング定義
-  resources :profiles, only: %i[show] do
+  resources :profiles, only: %i[show edit update] do
     get :posts
     get :likes
     get :checkins

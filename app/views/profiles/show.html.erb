@@ -5,12 +5,12 @@
         <h2 class="card-title"><%= @user.name %></h2>
         </div>
         <div>
-        <%= button_to "#", method: :get, class:"btn btn-primary" do %>
+        <%= button_to edit_profile_path(@user), method: :get, class:"btn btn-primary" do %>
             編集
         <% end %>
         </div>
     </div>
-    <p>ここに自己紹介を表示</p>
+    <p><%= @user.profile %></p>
     <p>ここにフォロワーを表示</p>
   </div>
   <%= render "posts_or_likes_or_checkins" %>

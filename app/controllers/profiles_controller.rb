@@ -7,9 +7,18 @@ class ProfilesController < ApplicationController
   end
 
   def edit
+    @user = current_user
   end
 
   def update
+    user = current_user
+    if user.update(profile_params)
+      flash[:notice] = "Profile updated successfully"
+      redirect_to profile_posts_path(current_user.id)
+    else
+      flash[:alert] = "Failed to update profile"
+      render :edit
+    end
   end
 
   def posts
@@ -30,5 +39,9 @@ class ProfilesController < ApplicationController
   private
   def set_user
     @user = current_user
+  end
+
+  def profile_params
+    params.require(:user).permit(:name, :profile)
   end
 end
