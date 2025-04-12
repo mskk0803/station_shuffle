@@ -36,5 +36,4 @@ class User < ApplicationRecord
   def post?(post)
     posts.include?(post)
   end
-  
 end
