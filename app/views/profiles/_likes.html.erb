@@ -1,0 +1,18 @@
+<% if likes.empty? %>
+  <p>いいねした投稿はありません。</p>
+<% else %>
+  <% likes.each do |like| %>
+    <div class="chat chat-start">
+        <div class="chat-header">
+            <%= like.user.name %>
+            <time class="text-xs opacity-50"><%= like.created_at %></time>
+        </div>
+        <div class="chat-bubble">
+            <%= like.content %>
+        </div>
+        <div class="chat-footer opacity-50">
+            <%= render "like_buttons", {like: like} %>
+        </div>
+    </div>
+      <% end %>
+<% end %>

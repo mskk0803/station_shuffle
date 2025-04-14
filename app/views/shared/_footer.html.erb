@@ -1,14 +1,18 @@
 <div class="btm-nav">
-  <%= button_to posts_path, method: :get do %>
-    <i class="fa-solid fa-house fa-2x"></i>
+  <% if user_signed_in?  %>
+    <%= link_to posts_path, class: "#{"active" if controller_name == "posts"}" do %>
+      <i class="fa-solid fa-house fa-2x"></i>
+    <% end %>
+    <%= link_to "#", class: "#{"active" if action_name == "#"}" do %>
+      <i class="fa-solid fa-bell fa-2x"></i>
+    <% end %>
   <% end %>
-  <%= button_to "#", method: :get, class: "active" do %>
-    <i class="fa-solid fa-bell fa-2x"></i>
-  <% end %>
-  <%= button_to new_destination_path, method: :get do %>
+  <%= link_to new_destination_path,class: "#{"active" if controller_name == "destinations" }" do %>
     <i class="fa-solid fa-train-subway fa-2x"></i>
   <% end %>
-  <%= button_to "#", method: :get do %>
-    <i class="fa-solid fa-user fa-2x"></i>
+  <% if user_signed_in?  %>
+    <%= link_to profile_path(current_user.id),class: "#{"active" if controller_name == "profiles"}" do %>
+      <i class="fa-solid fa-user fa-2x"></i>
+    <% end %>
   <% end %>
 </div>

@@ -1,0 +1,18 @@
+<% if posts.empty? %>
+  <p>投稿はありません。</p>
+<% else %>
+  <% posts.each do |post| %>
+      <div class="chat chat-end">
+          <div class="chat-header">
+              <%= post.user.name %>
+              <time class="text-xs opacity-50"><%= post.created_at.strftime("%Y-%m-%d %H:%M") %></time>
+          </div>
+          <div class="chat-bubble">
+              <%= post.content %>
+          </div>
+          <div class="chat-footer opacity-50">
+              <%= button_to '削除', post_path(post), method: :delete, class: "btn btn-sm" %>
+          </div>
+      </div>
+  <% end %>
+<% end %>
