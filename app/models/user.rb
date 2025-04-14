@@ -38,6 +38,7 @@ class User < ApplicationRecord
   end
 
   # ransackのホワイトリスト
+  # 参考URL：https://qiita.com/jnchito/items/cb991633f00d6168edcf
   def self.ransackable_attributes(auth_object = nil)
     %w(name)
   end
