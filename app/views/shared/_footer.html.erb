@@ -6,6 +6,9 @@
     <%= link_to "#", class: "#{"active" if action_name == "#"}" do %>
       <i class="fa-solid fa-bell fa-2x"></i>
     <% end %>
+    <%= link_to searches_path, class: "#{"active" if action_name == "#"}" do %>
+      <i class="fa-solid fa-magnifying-glass fa-2x"></i>
+    <% end %>
   <% end %>
   <%= link_to new_destination_path,class: "#{"active" if controller_name == "destinations" }" do %>
     <i class="fa-solid fa-train-subway fa-2x"></i>
