@@ -1,21 +1,36 @@
-<%= search_form_for @q_users, url: searchs_path, method: :get do |f| %>
-  <%= f.label :name_cont, "ユーザー検索" %>
-  <%= f.search_field :name_cont %>
-  <%= f.submit "検索" %>
+<%
+=begin%>
+ <%= search_form_for @q, url: searchs_path do |f| %>
+  <%= f.label :name_cont %>
+  <%= f.search_field :name_or_posts_content_cont %>
+  <%= f.submit %>
 <% end %>
 
-<%= search_form_for @q_posts, url: searchs_path, method: :get do |f| %>
-  <%= f.label :content_cont, "投稿検索" %>
-  <%= f.search_field :content_cont %>
-  <%= f.submit "検索" %>
+<% @users.each do |user|%>
+  <%= user.name %>
+  <%= user.posts.each do |post| %>
+    <%= post.content %>
+  <% end %>
+
+<% end %> 
+<%
+=end%>
+
+<%= form_with url: searchs_path, method: :get do |f| %>
+  <%= f.text_field :search %>
+  <%= f.submit "Search" %>
 <% end %>
 
-<h2>ユーザー結果</h2>
 <% @users.each do |user| %>
-  <p><%= link_to user.name,"#" %></p>
+  <div class="user">
+    <h2><%= user.name %></h2>
+    <p><%= user.profile %></p>
+  </div>
 <% end %>
 
-<h2>投稿結果</h2>
 <% @posts.each do |post| %>
-  <p><%= post.content %> - <%= post.user.name %></p>
+  <div class="post">
+    <h3><%= post.user.name %></h3>
+    <p><%= post.content %></p>
+  </div>
 <% end %>

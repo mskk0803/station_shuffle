@@ -1,9 +1,21 @@
 class SearchsController < ApplicationController
   def index
-    @q_users = User.ransack(params[:q])
-    @users = @q_users.result(distinct: true)
+    # @q = User.ransack(params[:q])
+    # @users = @q.result.includes(:posts)
 
-    @q_posts = Post.ransack(params[:q])
-    @posts = @q_posts.result(distinct: true)
+    @users = []
+    @posts = []
+
+    if params[:search].present?
+      @users = User.search_by_name(params[:search])
+      @posts = Post.includes(:user).search_by_content(params[:search])
+    end
   end
+
+  def search_users
+  end
+
+  def search_posts
+  end
+
 end

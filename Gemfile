@@ -79,6 +79,3 @@ gem "google_places"
 # 2025-03-19 taileindcssのインストール
 gem "tailwindcss-rails"
 gem "tailwindcss-ruby", "3.4.17"
-
-# 2025-04-14 ransackのインストール
-gem 'ransack'

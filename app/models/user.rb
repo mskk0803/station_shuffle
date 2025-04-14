@@ -37,14 +37,8 @@ class User < ApplicationRecord
     posts.include?(post)
   end
 
-  # ransackのホワイトリスト
-  # 参考URL：https://qiita.com/jnchito/items/cb991633f00d6168edcf
-  def self.ransackable_attributes(auth_object = nil)
-    %w(name)
-  end
-
-  def self.ransackable_associations(auth_object = nil)
-    %w(posts)
-  end
-
+  # 検索用スコープ
+  scope :search_by_name, ->(name) {
+    where('name LIKE ?', "%#{sanitize_sql_like(name)}%") if name.present?
+  }
 end
