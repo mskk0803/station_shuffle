@@ -5,7 +5,7 @@ class ImageUploader < CarrierWave::Uploader::Base
   # include CarrierWave::Vips
 
   # 画像のサイズ
-  process resize_to_fit: [400, 200]
+  process resize_to_fit: [ 400, 200 ]
 
   # デフォルト画像（あとで設定するかも）
   # def default_url
@@ -45,7 +45,7 @@ class ImageUploader < CarrierWave::Uploader::Base
   # Add an allowlist of extensions which are allowed to be uploaded.
   # For images you might use something like this:
   def extension_allowlist
-    %w(jpg jpeg gif png)
+    %w[jpg jpeg gif png]
   end
 
   # Override the filename of the uploaded files:

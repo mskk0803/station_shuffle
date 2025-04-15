@@ -81,5 +81,5 @@ gem "tailwindcss-rails"
 gem "tailwindcss-ruby", "3.4.17"
 
 # 2025-04-15 carrierwaveのインストール
-gem 'carrierwave'
-gem 'mini_magick'
+gem "carrierwave"
+gem "mini_magick"
