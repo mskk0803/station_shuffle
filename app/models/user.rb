@@ -36,4 +36,9 @@ class User < ApplicationRecord
   def post?(post)
     posts.include?(post)
   end
+
+  # 検索用スコープ
+  scope :search_by_name, ->(name) {
+    where("name LIKE ?", "%#{sanitize_sql_like(name)}%") if name.present?
+  }
 end

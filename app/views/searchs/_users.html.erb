@@ -1,0 +1,12 @@
+
+<% if users.empty? %>
+    <p>ユーザーが見つかりません</p>
+ <% else %>
+    <% users.each do |user| %>
+    <div class="user">
+        <h2><%= user.name %></h2>
+        <p><%= user.profile %></p>
+    </div>
+    <% end %>
+
+<% end %>

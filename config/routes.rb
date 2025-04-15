@@ -34,6 +34,14 @@ Rails.application.routes.draw do
     get :checkins
   end
 
+  # 2025-04-14 searchのルーティング定義
+  resources :searchs, only: %i[index] do
+    collection do
+      get :search_users
+      get :search_posts
+    end
+  end
+
   # 2025-03-09 devise導入。各画面表示用のルーティング定義。
   devise_for :users, controllers: {
     registrations: "users/registrations",
