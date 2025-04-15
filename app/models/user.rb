@@ -39,6 +39,6 @@ class User < ApplicationRecord
 
   # 検索用スコープ
   scope :search_by_name, ->(name) {
-    where('name LIKE ?', "%#{sanitize_sql_like(name)}%") if name.present?
+    where("name LIKE ?", "%#{sanitize_sql_like(name)}%") if name.present?
   }
 end
