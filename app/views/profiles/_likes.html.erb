@@ -9,6 +9,9 @@
         </div>
         <div class="chat-bubble">
             <%= like.content %>
+            <figure>
+                <%= image_tag like.image.url if like.image.present? %>
+            </figure>
         </div>
         <div class="chat-footer opacity-50">
             <%= render "like_buttons", {like: like} %>

@@ -6,6 +6,9 @@
         </div>
         <div class="chat-bubble">
             <%= post.content %>
+            <figure>
+                <%= image_tag post.image.url if post.image.present? %>
+            </figure>
         </div>
         <div class="chat-footer opacity-50">
             <%= button_to '削除', post_path(post), method: :delete, class: "btn btn-sm" %>
@@ -19,6 +22,9 @@
         </div>
         <div class="chat-bubble">
             <%= post.content %>
+            <figure>
+                <%= image_tag post.image.url if post.image.present? %>
+            </figure>
         </div>
         <div class="chat-footer opacity-50">
             <%= render "like_buttons", {post: post} %>
