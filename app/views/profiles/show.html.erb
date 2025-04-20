@@ -23,7 +23,18 @@
         </div>
     </div>
     <p><%= @user.profile %></p>
-    <p>ここにフォロワーを表示</p>
+    <div class="flex">
+      <div class="flex-1">
+        <p>
+            フォロー：<%= @user.following.count %>
+        </p>
+      </div>
+      <div class="flex-1">
+        <p>
+            フォロワー：<%= @user.followers.count %>
+        </p>
+      </div>
+    </div>
   </div>
   <%= render "posts_or_likes_or_checkins" %>
 </div>
