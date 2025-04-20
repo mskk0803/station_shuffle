@@ -4,7 +4,7 @@ class FollowRequestsController < ApplicationController
   # フォローリクエストを承認
   def accept
     # フォロー承認＋レコードを削除
-    current_user.accept_request(@follow_request.requester_id)
+    current_user.accept_request(@user)
     redirect_to request.referer || root_path , success: "フォローリクエストを承認しました", status: :see_other
   end
 
@@ -24,6 +24,6 @@ class FollowRequestsController < ApplicationController
   private
   def set_follow_request
     @follow_request = FollowRequest.find(params[:follow_request_id])
-    @user = User.find(@follow_request.requester_id)
+    @user = User.find_by(id: @follow_request.requester_id)
   end
 end

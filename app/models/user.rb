@@ -80,7 +80,7 @@ class User < ApplicationRecord
     requested_users.destroy(user)
   end
 
-  # フォローリクエストを送った時の機能
+  # フォローリクエストをuserに送ったか？
   def request?(user)
     requested_users.include?(user)
   end
@@ -102,7 +102,7 @@ class User < ApplicationRecord
 
   # リクエストをうけいれてレコードを消す
   def accept_request(user)
-    follow(user)
-    destroy_request(user)
+    user.follow(self)
+    requesters.destroy(user)
   end
 end
