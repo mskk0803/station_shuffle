@@ -19,6 +19,10 @@
               <%= button_to follow_path(id: @user.id), method: :delete, class:"btn btn-primary" do %>
                 フォロー中
               <% end %>
+            <% elsif current_user.request?(@user) %>
+              <%= button_to follow_request_cancel_path(current_user.sent_follow_request(@user).id), method: :delete, class:"btn btn-primary" do %>
+                リクエスト中
+              <% end %>
             <% else %>
               <%= button_to follows_path(id: @user.id), method: :post, class:"btn btn-primary" do %>
                 フォロー
@@ -42,5 +46,7 @@
       </div>
     </div>
   </div>
-  <%= render "posts_or_likes_or_checkins" %>
+  <% if @user.is_private && (current_user.following?(@user) || current_user == @user) %>
+    <%= render "posts_or_likes_or_checkins" %>
+  <% end %>
 </div>

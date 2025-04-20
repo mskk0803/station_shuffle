@@ -52,6 +52,7 @@ Rails.application.routes.draw do
   resources :follow_requests do
     post :accept
     delete :reject
+    delete :cancel
   end
 
   # 2025-03-09 devise導入。各画面表示用のルーティング定義。

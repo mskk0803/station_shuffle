@@ -39,8 +39,9 @@ class PostsController < ApplicationController
   end
 
   # フォローしていないユーザーの投稿を表示するアクション
+  # 非公開ユーザーを含めない
   def all_index
-    @posts = Post.all.order(created_at: :desc)
+    @posts = Post.includes(:user).where(users: { id: User.where(is_private: false).ids }).order(created_at: :desc)
     render :index
   end
 

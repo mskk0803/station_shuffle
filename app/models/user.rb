@@ -90,6 +90,16 @@ class User < ApplicationRecord
     requesters.include?(user)
   end
 
+  # 送ったフォローリクエストの取得
+  def sent_follow_request(user)
+    follow_requests.find_by(requestee_id: user.id)
+  end
+
+  # 受け取ったフォローリクエストの取得
+  def received_follow_request(user)
+    inverse_follow_requests.find_by(requester_id: user.id)
+  end
+
   # リクエストをうけいれてレコードを消す
   def accept_request(user)
     follow(user)
