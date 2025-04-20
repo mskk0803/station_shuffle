@@ -12,18 +12,24 @@ class User < ApplicationRecord
   has_many :following, through: :follows, source: :followed
   has_many :reverse_of_follows, foreign_key: :followed_user_id, class_name: "Follow", dependent: :destroy
   has_many :followers, through: :reverse_of_follows, source: :follower
+  has_many :follow_requests, foreign_key: :requester_id, dependent: :destroy
+  has_many :requested_users, through: :follow_requests, source: :requestee
+  has_many :inverse_follow_requests, foreign_key: :requestee_id, class_name: "FollowRequest", dependent: :destroy
+  has_many :requesters, through: :inverse_follow_requests, source: :requester
 
   validates :name, presence: true
   validates :email, presence: true
+  # trueかflaseが含まれているかのバリデーション
+  validates :is_private, inclusion: { in: [true, false] }
 
   # 検索用スコープ
   scope :search_by_name, ->(name) {
     where("name LIKE ?", "%#{sanitize_sql_like(name)}%") if name.present?
   }
 
-  # nameとprofile以外を更新する場合はpasswordとpassword_confirmationを必須にする
+  # nameとprofile,is_private以外を更新する場合はpasswordとpassword_confirmationを必須にする
   # 参考URL：https://qiita.com/tmzkysk/items/a0c874715ba38eb23350
-  with_options unless: -> { :name? || :profile? } do
+  with_options unless: -> { :name? || :profile? || :is_private? } do
     validates :password, presence: true
     validates :password_confirmation, presence: true
   end
