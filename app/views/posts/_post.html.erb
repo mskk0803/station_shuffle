@@ -4,6 +4,9 @@
             <div class="chat-header">
                 <%= link_to profile_path(current_user.id) do %>
                     <%= post.user.name %>
+                    <% if post.user.is_private %>
+                        <i class="fa-solid fa-lock"></i>
+                    <% end %>
                 <% end %>
                 <time class="text-xs opacity-50"><%= post.created_at.strftime("%Y-%m-%d %H:%M") %></time>
             </div>
@@ -22,6 +25,9 @@
             <div class="chat-header">
                 <%= link_to profile_path(post.user.id) do %>
                     <%= post.user.name %>
+                    <% if post.user.is_private %>
+                        <i class="fa-solid fa-lock"></i>
+                    <% end %>
                 <% end %>
                 <time class="text-xs opacity-50"><%= post.created_at.strftime("%Y-%m-%d %H:%M") %></time>
             </div>

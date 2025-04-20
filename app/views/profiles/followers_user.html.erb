@@ -1,0 +1,13 @@
+<h2><%= @user.name %> のフォロワー</h2>
+
+<% if @followers_users.empty? %>
+  <p>フォロワーはいません。</p>
+<% else %>
+    <% @followers_users.each do |user| %>
+    <div>
+        <%= link_to profile_path(user.id) do %>
+            <%= user.name %>
+        <% end %>
+    </div>
+    <% end %>
+<% end %>

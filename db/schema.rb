@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_04_20_015143) do
+ActiveRecord::Schema[7.2].define(version: 2025_04_20_082145) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -19,6 +19,15 @@ ActiveRecord::Schema[7.2].define(version: 2025_04_20_015143) do
     t.datetime "updated_at", null: false
     t.uuid "user_id", null: false
     t.string "station", null: false
+  end
+
+  create_table "follow_requests", force: :cascade do |t|
+    t.uuid "requester_id", null: false
+    t.uuid "requestee_id", null: false
+    t.integer "status", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["requester_id", "requestee_id"], name: "index_follow_requests_on_requester_id_and_requestee_id", unique: true
   end
 
   create_table "follows", force: :cascade do |t|
@@ -55,11 +64,14 @@ ActiveRecord::Schema[7.2].define(version: 2025_04_20_015143) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "profile"
+    t.boolean "is_private", default: false, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   add_foreign_key "checkins", "users"
+  add_foreign_key "follow_requests", "users", column: "requestee_id"
+  add_foreign_key "follow_requests", "users", column: "requester_id"
   add_foreign_key "follows", "users", column: "followed_user_id"
   add_foreign_key "follows", "users", column: "follows_user_id"
   add_foreign_key "likes", "posts"

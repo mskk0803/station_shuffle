@@ -2,7 +2,12 @@
   <div class="card-body">
     <div class="flex justify-between">
     <div>
-        <h2 class="card-title"><%= @user.name %></h2>
+        <h2 class="card-title">
+          <%= @user.name %>
+          <% if @user.is_private %>
+            <i class="fa-solid fa-lock"></i>
+          <% end %>
+        </h2>
         </div>
         <div>
           <% if @user == current_user %>
@@ -13,6 +18,10 @@
             <% if current_user.following?(@user) %>
               <%= button_to follow_path(id: @user.id), method: :delete, class:"btn btn-primary" do %>
                 フォロー中
+              <% end %>
+            <% elsif current_user.request?(@user) %>
+              <%= button_to follow_request_cancel_path(current_user.sent_follow_request(@user).id), method: :delete, class:"btn btn-primary" do %>
+                リクエスト中
               <% end %>
             <% else %>
               <%= button_to follows_path(id: @user.id), method: :post, class:"btn btn-primary" do %>
@@ -25,16 +34,33 @@
     <p><%= @user.profile %></p>
     <div class="flex">
       <div class="flex-1">
-        <p>
+        <%= link_to profile_following_user_path(@user) do %>
             フォロー：<%= @user.following.count %>
+        <% end %>
         </p>
       </div>
       <div class="flex-1">
-        <p>
+        <%= link_to profile_followers_user_path(@user) do %>
             フォロワー：<%= @user.followers.count %>
-        </p>
+        <% end %>
       </div>
     </div>
   </div>
-  <%= render "posts_or_likes_or_checkins" %>
+  <% if current_user.received_request?(@user) %>
+    <div class="flex">
+      <div class="flex-1">
+        <%= button_to follow_request_accept_path(current_user.received_follow_request(@user)), method: :post, class:"btn btn-primary" do %>
+          フォローリクエストを承認
+        <% end %>
+      </div>
+      <div class="flex-1">
+        <%= button_to follow_request_reject_path(current_user.received_follow_request(@user)), method: :delete, class:"btn btn-primary" do %>
+          フォローリクエストを拒否
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+  <% if @user.is_private && (current_user.following?(@user) || current_user == @user) %>
+    <%= render "posts_or_likes_or_checkins" %>
+  <% end %>
 </div>

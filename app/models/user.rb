@@ -12,18 +12,25 @@ class User < ApplicationRecord
   has_many :following, through: :follows, source: :followed
   has_many :reverse_of_follows, foreign_key: :followed_user_id, class_name: "Follow", dependent: :destroy
   has_many :followers, through: :reverse_of_follows, source: :follower
+  has_many :follow_requests, foreign_key: :requester_id, dependent: :destroy
+  has_many :requested_users, through: :follow_requests, source: :requestee
+  has_many :inverse_follow_requests, foreign_key: :requestee_id, class_name: "FollowRequest", dependent: :destroy
+  has_many :requesters, through: :inverse_follow_requests, source: :requester
 
   validates :name, presence: true
   validates :email, presence: true
+  # trueかflaseが含まれているかのバリデーション
+  # trueだと非公開、デフォルトはfalse
+  validates :is_private, inclusion: { in: [ true, false ] }
 
   # 検索用スコープ
   scope :search_by_name, ->(name) {
     where("name LIKE ?", "%#{sanitize_sql_like(name)}%") if name.present?
   }
 
-  # nameとprofile以外を更新する場合はpasswordとpassword_confirmationを必須にする
+  # nameとprofile,is_private以外を更新する場合はpasswordとpassword_confirmationを必須にする
   # 参考URL：https://qiita.com/tmzkysk/items/a0c874715ba38eb23350
-  with_options unless: -> { :name? || :profile? } do
+  with_options unless: -> { :name? || :profile? || :is_private? } do
     validates :password, presence: true
     validates :password_confirmation, presence: true
   end
@@ -61,5 +68,46 @@ class User < ApplicationRecord
 
   def follower?(user)
     followers.include?(user)
+  end
+
+  # フォローリクエストを送信するときの機能
+  def send_request(user)
+    requested_users << user
+  end
+
+  # 自分が送ったリクエストを消す
+  def destroy_request(user)
+    requested_users.destroy(user)
+  end
+
+  # フォローリクエストをuserに送ったか？
+  def request?(user)
+    requested_users.include?(user)
+  end
+
+  # 　受け取ったか？
+  def received_request?(user)
+    requesters.include?(user)
+  end
+
+  # 送ったフォローリクエストの取得
+  def sent_follow_request(user)
+    follow_requests.find_by(requestee_id: user.id)
+  end
+
+  # 受け取ったフォローリクエストの取得
+  def received_follow_request(user)
+    inverse_follow_requests.find_by(requester_id: user.id)
+  end
+
+  # フォローリクエストを拒否する
+  def reject_request(user)
+    requesters.destroy(user)
+  end
+
+  # リクエストをうけいれてレコードを消す
+  def accept_request(user)
+    user.follow(self)
+    requesters.destroy(user)
   end
 end

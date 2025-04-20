@@ -1,6 +1,6 @@
 class ProfilesController < ApplicationController
   before_action :authenticate_user!, only: %i[show]
-  before_action :set_user, only: %i[show posts likes checkins]
+  before_action :set_user, only: %i[show posts likes checkins following_user followers_user]
 
   def show
     redirect_to profile_posts_path(@user.id)
@@ -36,6 +36,16 @@ class ProfilesController < ApplicationController
     render :show
   end
 
+  # フォロー一覧
+  def following_user
+    @following_users = @user.following
+  end
+
+  # フォロワー一覧
+  def followers_user
+    @followers_users = @user.followers
+  end
+
   private
   def set_user
     # params[:id]がnilの場合はparams[:profile_id]を使用
@@ -47,6 +57,6 @@ class ProfilesController < ApplicationController
   end
 
   def profile_params
-    params.require(:user).permit(:name, :profile)
+    params.require(:user).permit(:name, :profile, :is_private)
   end
 end

@@ -33,6 +33,8 @@ Rails.application.routes.draw do
     get :posts
     get :likes
     get :checkins
+    get :following_user
+    get :followers_user
   end
 
   # 2025-04-14 searchのルーティング定義
@@ -45,6 +47,13 @@ Rails.application.routes.draw do
 
   # 2025-04-20 followのルーティング定義
   resources :follows, only: %i[create destroy]
+
+  # 2025-04-20 follow_requestのルーティング定義
+  resources :follow_requests do
+    post :accept
+    delete :reject
+    delete :cancel
+  end
 
   # 2025-03-09 devise導入。各画面表示用のルーティング定義。
   devise_for :users, controllers: {
