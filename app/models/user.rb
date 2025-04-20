@@ -68,4 +68,30 @@ class User < ApplicationRecord
   def follower?(user)
     followers.include?(user)
   end
+
+  # フォローリクエストを送信するときの機能
+  def send_request(user)
+    requested_users << user
+  end
+
+  # 自分が送ったリクエストを消す
+  def destroy_request(user)
+    requested_users.destroy(user)
+  end
+
+  # フォローリクエストを送った時の機能
+  def request?(user)
+    requested_users.include?(user)
+  end
+
+  #　受け取ったか？
+  def received_request?(user)
+    requesters.include?(user)
+  end
+
+  # リクエストをうけいれてレコードを消す
+  def accept_request(user)
+    follow(user)
+    destroy_request(user)
+  end
 end
