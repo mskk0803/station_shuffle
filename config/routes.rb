@@ -9,9 +9,10 @@ Rails.application.routes.draw do
 
   # 2025-03-10 postのルーティング定義
   resources :posts, only: %i[index new create destroy] do
-    # collection do
-    #   get :likes
-    # end
+    collection do
+      get :following_index
+      get :all_index
+    end
   end
 
   # 2025-03-15 destinationのルーティング定義
