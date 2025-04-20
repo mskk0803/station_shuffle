@@ -5,9 +5,21 @@
         <h2 class="card-title"><%= @user.name %></h2>
         </div>
         <div>
-        <%= button_to edit_profile_path(@user), method: :get, class:"btn btn-primary" do %>
-            編集
-        <% end %>
+          <% if @user == current_user %>
+            <%= button_to edit_profile_path(@user), method: :get, class:"btn btn-primary" do %>
+                編集
+            <% end %>
+          <% else %>
+            <% if current_user.following?(@user) %>
+              <%= button_to follow_path(id: @user.id), method: :delete, class:"btn btn-primary" do %>
+                フォロー中
+              <% end %>
+            <% else %>
+              <%= button_to follows_path(id: @user.id), method: :post, class:"btn btn-primary" do %>
+                フォロー
+              <% end %>
+            <% end %>
+          <% end %>
         </div>
     </div>
     <p><%= @user.profile %></p>
