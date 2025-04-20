@@ -21,7 +21,7 @@ class User < ApplicationRecord
   validates :email, presence: true
   # trueかflaseが含まれているかのバリデーション
   # trueだと非公開、デフォルトはfalse
-  validates :is_private, inclusion: { in: [true, false] }
+  validates :is_private, inclusion: { in: [ true, false ] }
 
   # 検索用スコープ
   scope :search_by_name, ->(name) {
@@ -85,7 +85,7 @@ class User < ApplicationRecord
     requested_users.include?(user)
   end
 
-  #　受け取ったか？
+  # 　受け取ったか？
   def received_request?(user)
     requesters.include?(user)
   end
