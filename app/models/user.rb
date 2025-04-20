@@ -100,6 +100,11 @@ class User < ApplicationRecord
     inverse_follow_requests.find_by(requester_id: user.id)
   end
 
+  # フォローリクエストを拒否する
+  def reject_request(user)
+    requesters.destroy(user)
+  end
+
   # リクエストをうけいれてレコードを消す
   def accept_request(user)
     user.follow(self)

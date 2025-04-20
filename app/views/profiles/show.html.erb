@@ -53,6 +53,11 @@
           フォローリクエストを承認
         <% end %>
       </div>
+      <div class="flex-1">
+        <%= button_to follow_request_reject_path(current_user.received_follow_request(@user)), method: :delete, class:"btn btn-primary" do %>
+          フォローリクエストを拒否
+        <% end %>
+      </div>
     </div>
   <% end %>
   <% if @user.is_private && (current_user.following?(@user) || current_user == @user) %>
