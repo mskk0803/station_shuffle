@@ -9,7 +9,7 @@ class FollowRequestsController < ApplicationController
   end
 
   # フォローリクエストを拒否
-  def destroy
+  def reject
     current_user.destroy_request(@follow_request.requester_id)
     redirect_to request.referer || root_path , success: "フォローリクエストを拒否しました", status: :see_other
   end
