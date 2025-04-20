@@ -20,6 +20,7 @@ class User < ApplicationRecord
   validates :name, presence: true
   validates :email, presence: true
   # trueかflaseが含まれているかのバリデーション
+  # trueだと非公開、デフォルトはfalse
   validates :is_private, inclusion: { in: [true, false] }
 
   # 検索用スコープ
