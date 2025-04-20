@@ -16,6 +16,11 @@ class User < ApplicationRecord
   validates :name, presence: true
   validates :email, presence: true
 
+  # 検索用スコープ
+  scope :search_by_name, ->(name) {
+    where("name LIKE ?", "%#{sanitize_sql_like(name)}%") if name.present?
+  }
+
   # nameとprofile以外を更新する場合はpasswordとpassword_confirmationを必須にする
   # 参考URL：https://qiita.com/tmzkysk/items/a0c874715ba38eb23350
   with_options unless: -> { :name? || :profile? } do
@@ -41,8 +46,20 @@ class User < ApplicationRecord
     posts.include?(post)
   end
 
-  # 検索用スコープ
-  scope :search_by_name, ->(name) {
-    where("name LIKE ?", "%#{sanitize_sql_like(name)}%") if name.present?
-  }
+  # フォローしたりされたりするときの機能
+  def follow(user)
+    following << user
+  end
+
+  def unfollow(user)
+    following.destroy(user)
+  end
+
+  def following?(user)
+    following.include?(user)
+  end
+
+  def follower?(user)
+    followers.include?(user)
+  end
 end
