@@ -1,8 +1,8 @@
 class Follow < ApplicationRecord
   # フォローする側のアソシエーション
-  belongs_to :follower, class_name: 'User', foreign_key: :follows_user_id
+  belongs_to :follower, class_name: "User", foreign_key: :follows_user_id
   # フォローされる側のアソシエーション
-  belongs_to :followed, class_name: 'User', foreign_key: :followed_user_id
+  belongs_to :followed, class_name: "User", foreign_key: :followed_user_id
 
   validates :follows_user_id, presence: true
   validates :followed_user_id, presence: true

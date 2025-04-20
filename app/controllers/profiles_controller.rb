@@ -3,7 +3,6 @@ class ProfilesController < ApplicationController
   before_action :set_user, only: %i[show posts likes checkins]
 
   def show
-
     redirect_to profile_posts_path(@user.id)
   end
 

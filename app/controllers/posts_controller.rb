@@ -34,7 +34,7 @@ class PostsController < ApplicationController
 
   # フォローしているユーザーの投稿を表示するアクション
   def following_index
-    @posts = Post.includes(:user).where(users: { id: current_user.following_ids + [current_user.id] }).order(created_at: :desc)
+    @posts = Post.includes(:user).where(users: { id: current_user.following_ids + [ current_user.id ] }).order(created_at: :desc)
     render :index
   end
 
