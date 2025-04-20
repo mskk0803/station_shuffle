@@ -33,6 +33,8 @@ Rails.application.routes.draw do
     get :posts
     get :likes
     get :checkins
+    get :following_user
+    get :followers_user
   end
 
   # 2025-04-14 searchのルーティング定義

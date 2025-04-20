@@ -25,14 +25,15 @@
     <p><%= @user.profile %></p>
     <div class="flex">
       <div class="flex-1">
-        <p>
+        <%= link_to profile_following_user_path(@user) do %>
             フォロー：<%= @user.following.count %>
+        <% end %>
         </p>
       </div>
       <div class="flex-1">
-        <p>
+        <%= link_to profile_followers_user_path(@user) do %>
             フォロワー：<%= @user.followers.count %>
-        </p>
+        <% end %>
       </div>
     </div>
   </div>
