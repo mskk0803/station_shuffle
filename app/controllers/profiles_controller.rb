@@ -1,9 +1,9 @@
 class ProfilesController < ApplicationController
   before_action :authenticate_user!, only: %i[show]
-  before_action :set_user, only: %i[posts likes checkins]
+  before_action :set_user, only: %i[show posts likes checkins]
 
   def show
-    redirect_to profile_posts_path(current_user.id)
+    redirect_to profile_posts_path(@user.id)
   end
 
   def edit
@@ -22,23 +22,28 @@ class ProfilesController < ApplicationController
   end
 
   def posts
-    @posts = current_user.posts
+    @posts = @user.posts.order(created_at: :desc)
     render :show
   end
 
   def likes
-    @likes = current_user.like_posts
+    @likes = @user.like_posts
     render :show
   end
 
   def checkins
-    @checkins = current_user.checkins.order(created_at: :desc)
+    @checkins = @user.checkins.order(created_at: :desc)
     render :show
   end
 
   private
   def set_user
-    @user = current_user
+    # params[:id]がnilの場合はparams[:profile_id]を使用
+    if params[:id]
+      @user = User.find_by(id: params[:id])
+    else
+      @user = User.find_by(id: params[:profile_id])
+    end
   end
 
   def profile_params

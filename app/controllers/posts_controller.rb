@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   def index
-    @posts = Post.all
+    redirect_to following_index_posts_path
   end
 
   def new
@@ -30,6 +30,18 @@ class PostsController < ApplicationController
     post = Post.find(params[:id])
     post.destroy
     redirect_to posts_path, success: "Post deleted successfully", status: :see_other
+  end
+
+  # フォローしているユーザーの投稿を表示するアクション
+  def following_index
+    @posts = Post.includes(:user).where(users: { id: current_user.following_ids + [ current_user.id ] }).order(created_at: :desc)
+    render :index
+  end
+
+  # フォローしていないユーザーの投稿を表示するアクション
+  def all_index
+    @posts = Post.all.order(created_at: :desc)
+    render :index
   end
 
   private

@@ -9,9 +9,10 @@ Rails.application.routes.draw do
 
   # 2025-03-10 postのルーティング定義
   resources :posts, only: %i[index new create destroy] do
-    # collection do
-    #   get :likes
-    # end
+    collection do
+      get :following_index
+      get :all_index
+    end
   end
 
   # 2025-03-15 destinationのルーティング定義
@@ -41,6 +42,9 @@ Rails.application.routes.draw do
       get :search_posts
     end
   end
+
+  # 2025-04-20 followのルーティング定義
+  resources :follows, only: %i[create destroy]
 
   # 2025-03-09 devise導入。各画面表示用のルーティング定義。
   devise_for :users, controllers: {

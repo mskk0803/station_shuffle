@@ -14,7 +14,7 @@
     <i class="fa-solid fa-train-subway fa-2x"></i>
   <% end %>
   <% if user_signed_in?  %>
-    <%= link_to profile_path(current_user.id),class: "#{"active" if controller_name == "profiles"}" do %>
+    <%= link_to profile_path(current_user.id),class: "#{"active" if controller_name == "profiles" && params[:profile_id] == current_user.id }" do %>
       <i class="fa-solid fa-user fa-2x"></i>
     <% end %>
   <% end %>

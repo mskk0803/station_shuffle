@@ -4,7 +4,9 @@
  <% else %>
     <% users.each do |user| %>
     <div class="user">
-        <h2><%= user.name %></h2>
+        <%= link_to profile_path(user.id) do %>
+            <h2><%= user.name %></h2>
+        <% end %>
         <p><%= user.profile %></p>
     </div>
     <% end %>

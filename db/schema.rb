@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_04_15_040043) do
+ActiveRecord::Schema[7.2].define(version: 2025_04_20_015143) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -19,6 +19,14 @@ ActiveRecord::Schema[7.2].define(version: 2025_04_15_040043) do
     t.datetime "updated_at", null: false
     t.uuid "user_id", null: false
     t.string "station", null: false
+  end
+
+  create_table "follows", force: :cascade do |t|
+    t.uuid "follows_user_id", null: false
+    t.uuid "followed_user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["follows_user_id", "followed_user_id"], name: "index_follows_on_follows_user_id_and_followed_user_id", unique: true
   end
 
   create_table "likes", force: :cascade do |t|
@@ -52,6 +60,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_04_15_040043) do
   end
 
   add_foreign_key "checkins", "users"
+  add_foreign_key "follows", "users", column: "followed_user_id"
+  add_foreign_key "follows", "users", column: "follows_user_id"
   add_foreign_key "likes", "posts"
   add_foreign_key "likes", "users"
   add_foreign_key "posts", "users"
