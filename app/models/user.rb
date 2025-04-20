@@ -8,6 +8,10 @@ class User < ApplicationRecord
   has_many :checkins, dependent: :destroy
   has_many :likes, dependent: :destroy
   has_many :like_posts, through: :likes, source: :post
+  has_many :follows, foreign_key: :follows_user_id, dependent: :destroy
+  has_many :following, through: :follows, source: :followed
+  has_many :reverse_of_follows, foreign_key: :followed_user_id, class_name: 'Follow', dependent: :destroy
+  has_many :followers, through: :reverse_of_follows, source: :follower
 
   validates :name, presence: true
   validates :email, presence: true
