@@ -42,6 +42,9 @@ Rails.application.routes.draw do
     end
   end
 
+  # 2025-04-20 followのルーティング定義
+  resources :follows, only: %i[create destroy]
+
   # 2025-03-09 devise導入。各画面表示用のルーティング定義。
   devise_for :users, controllers: {
     registrations: "users/registrations",
