@@ -5,6 +5,9 @@
     <div class="chat chat-start">
         <div class="chat-header">
             <%= like.user.name %>
+              <% if like.user.is_private %>
+                  <i class="fa-solid fa-lock"></i>
+              <% end %>
             <time class="text-xs opacity-50"><%= like.created_at %></time>
         </div>
         <div class="chat-bubble">

@@ -5,7 +5,11 @@
     <% users.each do |user| %>
     <div class="user">
         <%= link_to profile_path(user.id) do %>
-            <h2><%= user.name %></h2>
+            <h2><%= user.name %>
+            <% if user.is_private %>
+                <i class="fa-solid fa-lock"></i>
+            <% end %>
+            </h2>
         <% end %>
         <p><%= user.profile %></p>
     </div>
