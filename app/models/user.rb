@@ -16,6 +16,7 @@ class User < ApplicationRecord
   has_many :requested_users, through: :follow_requests, source: :requestee
   has_many :inverse_follow_requests, foreign_key: :requestee_id, class_name: "FollowRequest", dependent: :destroy
   has_many :requesters, through: :inverse_follow_requests, source: :requester
+  has_many :notifications, dependent: :destroy
 
   validates :name, presence: true
   validates :email, presence: true
@@ -109,5 +110,20 @@ class User < ApplicationRecord
   def accept_request(user)
     user.follow(self)
     requesters.destroy(user)
+  end
+
+  # 通知をカウントする
+  def unread_notifications_count
+    self.notifications.where(read: false).count
+  end
+
+  # 通知を作る。notifableはオブジェクトを指定（FollowまたはLike）
+  def create_notification(notifable)
+    notifications.create!(notifable_id: notifable.id, notifable_type: notifable.class.name)
+  end
+
+  # 通知の既読(indexにアクセスしたタイミングで使う)
+  def mark_all_notifications_as_read
+    notifications.where(read: false).update_all(read: true)
   end
 end

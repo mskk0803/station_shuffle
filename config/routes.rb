@@ -55,6 +55,9 @@ Rails.application.routes.draw do
     delete :cancel
   end
 
+  resources :notifications, only: %i[index] do
+  end
+
   # 2025-03-09 devise導入。各画面表示用のルーティング定義。
   devise_for :users, controllers: {
     registrations: "users/registrations",
