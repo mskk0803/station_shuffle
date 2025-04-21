@@ -7,7 +7,10 @@ class FollowsController < ApplicationController
       current_user.send_request(user)
       redirect_to profile_posts_path(user.id), success: "フォローリクエストを送りました"
     else
-      current_user.follow(user)
+      follow = current_user.follow(user)
+
+      # 通知を作成
+      user.create_notification(follow)
       redirect_to profile_posts_path(user.id), success: "フォローしました"
     end
   end

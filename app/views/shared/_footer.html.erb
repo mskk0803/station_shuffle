@@ -3,7 +3,7 @@
     <%= link_to posts_path, class: "#{"active" if controller_name == "posts"}" do %>
       <i class="fa-solid fa-house fa-2x"></i>
     <% end %>
-    <%= link_to "#", class: "#{"active" if action_name == "#"}" do %>
+    <%= link_to notifications_path, class: "#{"active" if action_name == "notifications"}" do %>
       <i class="fa-solid fa-bell fa-2x"></i>
     <% end %>
     <%= link_to searchs_path, class: "#{"active" if action_name == "#"}" do %>
