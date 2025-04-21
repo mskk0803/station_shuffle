@@ -20,11 +20,11 @@ class Notification < ApplicationRecord
 
   # 通知の内容がフォローかどうか
   def follow?
-    notifable_type == 'Follow'
+    notifable_type == "Follow"
   end
 
   # 通知の内容がいいねかどうか
   def like?
-    notifable_type == 'Like'
+    notifable_type == "Like"
   end
 end
