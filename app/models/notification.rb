@@ -1,10 +1,10 @@
 class Notification < ApplicationRecord
   belongs_to :user
-  belongs_to :notifiable, polymorphic: true
+  belongs_to :notifable, polymorphic: true
 
   validates :user_id, presence: true
-  validates :notifiable_id, presence: true
-  validates :notifiable_type, presence: true
+  validates :notifable_id, presence: true
+  validates :notifable_type, presence: true
 
   scope :unread, -> { where(read: false) }
 
@@ -15,16 +15,16 @@ class Notification < ApplicationRecord
 
   # 通知のバリデーション
   def valid_notifable_type?(type)
-    notifiable_types.include?(type.to_s.classify)
+    notifable_types.include?(type.to_s.classify)
   end
 
   # 通知の内容がフォローかどうか
   def follow?
-    notifiable_type == 'Follow'
+    notifable_type == 'Follow'
   end
 
   # 通知の内容がいいねかどうか
   def like?
-    notifiable_type == 'Like'
+    notifable_type == 'Like'
   end
 end

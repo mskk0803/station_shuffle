@@ -2,9 +2,9 @@
 <% @notifications.each do |notification| %>
   <div class="notification">
     <% if notification.follow? %>
-      <%= link_to notification.notifiable.follower.name, profile_path(notification.notifiable.follower) %> さんがあなたをフォローしました。
+      <%= link_to notification.notifable.follower.name, profile_path(notification.notifable.follower) %> さんがあなたをフォローしました。
     <% elsif notification.like? %>
-      <%= link_to notification.notifiable.user.name, profile_path(notification.notifiable.user) %> さんがあなたの投稿にいいねしました。
+      <%= link_to notification.notifable.user.name, profile_path(notification.notifable.user) %> さんがあなたの投稿にいいねしました。
     <% end %>
   </div>
 <% end %>

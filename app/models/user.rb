@@ -118,8 +118,8 @@ class User < ApplicationRecord
   end
 
   # 通知を作る。notifableはオブジェクトを指定（FollowまたはLike）
-  def create_notification(notifiable)
-    notifications.create!(notifiable: notifiable)
+  def create_notification(notifable)
+    notifications.create!(notifable_id: notifable.id, notifable_type: notifable.class.name)
   end
 
   # 通知の既読(indexにアクセスしたタイミングで使う)

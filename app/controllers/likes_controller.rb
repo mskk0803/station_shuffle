@@ -1,8 +1,13 @@
 class LikesController < ApplicationController
   def create
     post = Post.find(params[:post_id])
-    like = current_user.like(post)
 
+    # いいね作成
+    current_user.like(post)
+
+    like = current_user.likes.find_by(post_id: post.id)
+    # いいねをされたユーザー
+    user = post.user
     # 通知を作成
     post.user.create_notification(like)
     # もといた画面に遷移する
