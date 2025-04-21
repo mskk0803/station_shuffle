@@ -4,6 +4,8 @@ class Follow < ApplicationRecord
   # フォローされる側のアソシエーション
   belongs_to :followed, class_name: "User", foreign_key: :followed_user_id
 
+  has_one :notification, as: :notifiable, dependent: :destroy
+
   validates :follows_user_id, presence: true
   validates :followed_user_id, presence: true
   validates :follows_user_id, uniqueness: { scope: :followed_user_id }
