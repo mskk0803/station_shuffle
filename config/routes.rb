@@ -16,9 +16,14 @@ Rails.application.routes.draw do
   end
 
   # 2025-03-15 destinationのルーティング定義
-  resources :destinations, only: %i[new] do
+  # 2025-04-22 destinationのルーティング変更
+  resources :destinations, only: [] do
     collection do
-      post :get_location
+      get :now_location
+      get :select_stations
+      get :suggest_station
+      get :decide_station
+      get :move
     end
   end
 
@@ -55,6 +60,7 @@ Rails.application.routes.draw do
     delete :cancel
   end
 
+  # 2025-04-20 notificationのルーティング定義
   resources :notifications, only: %i[index] do
   end
 

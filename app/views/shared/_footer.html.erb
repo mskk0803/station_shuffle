@@ -19,7 +19,7 @@
       <i class="fa-solid fa-magnifying-glass fa-2x"></i>
     <% end %>
   <% end %>
-  <%= link_to new_destination_path,class: "#{"active" if controller_name == "destinations" }" do %>
+  <%= link_to now_location_destinations_path,class: "#{"active" if controller_name == "destinations" }" do %>
     <i class="fa-solid fa-train-subway fa-2x"></i>
   <% end %>
   <% if user_signed_in?  %>

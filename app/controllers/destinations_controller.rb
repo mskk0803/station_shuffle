@@ -4,6 +4,27 @@ class DestinationsController < ApplicationController
   def new
   end
 
+  # locationを取得するページ
+  def now_location
+  end
+
+  # 駅を選択するページ
+  def select_stations
+  end
+
+  # 行き先を表示するページ
+  def suggest_station
+  end
+
+  #　行き先を決定するページ
+  def decide_station
+  end
+
+  # 移動中のページ
+  def move
+  end
+
+
   def get_location
     # 2025-03-15 destinationの位置情報取得処理
     # 位置情報を取得するためのパラメータを取得

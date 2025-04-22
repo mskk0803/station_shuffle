@@ -1,0 +1,26 @@
+<h1>駅を探す</h1>
+<p>APIの仕様上、20件までしか取得されません、すみません、</p>
+<div data-controller="destinations">
+<%= form_with model: @location, local: true do |f| %>
+  <div>
+    <%= f.label :latitude %>
+    <%= f.text_field :latitude, data: { destinations_target: "latitude" } %>
+  </div>
+
+  <div>
+    <%= f.label :longitude %>
+    <%= f.text_field :longitude, data: { destinations_target: "longitude" } %>
+  </div>
+
+  <div>
+    <%= f.label :radius %>
+    <%= f.select :radius, 
+        options_for_select((1..5).map { |km| [km, 1000 * km] }, 1000), 
+        {},
+        data: { destinations_target: "radius" } %>
+  </div>
+
+  <%= f.submit "周辺の駅を取得" %>
+<% end %>
+
+</div>
