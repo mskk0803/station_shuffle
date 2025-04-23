@@ -1,7 +1,7 @@
 <h1>駅を探す</h1>
 <p>APIの仕様上、20件までしか取得されません、すみません、</p>
 <div data-controller="destinations">
-<%= form_with model: @location, local: true do |f| %>
+<%= form_with scope: @location, url: now_location_destinations_path, method: :post, local: true do |f| %>
   <div>
     <%= f.label :latitude %>
     <%= f.text_field :latitude, data: { destinations_target: "latitude" } %>

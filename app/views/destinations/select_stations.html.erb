@@ -1,0 +1,13 @@
+
+<%= form_with scope: :station, url: select_stations_destinations_path, method: :post, local: true do |f| %>
+  <div>
+    <% @stations.each_with_index do |station, i| %>
+      <div>
+        <%= check_box_tag "station[names][]", station.name, false, id: "station_name_#{i}" %>
+        <%= f.label "name_#{i}", station.name, for: "station_name_#{i}" %>
+      </div>
+    <% end %>
+  </div>
+
+  <%= f.submit "駅をシャッフルする" %>
+<% end %>

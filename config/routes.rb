@@ -17,12 +17,14 @@ Rails.application.routes.draw do
 
   # 2025-03-15 destinationのルーティング定義
   # 2025-04-22 destinationのルーティング変更
-  resources :destinations, only: [] do
+  resources :destinations do
     collection do
       get :now_location
+      post :now_location
       get :select_stations
+      post :select_stations
       get :suggest_station
-      get :decide_station
+      post :suggest_station
       get :move
     end
   end
