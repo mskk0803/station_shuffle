@@ -65,11 +65,11 @@ class DestinationsController < ApplicationController
     if request.get?
       @decide_station = session[:decide_station]
     elsif request.post?
-      current_lat = move_params[:latitude].to_f
-      current_lon = move_params[:longitude].to_f
-      pre_lat = session[:pre_location][:latitude].to_f
-      pre_lon = session[:pre_location][:longitude].to_f
-      pre_time = session[:pre_time]
+      current_lat = params[:latitude].to_f
+      current_lon = params[:longitude].to_f
+      pre_lat = session[:pre_location]["latitude"].to_f
+      pre_lon = session[:pre_location]["longitude"].to_f
+      pre_time = Time.parse(session[:pre_time])
       current_time = Time.now
 
       # 移動距離の計算
@@ -101,9 +101,5 @@ class DestinationsController < ApplicationController
 
   def location_params
     params.require(:location).permit(:latitude, :longitude, :radius)
-  end
-
-  def move_params
-    params.require(:move).permit(:latitude, :longitude)
   end
 end

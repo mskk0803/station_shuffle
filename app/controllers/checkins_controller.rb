@@ -2,10 +2,11 @@ class CheckinsController < ApplicationController
   skip_before_action :authenticate_user!
 
   def new
-    @stations = session[:decide_station]
+    @station = session[:decide_station]["name"]
   end
 
   def create
+    binding.pry
     # ログインしているかどうかを確認
     if user_signed_in?
       station_name = session[:decide_station]["name"]

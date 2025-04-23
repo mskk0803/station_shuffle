@@ -39,7 +39,7 @@ class Location
   # 移動距離計算関数
   def self.distance(lat1, lon1, lat2, lon2)
     # 地球の半径 (km)
-    EARTH_RADIUS = 6378.137
+    earth_radius = 6378.137
 
     rad = ->(deg) { deg * Math::PI / 180 }
 
@@ -52,7 +52,7 @@ class Location
     c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
 
     # 距離を計算
-    return EARTH_RADIUS * c
+    return earth_radius * c
   end
 
   # 不正移動検知関数
