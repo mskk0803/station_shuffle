@@ -35,4 +35,42 @@ class Location
     end
     stations
   end
+
+  # 移動距離計算関数
+  def self.distance(lat1, lon1, lat2, lon2)
+    # 地球の半径 (km)
+    EARTH_RADIUS = 6378.137
+
+    rad = ->(deg) { deg * Math::PI / 180 }
+
+    d_lat = rad.call(lat2 - lat1)
+    d_lon = rad.call(lon2 - lon1)
+
+    a = Math.sin(d_lat / 2)**2 +
+        Math.cos(rad.call(lat1)) * Math.cos(rad.call(lat2)) * Math.sin(d_lon / 2)**2
+
+    c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
+
+    # 距離を計算
+    return EARTH_RADIUS * c
+  end
+
+  # 不正移動検知関数
+  # trueなら不正移動
+  def self.moving_invalid?(pre_time,current_time, distance)
+    # 時間差
+    time_diff = (current_time - pre_time).to_i
+    # 移動速度
+    speed = distance / time_diff
+    speed > 8
+  end
+
+  # 目的地からの半径判定(300m以内でtrue)
+  def self.in_radius?(distance)
+    if distance < 0.3
+      return true
+    else
+      return false
+    end
+  end
 end

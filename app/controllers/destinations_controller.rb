@@ -14,7 +14,7 @@ class DestinationsController < ApplicationController
         render :now_location
       else
         # セッションに初期位置を保存
-        session[:current_location] = { latitude: location.latitude, longitude: location.longitude }
+        session[:pre_location] = { latitude: location.latitude, longitude: location.longitude }
         # 駅データを保存
         session[:stations] = @stations.map { |station| { name: station.name, latitude: station.latitude, longitude: station.longitude } }
         redirect_to select_stations_destinations_path
@@ -53,15 +53,48 @@ class DestinationsController < ApplicationController
       @suggest_station = session[:suggest_station]
     elsif request.post?
       session[:decide_station] = session[:suggest_station]
-      # 提案情報は破棄
-      session[:suggest_station] = nil
+      # 時間を登録
+      session[:pre_time] = Time.now
       redirect_to move_destinations_path
     end
   end
 
   # 移動中のページ
   def move
+    # セッションから情報を取得
+    if request.get?
+      @decide_station = session[:decide_station]
+    elsif request.post?
+      current_lat = move_params[:latitude].to_f
+      current_lon = move_params[:longitude].to_f
+      pre_lat = session[:pre_location][:latitude].to_f
+      pre_lon = session[:pre_location][:longitude].to_f
+      pre_time = session[:pre_time]
+      current_time = Time.now
 
+      # 移動距離の計算
+      distance = Location.distance(current_lat, current_lon, pre_lat, pre_lon)
+
+      # 不正移動検知
+      if Location.moving_invalid?(pre_time, current_time, distance)
+        # 不正移動
+        flash[:alert] = "不正移動を検知しました。"
+        redirect_to now_location_destinations_path
+      else
+        # 正常移動
+        # 目的地から300m以内にいるか
+        if Location.in_radius?(distance)
+          # 目的地に到着
+          redirect_to new_checkin_path
+        else
+          # セッションに現在地を保存
+          session[:pre_location] = { latitude: current_lat, longitude: current_lon }
+          session[:pre_time] = current_time
+          flash.now[:notice] = "あと#{distance.round(2)}km!"
+          render :move
+        end
+      end
+    end
   end
 
   private
@@ -70,4 +103,7 @@ class DestinationsController < ApplicationController
     params.require(:location).permit(:latitude, :longitude, :radius)
   end
 
+  def move_params
+    params.require(:move).permit(:latitude, :longitude)
+  end
 end

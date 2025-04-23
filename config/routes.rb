@@ -26,11 +26,12 @@ Rails.application.routes.draw do
       get :suggest_station
       post :suggest_station
       get :move
+      post :move
     end
   end
 
   # 2025-03-19 checkinのルーティング作成
-  resources :checkins, only: %i[create]
+  resources :checkins, only: %i[new create]
 
   # 2025-03-19 likeのルーティング定義
   resources :likes, only: %i[create destroy]
