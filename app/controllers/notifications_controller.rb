@@ -1,6 +1,5 @@
 class NotificationsController < ApplicationController
   def index
-    binding.pry
     @notifications = current_user.notifications.includes(:notifable).order(created_at: :desc)
 
     # 未読の通知を既読にする

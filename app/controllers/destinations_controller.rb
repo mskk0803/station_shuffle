@@ -1,38 +1,105 @@
 class DestinationsController < ApplicationController
   skip_before_action :authenticate_user!
 
-  def new
-  end
+  # locationを取得するページ
+  def now_location
+    if request.get?
+      @location = Location.new
+    elsif request.post?
+      location = Location.new(location_params)
+      @stations = location.get_stations
 
-  def get_location
-    # 2025-03-15 destinationの位置情報取得処理
-    # 位置情報を取得するためのパラメータを取得
-    # 一応、意図しないデータが送られてきた場合のために、ストロングパラメーターにしておく
-    location_params = params.require(:destination).permit(:lat, :lon, :radius)
-    lat = location_params[:lat]
-    lon = location_params[:lon]
-    radius = location_params[:radius].to_i
-
-    stations = get_stations(lat, lon, radius)
-
-    render json: { stations: stations }
-  end
-
-  # APIで駅を取得する
-  def get_stations(lat, lon, radius)
-    client = GooglePlaces::Client.new(ENV["GOOGLE_API_KEY"])
-
-    # 3回まで取得できる
-    # 必要になったら書く
-    # 一番最後のnextpagetokenを取得し、client.spots_by_pagetoken(token)で対応する
-    stations_data = client.spots(lat, lon, types: "train_station", language: "ja", radius: radius)
-    stations = stations_data.map do |s|
-      {
-        name: s.name,
-        lat:  s.lat,
-        lon:  s.lng
-      }
+      if @stations.blank?
+        flash.now[:alert] = "指定の範囲では駅が見つかりませんでした。"
+        render :now_location
+      else
+        # セッションに初期位置を保存
+        session[:pre_location] = { latitude: location.latitude, longitude: location.longitude }
+        # 駅データを保存
+        session[:stations] = @stations.map { |station| { name: station.name, latitude: station.latitude, longitude: station.longitude } }
+        redirect_to select_stations_destinations_path
+      end
     end
-    stations
+  end
+
+  # 駅を選択するページ
+  # ポストで渡すのはアンチパターン
+  # 参考URL：https://qiita.com/yuyasat/items/49e3296f3c64fccc7811
+  def select_stations
+    # セッションから駅情報を取得
+    if request.get?
+      @stations = session[:stations].map do |station|
+        Station.new(station)
+      end
+    elsif request.post?
+      # Ary
+      selected_stations = params[:station][:names]
+      # シャッフル
+      decide_station = selected_stations.shuffle.first
+
+      # 文字列で探す
+      station = session[:stations].find { |station| station["name"] == decide_station }
+
+      # セッションに保存
+      session[:suggest_station] = station
+      redirect_to suggest_station_destinations_path
+    end
+  end
+
+  # 行き先を表示するページ
+  def suggest_station
+    # セッションから情報を取得
+    if request.get?
+      @suggest_station = session[:suggest_station]
+    elsif request.post?
+      session[:decide_station] = session[:suggest_station]
+      # 時間を登録
+      session[:pre_time] = Time.now
+      redirect_to move_destinations_path
+    end
+  end
+
+  # 移動中のページ
+  def move
+    # セッションから情報を取得
+    if request.get?
+      @decide_station = session[:decide_station]
+    elsif request.post?
+      current_lat = params[:latitude].to_f
+      current_lon = params[:longitude].to_f
+      pre_lat = session[:pre_location]["latitude"].to_f
+      pre_lon = session[:pre_location]["longitude"].to_f
+      pre_time = Time.parse(session[:pre_time])
+      current_time = Time.now
+
+      # 移動距離の計算
+      distance = Location.distance(current_lat, current_lon, pre_lat, pre_lon)
+
+      # 不正移動検知
+      if Location.moving_invalid?(pre_time, current_time, distance)
+        # 不正移動
+        flash[:alert] = "不正移動を検知しました。"
+        redirect_to now_location_destinations_path
+      else
+        # 正常移動
+        # 目的地から300m以内にいるか
+        if Location.in_radius?(distance)
+          # 目的地に到着
+          redirect_to new_checkin_path
+        else
+          # セッションに現在地を保存
+          session[:pre_location] = { latitude: current_lat, longitude: current_lon }
+          session[:pre_time] = current_time
+          flash.now[:notice] = "あと#{distance.round(2)}km!"
+          render :move
+        end
+      end
+    end
+  end
+
+  private
+
+  def location_params
+    params.require(:location).permit(:latitude, :longitude, :radius)
   end
 end

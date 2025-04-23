@@ -5,6 +5,11 @@ class FollowRequestsController < ApplicationController
   def accept
     # フォロー承認＋レコードを削除
     current_user.accept_request(@user)
+    # 通知を作成
+    follow = current_user.reverse_of_follows.find_by(follows_user_id: @user.id)
+
+    # 通知を作成
+    current_user.create_notification(follow)
     redirect_to request.referer || root_path, success: "フォローリクエストを承認しました", status: :see_other
   end
 
