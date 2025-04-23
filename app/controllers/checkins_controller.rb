@@ -6,7 +6,6 @@ class CheckinsController < ApplicationController
   end
 
   def create
-    binding.pry
     # ログインしているかどうかを確認
     if user_signed_in?
       station_name = session[:decide_station]["name"]
@@ -15,7 +14,7 @@ class CheckinsController < ApplicationController
       # 参考URL：https://railsguides.jp/api_app.html
       if checkin.save
         session_delete
-        redirect_to posts_path, notice: "チェックインしました！"
+        redirect_to new_post_path, notice: "チェックインしました！"
       else
         flash.now[:alert] = "チェックインに失敗しました。"
         render :new, status: :unprocessable_entity

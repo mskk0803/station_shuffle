@@ -1,5 +1,4 @@
 class Location
-
   # DBには保存しないけどバリデーションように必要な処理
   include ActiveModel::Model
   include ActiveModel::Validations
@@ -18,20 +17,20 @@ class Location
     # 3回まで取得できる
     # 必要になったら書く
     # 一番最後のnextpagetokenを取得し、client.spots_by_pagetoken(token)で対応する
-    stations_data = client.spots( self.latitude,
+    stations_data = client.spots(self.latitude,
                                   self.longitude,
                                   types: "train_station",
                                   language: "ja",
-                                  radius: self.radius )
+                                  radius: self.radius)
 
     # 取得できなかった場合は空の配列を返す
     if stations_data.blank?
       return []
     end
 
-    #　Sationクラスの配列を作成
+    # 　Sationクラスの配列を作成
     stations = stations_data.map do |s|
-      Station.new( name: s.name, latitude: s.lat, longitude: s.lng )
+      Station.new(name: s.name, latitude: s.lat, longitude: s.lng)
     end
     stations
   end
@@ -52,12 +51,12 @@ class Location
     c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
 
     # 距離を計算
-    return earth_radius * c
+    earth_radius * c
   end
 
   # 不正移動検知関数
   # trueなら不正移動
-  def self.moving_invalid?(pre_time,current_time, distance)
+  def self.moving_invalid?(pre_time, current_time, distance)
     # 時間差
     time_diff = (current_time - pre_time).to_i
     # 移動速度
@@ -68,9 +67,9 @@ class Location
   # 目的地からの半径判定(300m以内でtrue)
   def self.in_radius?(distance)
     if distance < 0.3
-      return true
+      true
     else
-      return false
+      false
     end
   end
 end

@@ -1,5 +1,4 @@
 class Station
-
   # DBには保存しないけどバリデーションように必要な処理
   include ActiveModel::Model
   include ActiveModel::Validations
