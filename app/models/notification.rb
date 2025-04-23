@@ -10,7 +10,7 @@ class Notification < ApplicationRecord
 
   # 通知の種類
   def notifiable_types
-    %w[Follow Like]
+    %w[Follow Like FollowRequest]
   end
 
   # 通知のバリデーション
@@ -26,5 +26,9 @@ class Notification < ApplicationRecord
   # 通知の内容がいいねかどうか
   def like?
     notifable_type == "Like"
+  end
+
+  def follow_request?
+    notifable_type == "FollowRequest"
   end
 end

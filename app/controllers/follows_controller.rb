@@ -5,6 +5,9 @@ class FollowsController < ApplicationController
     if user.is_private?
       # 非公開ユーザーにフォローリクエストを送信
       current_user.send_request(user)
+      follow_request = current_user.follow_requests.find_by(requestee_id: user.id)
+      # 通知を作成
+      user.create_notification(follow_request)
       redirect_to profile_posts_path(user.id), success: "フォローリクエストを送りました"
     else
       current_user.follow(user)

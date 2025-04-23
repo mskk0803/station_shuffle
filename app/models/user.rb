@@ -117,7 +117,7 @@ class User < ApplicationRecord
     self.notifications.where(read: false).count
   end
 
-  # 通知を作る。notifableはオブジェクトを指定（FollowまたはLike）
+  # 通知を作る。notifableはオブジェクトを指定（FollowまたはLikeまたはFollowRequest）
   def create_notification(notifable)
     notifications.create!(notifable_id: notifable.id, notifable_type: notifable.class.name)
   end

@@ -60,7 +60,7 @@
       </div>
     </div>
   <% end %>
-  <% if @user.is_private && (current_user.following?(@user) || current_user == @user) %>
+  <% if !@user.is_private || (current_user.following?(@user) || current_user == @user) %>
     <%= render "posts_or_likes_or_checkins" %>
   <% end %>
 </div>

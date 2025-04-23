@@ -5,6 +5,12 @@
       <%= link_to notification.notifable.follower.name, profile_path(notification.notifable.follower) %> さんがあなたをフォローしました。
     <% elsif notification.like? %>
       <%= link_to notification.notifable.user.name, profile_path(notification.notifable.user) %> さんがあなたの投稿にいいねしました。
+    
+    <% elsif notification.follow_request? %>
+      <% if notification.notifable && notification.notifable.requester %>
+        <%= link_to notification.notifable.requester.name, profile_path(notification.notifable.requester) %> さんからフォローリクエストがきています。
+      <% end %>
+
     <% end %>
   </div>
 <% end %>
