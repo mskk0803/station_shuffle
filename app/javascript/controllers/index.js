@@ -4,8 +4,11 @@
 
 import { application } from "./application"
 
+import AutocompleteController from "./autocomplete_controller"
+application.register("autocomplete", AutocompleteController)
+
 import DestinationsController from "./destinations_controller"
 application.register("destinations", DestinationsController)
 
-import AutocompleteController from "./autocomplete_controller"
-application.register("autocomplete", AutocompleteController)
+import SelectStationsController from "./select_stations_controller"
+application.register("select-stations", SelectStationsController)
