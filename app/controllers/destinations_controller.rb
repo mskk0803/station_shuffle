@@ -10,8 +10,8 @@ class DestinationsController < ApplicationController
       @stations = location.get_stations
 
       if @stations.blank?
-        flash.now[:alert] = "指定の範囲では駅が見つかりませんでした。"
-        render :now_location
+        flash[:alert] = "指定の範囲では駅が見つかりませんでした。"
+        redirect_to now_location_destinations_path
       else
         # セッションに初期位置を保存
         session[:pre_location] = { latitude: location.latitude, longitude: location.longitude }
@@ -73,15 +73,19 @@ class DestinationsController < ApplicationController
       current_time = Time.now
 
       # 移動距離の計算
-      distance = Location.distance(current_lat, current_lon, pre_lat, pre_lon)
+      move_distance = Location.distance(current_lat, current_lon, pre_lat, pre_lon)
 
       # 不正移動検知
-      if Location.moving_invalid?(pre_time, current_time, distance)
+      if Location.moving_invalid?(pre_time, current_time, move_distance)
         # 不正移動
         flash[:alert] = "不正移動を検知しました。"
         redirect_to now_location_destinations_path
       else
         # 正常移動
+        # 目的地からの移動距離
+        decide_lat = session[:decide_station]["latitude"].to_f
+        decide_lon = session[:decide_station]["longitude"].to_f
+        distance = Location.distance(current_lat, current_lon, decide_lat, decide_lon)
         # 目的地から300m以内にいるか
         if Location.in_radius?(distance)
           # 目的地に到着
@@ -90,8 +94,8 @@ class DestinationsController < ApplicationController
           # セッションに現在地を保存
           session[:pre_location] = { latitude: current_lat, longitude: current_lon }
           session[:pre_time] = current_time
-          flash.now[:notice] = "あと#{distance.round(2)}km!"
-          render :move
+          flash[:notice] = "あと#{distance.round(2)}km!"
+          redirect_to move_destinations_path
         end
       end
     end

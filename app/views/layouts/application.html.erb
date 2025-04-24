@@ -26,13 +26,12 @@
 
   <body>
     <%= render "shared/header" %>
-  <%
-=begin%>
-  devise用のアラートメッセージを表示するためのコード
-<%
-=end%>
-      <p class="notice"><%= notice %></p>
-      <p class="alert"><%= alert %></p>
+    <% if flash[:notice] %>
+      <p class="notice"><%= flash[:notice] %></p>
+    <% end %>
+    <% if flash[:alert] %>
+      <p class="alert"><%= flash[:alert] %></p>
+    <% end %>
     <%= yield %>
     <%= render "shared/footer" %>
   </body>
