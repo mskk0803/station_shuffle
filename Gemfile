@@ -83,3 +83,7 @@ gem "tailwindcss-ruby", "3.4.17"
 # 2025-04-15 carrierwaveのインストール
 gem "carrierwave"
 gem "mini_magick"
+
+# 2025-04-24 omniauthのインストール
+gem "omniauth", "1.9.1"
+gem 'omniauth-google-oauth2' 
