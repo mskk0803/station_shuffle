@@ -2,7 +2,8 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+         :recoverable, :rememberable, :validatable,
+         :omniauthable, omniauth_providers: %i[google_oauth2]
 
   has_many :posts, dependent: :destroy
   has_many :checkins, dependent: :destroy
@@ -31,7 +32,7 @@ class User < ApplicationRecord
 
   # nameとprofile,is_private以外を更新する場合はpasswordとpassword_confirmationを必須にする
   # 参考URL：https://qiita.com/tmzkysk/items/a0c874715ba38eb23350
-  with_options unless: -> { :name? || :profile? || :is_private? } do
+  with_options unless: -> { name.present? || :profile? || :is_private? } do
     validates :password, presence: true
     validates :password_confirmation, presence: true
   end
@@ -125,5 +126,15 @@ class User < ApplicationRecord
   # 通知の既読(indexにアクセスしたタイミングで使う)
   def mark_all_notifications_as_read
     notifications.where(read: false).update_all(read: true)
+  end
+
+  # Omniauthのコールバックメソッド
+  # 参考：https://qiita.com/00000000/items/0c7dd9b523e960dae2a9
+  def self.from_omniauth(auth)
+    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+      user.name = auth.info.name
+      user.email = auth.info.email
+      user.password = Devise.friendly_token[0, 20]
+    end
   end
 end
