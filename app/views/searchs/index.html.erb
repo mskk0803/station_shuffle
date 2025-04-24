@@ -1,10 +1,39 @@
 <div class="flex flex-col items-center">
-  <div>
+  <%
+=begin%>
+ <div data-controller="autocomplete" data-autocomplete-url="searchs/search_users" role="combobox">
     <%= form_with url: search_users_searchs_path, method: :get do |f| %>
       <%= f.text_field :search %>
       <%= f.submit "Search" %>
+      <ul data-autocomplete-target="results" class="autocomplete-results"></ul>
     <% end %>
-  </div>
+  </div> 
+<%
+=end%>
+
+<div data-controller="autocomplete" 
+     data-autocomplete-url-value="<%= auto_complete_searchs_path %>" 
+     role="combobox">
+  
+  <%= form_with url: search_users_searchs_path, method: :get, local: true do |f| %>
+    <div class="relative">
+      <%= f.text_field :search, 
+            data: {
+              autocomplete_target: "input", 
+              action: "input->autocomplete#search"
+            }, 
+            autocomplete: "off", 
+            placeholder: "ユーザー名を入力" %>
+
+      <!-- オートコンプリート結果を表示する部分 -->
+      <ul data-autocomplete-target="results"
+          class="absolute bg-white border w-full z-10 rounded shadow">
+      </ul>
+    </div>
+
+    <%= f.submit "Search", class: "btn btn-primary mt-2" %>
+  <% end %>
+</div>
 
   <div class="navbar bg-base-100 flex justify-center">
       <div class="navbar-center">

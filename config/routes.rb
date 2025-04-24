@@ -50,6 +50,7 @@ Rails.application.routes.draw do
     collection do
       get :search_users
       get :search_posts
+      get :auto_complete
     end
   end
 

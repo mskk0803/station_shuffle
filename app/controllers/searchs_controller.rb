@@ -1,7 +1,6 @@
 class SearchsController < ApplicationController
   def index
-    @users = []
-    @posts = []
+    redirect_to search_users_searchs_path
   end
 
   def search_users
@@ -20,5 +19,13 @@ class SearchsController < ApplicationController
       @posts = Post.includes(:user).search_by_content(params[:search])
     end
     render :index
+  end
+
+  def auto_complete
+    @users = []
+    if params[:search].present?
+      @users = User.search_by_name(params[:search])
+    end
+    render json: @users.map { |user| { id: user.id, name: user.name } }
   end
 end
