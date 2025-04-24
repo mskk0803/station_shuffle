@@ -6,3 +6,6 @@ import { application } from "./application"
 
 import DestinationsController from "./destinations_controller"
 application.register("destinations", DestinationsController)
+
+import AutocompleteController from "./autocomplete_controller"
+application.register("autocomplete", AutocompleteController)
