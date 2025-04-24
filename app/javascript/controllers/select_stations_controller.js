@@ -7,13 +7,10 @@ export default class extends Controller {
 
   // 全部選択する
   selectAll() {
-
-    console.log(this.stationsTargets)
     this.stationsTargets.forEach((station) => {
       station.checked = true
     })
-    
-
+  
   }
 
 }
