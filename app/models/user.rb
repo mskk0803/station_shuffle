@@ -131,7 +131,6 @@ class User < ApplicationRecord
   # Omniauthのコールバックメソッド
   # 参考：https://qiita.com/00000000/items/0c7dd9b523e960dae2a9
   def self.from_omniauth(auth)
-    binding.pry
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.name = auth.info.name
       user.email = auth.info.email
