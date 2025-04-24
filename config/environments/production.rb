@@ -88,12 +88,12 @@ Rails.application.configure do
 
   # 参考：https://qiita.com/Erika328/items/ae4dde4e9f946eb08832
   config.action_mailer.smtp_settings = {
-    address: 'smtp.gmail.com',
+    address: "smtp.gmail.com",
     port: 87,
-    domain: 'station-shuffle.onrender.com', #自分のアプリのドメイン
-    user_name: ENV['MAILER_SENDER'],
-    password: ENV['MAILER_PASSWORD'],
-    authentication: 'plain',
+    domain: "station-shuffle.onrender.com", # 自分のアプリのドメイン
+    user_name: ENV["MAILER_SENDER"],
+    password: ENV["MAILER_PASSWORD"],
+    authentication: "plain",
     enable_starttls_auto: true
   }
 
