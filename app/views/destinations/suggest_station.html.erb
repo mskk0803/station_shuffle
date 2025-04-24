@@ -2,3 +2,5 @@
 <%= @suggest_station["name"] %>
 
 <%= button_to "この駅に決定", suggest_station_destinations_path(@suggest_station) %>
+
+<%= button_to "戻る", select_stations_destinations_path, method: :get %>

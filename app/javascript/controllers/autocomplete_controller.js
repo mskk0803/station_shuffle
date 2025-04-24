@@ -5,8 +5,8 @@ export default class extends Controller {
   static values = { url: String }
 
   search() {
+    // 空白を除いたクエリを取得
     const query = this.inputTarget.value.trim()
-    console.log(query)
     if (query.length < 2) {
       this.resultsTarget.innerHTML = ""
       return

@@ -1,5 +1,6 @@
 class DestinationsController < ApplicationController
   skip_before_action :authenticate_user!
+  skip_before_action :location_session_delete, only: %i[select_stations suggest_station move]
 
   # locationを取得するページ
   def now_location

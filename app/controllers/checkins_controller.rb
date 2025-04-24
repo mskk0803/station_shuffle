@@ -1,5 +1,6 @@
 class CheckinsController < ApplicationController
   skip_before_action :authenticate_user!
+  skip_before_action :location_session_delete
 
   def new
     @station = session[:decide_station]["name"]
@@ -13,14 +14,16 @@ class CheckinsController < ApplicationController
 
       # 参考URL：https://railsguides.jp/api_app.html
       if checkin.save
-        session_delete
+        # セッションを破棄
+        location_session_delete
         redirect_to new_post_path, notice: "チェックインしました！"
       else
         flash.now[:alert] = "チェックインに失敗しました。"
         render :new, status: :unprocessable_entity
       end
     else
-      session_delete
+      # セッションを破棄
+      location_session_delete
       redirect_to root_path, alert: "ログインするとチェックインができるようになります！"
     end
   end
@@ -28,13 +31,5 @@ class CheckinsController < ApplicationController
   private
   def checkin_params
     params.require(:checkin).permit(:station)
-  end
-
-  def session_delete
-    session[:pre_location] = nil
-    session[:stations] = nil
-    session[:suggest_station] = nil
-    session[:decide_station] = nil
-    session[:pre_time] = nil
   end
 end
