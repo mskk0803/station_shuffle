@@ -78,7 +78,7 @@ gem "google_places"
 
 # 2025-03-19 taileindcssのインストール
 gem "tailwindcss-rails"
-gem "tailwindcss-ruby", "3.4.17"
+gem "tailwindcss-ruby", "4.1.4"
 
 # 2025-04-15 carrierwaveのインストール
 gem "carrierwave"
