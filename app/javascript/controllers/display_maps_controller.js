@@ -31,7 +31,7 @@ export default class extends Controller {
     })
 
     // 参考URL：https://qiita.com/Boukenkayuta/items/9775aa550905163f0354
-    const current_position = { lat: preLat, lng: preLon } // 東京駅の位置
+    const currentPosition = { lat: preLat, lng: preLon } // 東京駅の位置
       //縁の薄い青丸
       new google.maps.Circle({
         strokeColor: '#115EC3',
@@ -40,12 +40,12 @@ export default class extends Controller {
         fillColor: '#115EC3',
         fillOpacity: 0.2,
         map: this.map,
-        center: current_position,
+        center: currentPosition,
         radius: 100
     });        
     //  中央の濃い青丸
     new google.maps.Marker({
-        position: current_position,
+        position: currentPosition,
         map: this.map,
         icon: {
           path: google.maps.SymbolPath.CIRCLE,
