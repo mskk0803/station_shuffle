@@ -7,6 +7,10 @@
                         data-display-maps-target="latitude"/>
     <input type="hidden" value="<%= @suggest_station["longitude"] %>" 
                         data-display-maps-target="longitude"/>
+    <input type="hidden" value="<%= @pre_location["latitude"] %>" 
+                        data-display-maps-target="preLat"/>
+    <input type="hidden" value="<%= @pre_location["longitude"] %>" 
+                        data-display-maps-target="preLon"/>
     <div id="map" data-display-maps-target="map" style="width: 100%; height: 400px;"></div>
 <div > 
 
