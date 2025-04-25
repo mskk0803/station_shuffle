@@ -56,6 +56,8 @@ class DestinationsController < ApplicationController
   def suggest_station
     # セッションから情報を取得
     if request.get?
+      # javascriptで環境変数を使用するための記述
+      # gon.google_api_key = ENV["GOOGLE_API_KEY"]
       @suggest_station = session[:suggest_station]
     elsif request.post?
       session[:decide_station] = session[:suggest_station]

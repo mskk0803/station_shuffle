@@ -87,3 +87,9 @@ gem "mini_magick"
 # 2025-04-24 omniauthのインストール
 gem "omniauth", "1.9.1"
 gem "omniauth-google-oauth2"
+
+# 2025-04-24 gonのインストール いらないので後で消す
+gem "gon"
+
+# 2025-04-24 gmaps4railsのインストール
+gem "gmaps4rails", "~> 2.1.0"

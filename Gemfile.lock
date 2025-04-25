@@ -149,6 +149,12 @@ GEM
       raabro (~> 1.4)
     globalid (1.2.1)
       activesupport (>= 6.1)
+    gmaps4rails (2.1.2)
+    gon (6.4.0)
+      actionpack (>= 3.0.20)
+      i18n (>= 0.7)
+      multi_json
+      request_store (>= 1.0)
     google_places (2.0.0)
       httparty (>= 0.13.1)
     hashie (5.0.0)
@@ -330,6 +336,8 @@ GEM
     regexp_parser (2.10.0)
     reline (0.6.0)
       io-console (~> 0.5)
+    request_store (1.7.0)
+      rack (>= 1.4)
     responders (3.1.1)
       actionpack (>= 5.2)
       railties (>= 5.2)
@@ -460,6 +468,8 @@ DEPENDENCIES
   debug
   devise (~> 4.9)
   dotenv-rails
+  gmaps4rails (~> 2.1.0)
+  gon
   google_places
   jbuilder
   jsbundling-rails

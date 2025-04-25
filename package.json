@@ -10,6 +10,7 @@
     "build:css": "esbuild app/assets/stylesheets/application.css --outdir=app/assets/builds"
   },
   "dependencies": {
+    "@googlemaps/js-api-loader": "^1.16.8",
     "@hotwired/stimulus": "^3.2.2",
     "@hotwired/turbo-rails": "^8.0.13",
     "postcss": "^8.5.3",
