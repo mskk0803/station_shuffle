@@ -1,9 +1,16 @@
 
+
+<div data-controller="select-stations">
+  <button class="btn"
+          data-action="click->select-stations#selectAll">
+  全選択
+  </button>
+
 <%= form_with scope: :station, url: select_stations_destinations_path, method: :post, local: true do |f| %>
   <div>
     <% @stations.each_with_index do |station, i| %>
       <div>
-        <%= check_box_tag "station[names][]", station.name, false, id: "station_name_#{i}" %>
+        <%= check_box_tag "station[names][]", station.name, false, id: "station_name_#{i}", data: {select_stations_target:"stations"} %>
         <%= f.label "name_#{i}", station.name, for: "station_name_#{i}" %>
       </div>
     <% end %>
@@ -11,3 +18,6 @@
 
   <%= f.submit "駅をシャッフルする" %>
 <% end %>
+</div>
+
+<%= button_to "戻る", now_location_destinations_path, method: :get %>

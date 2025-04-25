@@ -1,5 +1,6 @@
 class DestinationsController < ApplicationController
   skip_before_action :authenticate_user!
+  skip_before_action :location_session_delete, only: %i[select_stations suggest_station move]
 
   # locationを取得するページ
   def now_location
@@ -32,17 +33,22 @@ class DestinationsController < ApplicationController
         Station.new(station)
       end
     elsif request.post?
-      # Ary
-      selected_stations = params[:station][:names]
-      # シャッフル
-      decide_station = selected_stations.shuffle.first
+      if params[:station].nil?
+        flash[:alert] = "駅が選択されていません。"
+        redirect_to select_stations_destinations_path
+      else
+        # Ary
+        selected_stations = params[:station][:names]
+        # シャッフル
+        decide_station = selected_stations.shuffle.first
 
-      # 文字列で探す
-      station = session[:stations].find { |station| station["name"] == decide_station }
+        # 文字列で探す
+        station = session[:stations].find { |station| station["name"] == decide_station }
 
-      # セッションに保存
-      session[:suggest_station] = station
-      redirect_to suggest_station_destinations_path
+        # セッションに保存
+        session[:suggest_station] = station
+        redirect_to suggest_station_destinations_path
+      end
     end
   end
 
@@ -51,6 +57,7 @@ class DestinationsController < ApplicationController
     # セッションから情報を取得
     if request.get?
       @suggest_station = session[:suggest_station]
+      @pre_location = session[:pre_location]
     elsif request.post?
       session[:decide_station] = session[:suggest_station]
       # 時間を登録

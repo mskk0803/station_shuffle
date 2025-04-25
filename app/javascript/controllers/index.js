@@ -4,8 +4,17 @@
 
 import { application } from "./application"
 
+import AutocompleteController from "./autocomplete_controller"
+application.register("autocomplete", AutocompleteController)
+
 import DestinationsController from "./destinations_controller"
 application.register("destinations", DestinationsController)
 
-import AutocompleteController from "./autocomplete_controller"
-application.register("autocomplete", AutocompleteController)
+import DisplayMapsController from "./display_maps_controller"
+application.register("display-maps", DisplayMapsController)
+
+import MovesController from "./moves_controller"
+application.register("moves", MovesController)
+
+import SelectStationsController from "./select_stations_controller"
+application.register("select-stations", SelectStationsController)

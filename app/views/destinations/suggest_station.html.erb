@@ -1,4 +1,23 @@
 
-<%= @suggest_station["name"] %>
+ <div data-controller="display-maps">
+    <p data-display-maps-target="name">
+        <%= @suggest_station["name"] %>
+    </p>
+    <input type="hidden" value="<%= @suggest_station["latitude"] %>" 
+                        data-display-maps-target="latitude"/>
+    <input type="hidden" value="<%= @suggest_station["longitude"] %>" 
+                        data-display-maps-target="longitude"/>
+    <input type="hidden" value="<%= @pre_location["latitude"] %>" 
+                        data-display-maps-target="preLat"/>
+    <input type="hidden" value="<%= @pre_location["longitude"] %>" 
+                        data-display-maps-target="preLon"/>
+    <div id="map" data-display-maps-target="map" style="width: 100%; height: 400px;"></div>
+<div > 
+
+
+</div>
 
 <%= button_to "この駅に決定", suggest_station_destinations_path(@suggest_station) %>
+
+<%= button_to "戻る", select_stations_destinations_path, method: :get %>
+

@@ -3,18 +3,21 @@
 <%=  @decide_station["name"] %>まで
 移動中…！
 
-<div data-controller="destinations">
-現在地
-<%= form_with scope: @location, url: move_destinations_path, method: :post, local: true do |f| %>
-  <div>
-    <%= f.label :latitude %>
-    <%= f.text_field :latitude, data: { destinations_target: "latitude" } %>
-  </div>
+<div data-controller="moves">
+  現在地
+  <div id="map" data-moves-target="map" style="width: 100%; height: 400px;"></div>
+    <%= form_with scope: @location, url: move_destinations_path, method: :post, local: true do |f| %>
+      <%= f.hidden_field :latitude, data: { moves_target: "currentLat" } %>
+      <%= f.hidden_field :longitude, data: { moves_target: "currentLon" } %>
+      <%= f.submit "チェックイン可能か確認" %>
+    <% end %>
+                     
+      <input type="hidden" value="<%= @decide_station["latitude"] %>" 
+                          data-moves-target="stationLat"/>
+      <input type="hidden" value="<%= @decide_station["longitude"] %>" 
+                          data-moves-target="stationLon"/>
+      <input type="hidden" value="<%= @decide_station["name"] %>" 
+                          data-moves-target="name"/>
+  </div>   
 
-  <div>
-    <%= f.label :longitude %>
-    <%= f.text_field :longitude, data: { destinations_target: "longitude" } %>
-  </div>
-
-  <%= f.submit "チェックイン可能か確認" %>
-<% end %>
+<%= button_to "戻る", suggest_station_destinations_path, method: :get %>
