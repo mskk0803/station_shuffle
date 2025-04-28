@@ -10,14 +10,14 @@
                 <% end %>
                 <time class="text-xs opacity-50"><%= post.created_at.strftime("%Y-%m-%d %H:%M") %></time>
             </div>
-            <div class="chat-bubble">
+            <div class="chat-bubble bg-white">
                 <%= post.content %>
                 <figure>
                     <%= image_tag post.image.url if post.image.present? %>
                 </figure>
             </div>
             <div class="chat-footer opacity-50">
-                <%= button_to '削除', post_path(post), method: :delete, class: "btn btn-sm" %>
+                <%= button_to '削除', post_path(post), method: :delete %>
             </div>
         </div>
     <% else %>
@@ -31,7 +31,7 @@
                 <% end %>
                 <time class="text-xs opacity-50"><%= post.created_at.strftime("%Y-%m-%d %H:%M") %></time>
             </div>
-            <div class="chat-bubble">
+            <div class="chat-bubble bg-white">
                 <%= post.content %>
                 <figure>
                     <%= image_tag post.image.url if post.image.present? %>

@@ -1,24 +1,28 @@
-<h1 class="text-3xl font-bold underline"">
-    みんなの到着報告
-</h1>
-<div class="navbar bg-base-100 flex justify-center">
-    <div class="navbar-center">
-        <ul class="menu menu-horizontal m-1">
-        <li>
-            <%= link_to "全体", all_index_posts_path, class: "#{"active" if action_name == "all_index"}" %>
-        </li>
-        <li>
-            <%= link_to "フォロー中",following_index_posts_path, class: "#{"active" if action_name == "following_index"}" %>
-        </li>
-        </ul>
-    </div>
-  </div>
-  <div class="mypage-content">
-  <%= case action_name
-     when "all_index"
-       render partial: "post", locals: { posts: @posts }
-     when "following_index"
-       render partial: "post", locals: { posts: @posts }
-     end %>
-</div>
 
+<div class="flex justify-center flex-col">
+    <div class="navbar bg-base-100 flex justify-center flex-col">
+      <div>
+        <h1 class="text-3xl font-bold underline"">
+            みんなの到着報告
+        </h1>
+      </div>
+      <div class="navbar-center">
+          <ul class="menu menu-horizontal m-1">
+          <li>
+              <%= link_to "全体", all_index_posts_path, class: "#{"active" if action_name == "all_index"}" %>
+          </li>
+          <li>
+              <%= link_to "フォロー中",following_index_posts_path, class: "#{"active" if action_name == "following_index"}" %>
+          </li>
+          </ul>
+      </div>
+    </div>
+    <div class="flex flex-col">
+      <%= case action_name
+        when "all_index"
+          render partial: "post", locals: { posts: @posts }
+        when "following_index"
+          render partial: "post", locals: { posts: @posts }
+        end %>
+    </div>
+</div>
