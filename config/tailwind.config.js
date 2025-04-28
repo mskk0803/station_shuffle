@@ -19,5 +19,16 @@ module.exports = {
     // require('@tailwindcss/forms'),
     // require('@tailwindcss/typography'),
     // require('@tailwindcss/container-queries'),
-  ]
+  ],
+  daisyui: {
+    themes:[
+      {
+        "mttheme":{
+          "primary":"#50C878",
+          "base-100": "#50C878"
+        }
+      },
+      "light"
+    ]
+  }
 }
