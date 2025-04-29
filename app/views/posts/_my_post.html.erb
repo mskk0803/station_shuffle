@@ -6,10 +6,14 @@
                 <i class="fa-solid fa-lock"></i>
             <% end %>
         <% end %>
-        <time class="text-xs opacity-50"><%= post.created_at.strftime("%Y-%m-%d %H:%M") %></time>
+        <time class="text-xs opacity-50">
+            <%= post.created_at.strftime("%Y-%m-%d %H:%M") %>
+        </time>
     </div>
     <div class="chat-bubble bg-white">
-        <%= post.content %>
+        <p class="break-words">
+            <%= post.content %>
+        </p>
         <figure>
             <%= image_tag post.image.url if post.image.present? %>
         </figure>

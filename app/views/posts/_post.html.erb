@@ -1,4 +1,4 @@
-<div class="flex flex-col justify-center">
+<div class="flex flex-col mx-10">
 <% posts.each do |post| %>   
     <% if current_user.post?(post) %>
       <%= render partial: "my_post", locals: { post: post } %>  
