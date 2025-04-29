@@ -6,16 +6,19 @@
             みんなの到着報告
         </h1>
       </div>
-      <div class="w-full flex justify-center border-b-4">
-          <ul class="menu menu-horizontal">
-          <li>
+
+      <nav class="navbar bg-base-100 flex justify-center mt-4">
+        <div class="navbar-center">
+          <ul class="menu menu-horizontal gap-2">
+            <li>
               <%= link_to "全体", all_index_posts_path, class: "#{"active" if action_name == "all_index"}" %>
-          </li>
-          <li>
-              <%= link_to "フォロー中",following_index_posts_path, class: "#{"active" if action_name == "following_index"}" %>
-          </li>
+            </li>
+            <li>
+                <%= link_to "フォロー中",following_index_posts_path, class: "#{"active" if action_name == "following_index"}" %>
+            </li>
           </ul>
-      </div>
+        </div>
+      </nav>
     </div>
     <%= case action_name
       when "all_index"

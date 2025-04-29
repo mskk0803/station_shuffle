@@ -1,33 +1,30 @@
-
-<div class="navbar bg-base-100 flex justify-center">
-  <div>
-    <h1 class="text-3xl font-bold underline"">
-        通知
-    </h1>
-  </div>
+<div class="navbar bg-base-100 flex justify-center py-4">
+  <h1 class="text-3xl font-bold">通知</h1>
 </div>
-<div class="flex justify-center flex-col">
+
+<div class="flex flex-col items-center w-full mt-6 space-y-4 px-4">
   <% @notifications.each do |notification| %>
-      <% if notification.follow? %>
-        <div class="card bg-white w-100 shadow-xl m-3">
-        <p class="p-3">
-          <%= link_to notification.notifable.follower.name, profile_path(notification.notifable.follower) %> さんがあなたをフォローしました。
-        <p>
+    <% if notification.follow? %>
+      <div class="card bg-white shadow-xl w-full max-w-2xl">
+        <div class="p-4">
+          <%= link_to notification.notifable.follower.name, profile_path(notification.notifable.follower), class: "font-semibold hover:underline" %>
+          さんがあなたをフォローしました。
         </div>
-      <% elsif notification.like? %>
-        <div class="card bg-white w-100 shadow-xl m-3">
-          <p class="p-3">
-            <%= link_to notification.notifable.user.name, profile_path(notification.notifable.user) %> さんがあなたの投稿にいいねしました。
-          </p>
+      </div>
+    <% elsif notification.like? %>
+      <div class="card bg-white shadow-xl w-full max-w-2xl">
+        <div class="p-4">
+          <%= link_to notification.notifable.user.name, profile_path(notification.notifable.user), class: "font-semibold hover:underline" %>
+          さんがあなたの投稿にいいねしました。
         </div>
-      <% elsif notification.follow_request? %>
-        <% if notification.notifable && notification.notifable.requester %>
-          <div class="card bg-white w-100 shadow-xl m-3">
-            <p class="p-3">
-              <%= link_to notification.notifable.requester.name, profile_path(notification.notifable.requester) %> さんからフォローリクエストがきています。
-            </p>
-          </div>
-        <% end %>
-      <% end %>
+      </div>
+    <% elsif notification.follow_request? && notification.notifable&.requester %>
+      <div class="card bg-white shadow-xl w-full max-w-2xl">
+        <div class="p-4">
+          <%= link_to notification.notifable.requester.name, profile_path(notification.notifable.requester), class: "font-semibold hover:underline" %>
+          さんからフォローリクエストがきています。
+        </div>
+      </div>
+    <% end %>
   <% end %>
 </div>
