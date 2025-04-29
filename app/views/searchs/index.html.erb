@@ -1,4 +1,4 @@
-<div class="navbar bg-base-100 flex justify-center">
+<div class="navbar flex justify-center">
   <div>
     <h1 class="text-3xl font-bold underline"">
         検索
@@ -37,7 +37,7 @@
 <% end %>
 </div>
 
-<div class="navbar bg-base-100 justify-center shadow">
+<div class="navbar justify-center shadow">
   <ul class="menu menu-horizontal gap-4">
     <li>
       <%= link_to "ユーザー", search_users_searchs_path(search: params[:search]), class: "px-4 py-2 rounded hover:bg-base-200 #{'bg-primary text-white' if action_name == 'search_users'}" %>
