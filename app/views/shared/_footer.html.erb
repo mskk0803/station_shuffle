@@ -1,30 +1,7 @@
-<div class="btm-nav">
-  <% if user_signed_in?  %>
-    <%= link_to posts_path, class: "#{"active" if controller_name == "posts"}" do %>
-      <i class="fa-solid fa-house fa-2x"></i>
-    <% end %>
-    <%= link_to notifications_path, class: "#{"active" if controller_name == "notifications"}" do %>
-        <% if current_user.unread_notifications_count == 0 %>
-          <i class="fa-solid fa-bell fa-2x">
-          </i>
-        <% else %>
-          <i class="fa-solid fa-bell fa-2x">
-            <span class="notification-count">
-              <%= current_user.unread_notifications_count %>
-            </span>
-          </i>
-        <% end %>
-    <% end %>
-    <%= link_to searchs_path, class: "#{"active" if controller_name == "searchs"}" do %>
-      <i class="fa-solid fa-magnifying-glass fa-2x"></i>
-    <% end %>
-  <% end %>
-  <%= link_to now_location_destinations_path,class: "#{"active" if controller_name == "destinations" }" do %>
-    <i class="fa-solid fa-train-subway fa-2x"></i>
-  <% end %>
-  <% if user_signed_in?  %>
-    <%= link_to profile_path(current_user.id),class: "#{"active" if controller_name == "profiles" && params[:profile_id] == current_user.id }" do %>
-      <i class="fa-solid fa-user fa-2x"></i>
-    <% end %>
+<div class="btm-nav sticky bottom-0">
+  <% if user_signed_in? %>
+    <%= render "shared/footer_signed_in" %>
+  <% else %>
+    <%= render "shared/footer_not_signed_in" %>
   <% end %>
 </div>
