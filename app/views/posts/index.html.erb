@@ -2,12 +2,12 @@
 <div class="flex justify-center flex-col">
     <div class="navbar bg-base-100 flex justify-center flex-col">
       <div>
-        <h1 class="text-3xl font-bold underline"">
+        <h1 class="text-3xl font-bold underline">
             みんなの到着報告
         </h1>
       </div>
-      <div class="navbar-center">
-          <ul class="menu menu-horizontal m-1">
+      <div class="w-full flex justify-center border-b-4">
+          <ul class="menu menu-horizontal">
           <li>
               <%= link_to "全体", all_index_posts_path, class: "#{"active" if action_name == "all_index"}" %>
           </li>
