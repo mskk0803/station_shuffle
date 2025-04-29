@@ -16,7 +16,7 @@
     <% end %>
   </ul>
 </div>
-  <div class="mypage-content">
+<div class="mypage-content">
   <%= case action_name
      when "posts"
        render partial: "posts", locals: { posts: @posts }
