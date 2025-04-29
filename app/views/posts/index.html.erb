@@ -17,12 +17,10 @@
           </ul>
       </div>
     </div>
-    <div class="flex flex-col">
-      <%= case action_name
-        when "all_index"
-          render partial: "post", locals: { posts: @posts }
-        when "following_index"
-          render partial: "post", locals: { posts: @posts }
-        end %>
-    </div>
+    <%= case action_name
+      when "all_index"
+        render partial: "post", locals: { posts: @posts }
+      when "following_index"
+        render partial: "post", locals: { posts: @posts }
+      end %>
 </div>

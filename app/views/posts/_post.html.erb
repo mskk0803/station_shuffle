@@ -1,46 +1,10 @@
+<div class="flex flex-col justify-center">
 <% posts.each do |post| %>   
     <% if current_user.post?(post) %>
-        <div class="chat chat-end">
-            <div class="chat-header">
-                <%= link_to profile_path(current_user.id) do %>
-                    <%= post.user.name %>
-                    <% if post.user.is_private %>
-                        <i class="fa-solid fa-lock"></i>
-                    <% end %>
-                <% end %>
-                <time class="text-xs opacity-50"><%= post.created_at.strftime("%Y-%m-%d %H:%M") %></time>
-            </div>
-            <div class="chat-bubble bg-white">
-                <%= post.content %>
-                <figure>
-                    <%= image_tag post.image.url if post.image.present? %>
-                </figure>
-            </div>
-            <div class="chat-footer opacity-50">
-                <%= button_to '削除', post_path(post), method: :delete %>
-            </div>
-        </div>
+      <%= render partial: "my_post", locals: { post: post } %>  
     <% else %>
-        <div class="chat chat-start">
-            <div class="chat-header">
-                <%= link_to profile_path(post.user.id) do %>
-                    <%= post.user.name %>
-                    <% if post.user.is_private %>
-                        <i class="fa-solid fa-lock"></i>
-                    <% end %>
-                <% end %>
-                <time class="text-xs opacity-50"><%= post.created_at.strftime("%Y-%m-%d %H:%M") %></time>
-            </div>
-            <div class="chat-bubble bg-white">
-                <%= post.content %>
-                <figure>
-                    <%= image_tag post.image.url if post.image.present? %>
-                </figure>
-            </div>
-            <div class="chat-footer opacity-50">
-                <%= render "shared/like_buttons", {post: post} %>
-            </div>
-        </div>
+      <%= render partial: "other_post", locals: { post: post } %>  
     <% end %>
 <% end %>
+</div>
 
