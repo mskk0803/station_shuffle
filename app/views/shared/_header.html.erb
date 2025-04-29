@@ -1,60 +1,51 @@
+<div class="navbar bg-base-100 sticky top-0 z-40 shadow">
+  <div class="navbar-start">
+    <%= image_tag "logo.png", alt: "Station Shuffle ロゴ", class: "h-10" %>
+  </div>
 
-  <div class="navbar bg-base-100 sticky top-0 z-40">
-    <div class="navbar-start">
-      <%= image_tag "logo.png" %>
-    </div>
-    <div class="navbar-end">
-      <div class="dropdown dropdown-bottom dropdown-end">
-        <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
-          <i class="fa-solid fa-bars fa-3x"></i>
-        </div>
-        <ul tabindex="0" class="menu menu-sm dropdown-content bg-base-100 rounded-box z-50 mt-3 w-52 p-2 shadow">
-          <li>
-            <p class="text-white font-bold">
-              <%= link_to "利用規約", "https://www.kiyac.app/termsOfService/HmBs6t7xeY2K6VB1M3Gw", target: :_blank %>
-            </p>
-          </li>
-          <li>
-            <p class="text-white font-bold">
-              <%= link_to "プライバシー・ポリシー", "https://www.kiyac.app/privacypolicy/dt2fiymb6hXhbcEMwwKX", target: :blank %>
-            </p>
-          </li>
-          <div class="divider"></div>
-          <% if user_signed_in? %>
-              <li>
-                  <%= button_to destroy_user_session_path, method: :delete do %>
-                    <p class="text-white font-bold">
-                      ログアウト
-                    </p>
-                  <% end %>
-              </li>
-          <% else %>
-              <li>
-                <p class="text-white font-bold">
-                  <%= link_to "ログイン", new_user_session_path %>
-                </p>
-              </li>
-          <% end %>
-          <div class="divider"></div>
-          <li>
-            <div class="flex justify-center">
-              <%= link_to "https://x.com/sakupimskk" do %>
-                <i class="fa-brands fa-square-x-twitter fa-2x"></i>
-              <% end %>
-              <%= link_to "https://github.com/mskk0803/station_shuffle" do %>
-                <i class="fa-brands fa-github fa-2x"></i>
-              <% end %>
-            </div>
-          </li>
-          <div class="divider"></div>
-          <li>
-            <div class="flex justify-center">
-              <p class="text-white">
-                &copy; 2025 sakupi
-              </p>
-            </div>
-          </li>
-        </ul>
+  <div class="navbar-end">
+    <div class="dropdown dropdown-end">
+      <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
+        <i class="fa-solid fa-bars fa-2x"></i>
       </div>
+
+      <ul tabindex="0" class="menu menu-sm dropdown-content bg-white rounded-box shadow-lg mt-3 w-56 z-50 text-sm">
+        <li><%= link_to "利用規約", "https://www.kiyac.app/termsOfService/HmBs6t7xeY2K6VB1M3Gw", target: :_blank, class: "font-semibold" %></li>
+        <li><%= link_to "プライバシー・ポリシー", "https://www.kiyac.app/privacypolicy/dt2fiymb6hXhbcEMwwKX", target: :_blank, class: "font-semibold" %></li>
+
+        <div class="divider my-1"></div>
+
+        <% if user_signed_in? %>
+          <li>
+            <%= button_to destroy_user_session_path, method: :delete, class: "w-full text-left font-semibold" do %>
+              ログアウト
+            <% end %>
+          </li>
+        <% else %>
+          <li><%= link_to "ログイン", new_user_session_path, class: "font-semibold" %></li>
+        <% end %>
+
+        <div class="divider my-1"></div>
+
+        <li>
+          <div class="flex justify-center gap-4 py-1">
+            <%= link_to "https://x.com/sakupimskk", target: :_blank, aria: { label: "X (Twitter)" } do %>
+              <i class="fa-brands fa-x-twitter fa-lg text-gray-700 hover:text-black"></i>
+            <% end %>
+            <%= link_to "https://github.com/mskk0803/station_shuffle", target: :_blank, aria: { label: "GitHub" } do %>
+              <i class="fa-brands fa-github fa-lg text-gray-700 hover:text-black"></i>
+            <% end %>
+          </div>
+        </li>
+
+        <div class="divider my-1"></div>
+
+        <li>
+          <div class="text-center text-xs text-gray-500 py-1">
+            &copy; 2025 sakupi
+          </div>
+        </li>
+      </ul>
     </div>
   </div>
+</div>
