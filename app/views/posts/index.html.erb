@@ -1,23 +1,23 @@
-<div class="navbar flex justify-center flex-col p-4">
-  <h1 class="text-3xl font-bold text-center underline text-gray-800">
-    みんなの到着報告
-  </h1>
+<div class="sticky top-[64px] z-30 bg-white shadow"> <!-- topの値は既存ヘッダーの高さに合わせて調整 -->
+  <div class="flex justify-center flex-col p-4">
+    <h1 class="text-3xl font-bold text-center underline text-gray-800">
+      みんなの到着報告
+    </h1>
+  </div>
+
+  <div class="flex justify-center shadow">
+    <ul class="menu menu-horizontal gap-4">
+      <li>
+        <%= link_to "全体", all_index_posts_path,
+            class: "px-4 py-2 rounded hover:bg-base-200 #{'bg-primary text-white' if action_name == "all_index"}" %>
+      </li>
+      <li>
+        <%= link_to "フォロー中", following_index_posts_path,
+            class: "px-4 py-2 rounded hover:bg-base-200 #{'bg-primary text-white' if action_name == "following_index"}" %>
+      </li>
+    </ul>
+  </div>
 </div>
-<div class="navbar justify-center shadow">
-  <ul class="menu menu-horizontal gap-4">
-    <li>
-      <%= link_to "全体", all_index_posts_path,
-          class: "px-4 py-2 rounded hover:bg-base-200 #{'bg-primary text-white' if action_name == "all_index"}" %>
-    </li>
-    <li>
-      <%= link_to "フォロー中", following_index_posts_path,
-          class: "px-4 py-2 rounded hover:bg-base-200 #{'bg-primary text-white' if action_name == "following_index"}" %>
-    </li>
-  </ul>
-</div>
-
-
-
 <div class="my-6">
   <%= case action_name
     when "all_index"

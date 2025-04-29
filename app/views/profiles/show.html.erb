@@ -1,4 +1,4 @@
-<div class="card bg-white w-full max-w-xl mx-auto shadow-xl mt-6">
+<div class="card bg-base w-full max-w-xl mx-auto shadow-xl mt-6">
   <div class="card-body space-y-4">
 
     <!-- ユーザー名とボタン -->
@@ -13,20 +13,20 @@
       </div>
       <div>
         <% if @user == current_user %>
-          <%= button_to edit_profile_path(@user), method: :get, class: "btn btn-outline btn-sm" do %>
+          <%= button_to edit_profile_path(@user), method: :get, class: "btn" do %>
             編集
           <% end %>
         <% else %>
           <% if current_user.following?(@user) %>
-            <%= button_to follow_path(id: @user.id), method: :delete, class: "btn btn-primary btn-sm" do %>
+            <%= button_to follow_path(id: @user.id), method: :delete, class: "btn btn-primary" do %>
               フォロー中
             <% end %>
           <% elsif current_user.request?(@user) %>
-            <%= button_to follow_request_cancel_path(current_user.sent_follow_request(@user).id), method: :delete, class: "btn btn-warning btn-sm" do %>
+            <%= button_to follow_request_cancel_path(current_user.sent_follow_request(@user).id), method: :delete, class: "btn btn-warning" do %>
               リクエスト中
             <% end %>
           <% else %>
-            <%= button_to follows_path(id: @user.id), method: :post, class: "btn btn-primary btn-sm" do %>
+            <%= button_to follows_path(id: @user.id), method: :post, class: "btn btn-primary" do %>
               フォロー
             <% end %>
           <% end %>

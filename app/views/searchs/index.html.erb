@@ -1,51 +1,47 @@
-<div class="navbar flex justify-center">
-  <div>
-    <h1 class="text-3xl font-bold underline"">
-        検索
+<div class="sticky top-[64px] z-30 bg-white shadow"> <!-- topの値は既存ヘッダーの高さに合わせて調整 -->
+  <div class="flex justify-center flex-col p-4">
+    <h1 class="text-3xl font-bold text-center underline text-gray-800">
+      検索
     </h1>
   </div>
-</div>
 
-<div 
-  data-controller="autocomplete" 
-  data-autocomplete-url-value="<%= auto_complete_searchs_path %>" 
-  role="combobox"
->
-<%= form_with url: search_users_searchs_path, method: :get, local: true do |f| %>
   <div class="flex justify-center">
-    <div class="relative flex items-start space-x-2">
-      <div class="w-96">
-        <%= f.text_field :search, 
-              data: {
-                autocomplete_target: "input", 
-                action: "input->autocomplete#search"
-              }, 
-              autocomplete: "off", 
-              placeholder: "ユーザー名または投稿を入力",
-              class: "input input-bordered w-full bg-white" %>
+    <div data-controller="autocomplete" data-autocomplete-url-value="<%= auto_complete_searchs_path %>" role="combobox">
+      <%= form_with url: search_users_searchs_path, method: :get, local: true do |f| %>
+        <div class="flex justify-center">
+          <div class="relative flex items-start space-x-2">
+            <div class="w-96">
+              <%= f.text_field :search, 
+                    data: {
+                      autocomplete_target: "input", 
+                      action: "input->autocomplete#search"
+                    }, 
+                    autocomplete: "off", 
+                    placeholder: "ユーザー名または投稿を入力",
+                    class: "input input-bordered w-full bg-white" %>
 
-        <ul 
-          data-autocomplete-target="results" 
-          class="absolute w-96 bg-white border rounded shadow z-10 mt-1"
-        >
-        </ul>
-      </div>
-
-      <%= f.submit "検索", class: "btn btn-primary h-12" %>
+              <ul 
+                data-autocomplete-target="results" 
+                class="absolute w-96 bg-white border rounded shadow z-10 mt-1"
+              >
+              </ul>
+            </div>
+            <%= f.submit "検索", class: "btn btn-primary h-12" %>
+          </div>
+        </div>
+      <% end %>
     </div>
   </div>
-<% end %>
-</div>
-
-<div class="navbar justify-center shadow">
-  <ul class="menu menu-horizontal gap-4">
-    <li>
-      <%= link_to "ユーザー", search_users_searchs_path(search: params[:search]), class: "px-4 py-2 rounded hover:bg-base-200 #{'bg-primary text-white' if action_name == 'search_users'}" %>
-    </li>
-    <li>
-      <%= link_to "投稿", search_posts_searchs_path(search: params[:search]), class: "px-4 py-2 rounded hover:bg-base-200 #{'bg-primary text-white' if action_name == 'search_posts'}" %>
-    </li>
-  </ul>
+  <div class="navbar justify-center shadow">
+    <ul class="menu menu-horizontal gap-4">
+      <li>
+        <%= link_to "ユーザー", search_users_searchs_path(search: params[:search]), class: "px-4 py-2 rounded hover:bg-base-200 #{'bg-primary text-white' if action_name == 'search_users'}" %>
+      </li>
+      <li>
+        <%= link_to "投稿", search_posts_searchs_path(search: params[:search]), class: "px-4 py-2 rounded hover:bg-base-200 #{'bg-primary text-white' if action_name == 'search_posts'}" %>
+      </li>
+    </ul>
+  </div>
 </div>
 
 
