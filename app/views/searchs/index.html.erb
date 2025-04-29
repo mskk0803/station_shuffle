@@ -1,58 +1,46 @@
-<div class="flex flex-col items-center">
-  <%
-=begin%>
- <div data-controller="autocomplete" data-autocomplete-url="searchs/search_users" role="combobox">
-    <%= form_with url: search_users_searchs_path, method: :get do |f| %>
-      <%= f.text_field :search %>
-      <%= f.submit "Search" %>
-      <ul data-autocomplete-target="results" class="autocomplete-results"></ul>
-    <% end %>
-  </div> 
-<%
-=end%>
 
 <div data-controller="autocomplete" 
-     data-autocomplete-url-value="<%= auto_complete_searchs_path %>" 
-     role="combobox">
-  
-  <%= form_with url: search_users_searchs_path, method: :get, local: true do |f| %>
-    <div class="relative">
-      <%= f.text_field :search, 
-            data: {
-              autocomplete_target: "input", 
-              action: "input->autocomplete#search"
-            }, 
-            autocomplete: "off", 
-            placeholder: "ユーザー名を入力" %>
+  data-autocomplete-url-value="<%= auto_complete_searchs_path %>" 
+  role="combobox">
 
-      <!-- オートコンプリート結果を表示する部分 -->
-      <ul data-autocomplete-target="results"
-          class="absolute bg-white border w-full z-10 rounded shadow">
-      </ul>
-    </div>
+<%= form_with url: search_users_searchs_path, method: :get, local: true do |f| %>
+  <div class="relative">
+    <%= f.text_field :search, 
+          data: {
+            autocomplete_target: "input", 
+            action: "input->autocomplete#search"
+          }, 
+          autocomplete: "off", 
+          placeholder: "ユーザー名を入力" %>
 
-    <%= f.submit "Search", class: "btn btn-primary mt-2" %>
+    <!-- オートコンプリート結果を表示する部分 -->
+    <ul data-autocomplete-target="results"
+        class="absolute bg-white border w-full z-10 rounded shadow">
+    </ul>
+  </div>
+
+  <%= f.submit "Search", class: "btn btn-primary mt-2" %>
   <% end %>
 </div>
 
-  <div class="navbar bg-base-100 flex justify-center">
-      <div class="navbar-center">
-          <ul class="menu menu-horizontal m-1">
-          <li>
-              <%= link_to "ユーザー", search_users_searchs_path(search: params[:search]), class: "#{"active" if action_name == "search_users"}" %>
-          </li>
-          <li>
-              <%= link_to "投稿", search_posts_searchs_path(search: params[:search]), class: "#{"active" if action_name == "search_posts"}" %>
-          </li>
-          </ul>
-      </div>
+<div class="navbar bg-base-100 flex justify-center">
+    <div class="navbar-center">
+        <ul class="menu menu-horizontal m-1">
+        <li>
+            <%= link_to "ユーザー", search_users_searchs_path(search: params[:search]), class: "#{"active" if action_name == "search_users"}" %>
+        </li>
+        <li>
+            <%= link_to "投稿", search_posts_searchs_path(search: params[:search]), class: "#{"active" if action_name == "search_posts"}" %>
+        </li>
+        </ul>
     </div>
-    <div class="mypage-content">
-    <%= case action_name
-      when "search_users"
-        render partial: "users", locals: { users: @users }
-      when "search_posts"
-        render partial: "posts", locals: { posts: @posts }
-      end %>
+  </div>
+  <div class="mypage-content">
+  <%= case action_name
+    when "search_users"
+      render partial: "users", locals: { users: @users }
+    when "search_posts"
+      render partial: "posts", locals: { posts: @posts }
+    end %>
   </div>
 </div>
