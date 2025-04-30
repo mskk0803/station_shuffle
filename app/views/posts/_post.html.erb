@@ -1,46 +1,11 @@
-<% posts.each do |post| %>   
-    <% if current_user.post?(post) %>
-        <div class="chat chat-end">
-            <div class="chat-header">
-                <%= link_to profile_path(current_user.id) do %>
-                    <%= post.user.name %>
-                    <% if post.user.is_private %>
-                        <i class="fa-solid fa-lock"></i>
-                    <% end %>
-                <% end %>
-                <time class="text-xs opacity-50"><%= post.created_at.strftime("%Y-%m-%d %H:%M") %></time>
-            </div>
-            <div class="chat-bubble">
-                <%= post.content %>
-                <figure>
-                    <%= image_tag post.image.url if post.image.present? %>
-                </figure>
-            </div>
-            <div class="chat-footer opacity-50">
-                <%= button_to '削除', post_path(post), method: :delete, class: "btn btn-sm" %>
-            </div>
-        </div>
-    <% else %>
-        <div class="chat chat-start">
-            <div class="chat-header">
-                <%= link_to profile_path(post.user.id) do %>
-                    <%= post.user.name %>
-                    <% if post.user.is_private %>
-                        <i class="fa-solid fa-lock"></i>
-                    <% end %>
-                <% end %>
-                <time class="text-xs opacity-50"><%= post.created_at.strftime("%Y-%m-%d %H:%M") %></time>
-            </div>
-            <div class="chat-bubble">
-                <%= post.content %>
-                <figure>
-                    <%= image_tag post.image.url if post.image.present? %>
-                </figure>
-            </div>
-            <div class="chat-footer opacity-50">
-                <%= render "shared/like_buttons", {post: post} %>
-            </div>
-        </div>
-    <% end %>
-<% end %>
-
+<div class="flex flex-col items-center w-full space-y-4 mt-6">
+  <% posts.each do |post| %>   
+    <div class="w-full max-w-2xl">
+      <% if current_user.post?(post) %>
+        <%= render partial: "shared/my_post", locals: { post: post } %>  
+      <% else %>
+        <%= render partial: "shared/other_post", locals: { post: post } %>  
+      <% end %>
+    </div>
+  <% end %>
+</div>

@@ -1,22 +1,22 @@
-
-<div class="navbar bg-base-100 flex justify-center">
-    <div class="navbar-center">
-        <ul class="menu menu-horizontal m-1">
-        <li>
-            <%= link_to "投稿一覧", profile_posts_path(params[:profile_id]), class: "#{"active" if action_name == "posts"}" %>
-        </li>
-        <li>
-            <%= link_to "いいね一覧", profile_likes_path(params[:profile_id]), class: "#{"active" if action_name == "likes"}" %>
-        </li>
-        <% if params[:profile_id] == current_user.id %>
-          <li>
-            <%= link_to "チェックイン履歴", profile_checkins_path(params[:profile_id]), class: "#{"active" if action_name == "checkins"}" %>
-          </li>
-        <% end %>
-        </ul>
-    </div>
-  </div>
-  <div class="mypage-content">
+<div class="navbar justify-center shadow">
+  <ul class="menu menu-horizontal gap-4">
+    <li>
+      <%= link_to "投稿一覧", profile_posts_path(params[:profile_id]),
+          class: "px-4 py-2 rounded hover:bg-base-200 #{'bg-primary text-white' if action_name == 'posts'}" %>
+    </li>
+    <li>
+      <%= link_to "いいね一覧", profile_likes_path(params[:profile_id]),
+          class: "px-4 py-2 rounded hover:bg-base-200 #{'bg-primary text-white' if action_name == 'likes'}" %>
+    </li>
+    <% if params[:profile_id] == current_user.id %>
+      <li>
+        <%= link_to "チェックイン履歴", profile_checkins_path(params[:profile_id]),
+            class: "px-4 py-2 rounded hover:bg-base-200 #{'bg-primary text-white' if action_name == 'checkins'}" %>
+      </li>
+    <% end %>
+  </ul>
+</div>
+<div class="mypage-content">
   <%= case action_name
      when "posts"
        render partial: "posts", locals: { posts: @posts }

@@ -1,0 +1,30 @@
+<div class="chat chat-end">
+    <div class="chat-header">
+        <%= link_to profile_path(current_user.id) do %>
+            <%= post.user.name %>
+            <% if post.user.is_private %>
+                <i class="fa-solid fa-lock"></i>
+            <% end %>
+        <% end %>
+        <time class="text-xs opacity-50">
+            <%= post.created_at.strftime("%Y-%m-%d %H:%M") %>
+        </time>
+    </div>
+    <div class="chat-bubble text-black bg-base-100">
+        <% if post.station.present? %>
+            <p class="break-words">
+                <%= post.station %>に到着!
+            </p>
+            <div class="divider my-1"></div>
+        <% end %>
+        <p class="break-words">
+            <%= post.content %>
+        </p>
+        <figure>
+            <%= image_tag post.image.url if post.image.present? %>
+        </figure>
+    </div>
+    <div class="chat-footer opacity-50">
+        <%= button_to '削除', post_path(post), method: :delete %>
+    </div>
+</div>

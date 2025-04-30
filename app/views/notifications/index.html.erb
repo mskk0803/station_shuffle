@@ -1,16 +1,36 @@
-通知だよ～～
-<% @notifications.each do |notification| %>
-  <div class="notification">
-    <% if notification.follow? %>
-      <%= link_to notification.notifable.follower.name, profile_path(notification.notifable.follower) %> さんがあなたをフォローしました。
-    <% elsif notification.like? %>
-      <%= link_to notification.notifable.user.name, profile_path(notification.notifable.user) %> さんがあなたの投稿にいいねしました。
-    
-    <% elsif notification.follow_request? %>
-      <% if notification.notifable && notification.notifable.requester %>
-        <%= link_to notification.notifable.requester.name, profile_path(notification.notifable.requester) %> さんからフォローリクエストがきています。
-      <% end %>
-
-    <% end %>
+<div class="sticky top-[64px] z-30 bg-white shadow">
+  <div class="flex justify-center flex-col p-4">
+    <h1 class="text-3xl font-bold text-center text-gray-800">
+      通知
+    </h1>
   </div>
-<% end %>
+</div>
+
+<div class="flex flex-col items-center w-full mt-6 space-y-4 px-4">
+  <% @notifications.each do |notification| %>
+    <% if notification.follow? %>
+      <div class="card bg-white shadow-xl w-full max-w-2xl">
+        <div class="p-4">
+        
+          <%= link_to notification.notifable.follower.name, profile_path(notification.notifable.follower), class: "font-semibold hover:underline" %>
+          さんがあなたをフォローしました。
+        </div>
+      </div>
+    <% elsif notification.like? %>
+      <div class="card bg-white shadow-xl w-full max-w-2xl">
+        <div class="p-4">
+        <%= binding.pry %>
+          <%= link_to notification.notifable.user.name, profile_path(notification.notifable.user), class: "font-semibold hover:underline" %>
+          さんがあなたの投稿にいいねしました。
+        </div>
+      </div>
+    <% elsif notification.follow_request? && notification.notifable&.requester %>
+      <div class="card bg-white shadow-xl w-full max-w-2xl">
+        <div class="p-4">
+          <%= link_to notification.notifable.requester.name, profile_path(notification.notifable.requester), class: "font-semibold hover:underline" %>
+          さんからフォローリクエストがきています。
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>

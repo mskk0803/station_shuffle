@@ -1,18 +1,21 @@
-
 <% if users.empty? %>
+  <div class="text-center mt-6">
     <p>ユーザーが見つかりません</p>
- <% else %>
+  </div>
+<% else %>
+  <div class="flex flex-col items-center space-y-4 mt-6">
     <% users.each do |user| %>
-    <div class="user">
+      <div class="user w-96 max-w-xl bg-white p-4 rounded shadow">
         <%= link_to profile_path(user.id) do %>
-            <h2><%= user.name %>
+          <p class="font-bold flex items-center space-x-1">
+            <span><%= user.name %></span>
             <% if user.is_private %>
-                <i class="fa-solid fa-lock"></i>
+              <i class="fa-solid fa-lock text-gray-500"></i>
             <% end %>
-            </h2>
+          </p>
         <% end %>
-        <p><%= user.profile %></p>
-    </div>
+        <p class="mt-2 text-sm text-gray-700"><%= user.profile %></p>
+      </div>
     <% end %>
-
+  </div>
 <% end %>

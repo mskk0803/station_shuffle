@@ -1,24 +1,35 @@
-<h1 class="text-3xl font-bold underline"">
-    みんなの到着報告
-</h1>
-<div class="navbar bg-base-100 flex justify-center">
-    <div class="navbar-center">
-        <ul class="menu menu-horizontal m-1">
-        <li>
-            <%= link_to "全体", all_index_posts_path, class: "#{"active" if action_name == "all_index"}" %>
-        </li>
-        <li>
-            <%= link_to "フォロー中",following_index_posts_path, class: "#{"active" if action_name == "following_index"}" %>
-        </li>
-        </ul>
-    </div>
+<div class="sticky top-[64px] z-30 bg-white shadow"> <!-- topの値は既存ヘッダーの高さに合わせて調整 -->
+  <div class="flex justify-center flex-col p-4">
+    <h1 class="text-3xl font-bold text-center text-gray-800">
+      みんなの到着報告
+    </h1>
   </div>
-  <div class="mypage-content">
+
+  <div class="flex justify-center shadow">
+    <ul class="menu menu-horizontal gap-4">
+      <li>
+        <%= link_to "全体", all_index_posts_path,
+            class: "px-4 py-2 rounded hover:bg-base-200 #{'bg-primary text-white' if action_name == "all_index"}" %>
+      </li>
+      <li>
+        <%= link_to "フォロー中", following_index_posts_path,
+            class: "px-4 py-2 rounded hover:bg-base-200 #{'bg-primary text-white' if action_name == "following_index"}" %>
+      </li>
+    </ul>
+  </div>
+</div>
+<div class="my-6">
   <%= case action_name
-     when "all_index"
-       render partial: "post", locals: { posts: @posts }
-     when "following_index"
-       render partial: "post", locals: { posts: @posts }
-     end %>
+    when "all_index"
+      render partial: "post", locals: { posts: @posts }
+    when "following_index"
+      render partial: "post", locals: { posts: @posts }
+    end %>
 </div>
 
+<!-- 投稿作成ボタン -->
+<div class="fixed bottom-20 right-6 z-50">
+  <%= link_to new_post_path, class: "btn btn-primary p-4 rounded-full shadow-lg text-white hover:bg-primary-focus" do %>
+      <i class="fa-regular fa-pen-to-square"></i>
+  <% end %>
+</div>

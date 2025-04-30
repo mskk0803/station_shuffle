@@ -6,12 +6,7 @@ class PostsController < ApplicationController
   def new
     # 参考URL:https://tech.hukurouo.com/articles/2021-09-03-rails-form-preset
     @post = Post.new
-    if current_user.checkins.empty?
-      @post.content = ""
-    else
-      station = current_user.checkins.last.station
-      @post.content = "#{station}に到着！"
-    end
+    @stations = current_user.checkins.order(created_at: :desc).limit(5).pluck(:station).uniq
   end
 
   def create
@@ -41,9 +36,10 @@ class PostsController < ApplicationController
   # フォローしていないユーザーの投稿を表示するアクション
   # フォローしていない非公開ユーザーを含めない
   def all_index
+    current_user_id = current_user.id
     public_user_ids = User.where(is_private: false).pluck(:id)
     following_user_ids = current_user.following.pluck(:id)
-    users_ids = (public_user_ids + following_user_ids).uniq
+    users_ids = (public_user_ids + following_user_ids).uniq.append(current_user_id)
     @posts = Post.includes(:user).where(user_id: users_ids).order(created_at: :desc)
     render :index
   end
@@ -51,6 +47,6 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:content, :image, :image_cache)
+    params.require(:post).permit(:content, :image, :image_cache, :station)
   end
 end

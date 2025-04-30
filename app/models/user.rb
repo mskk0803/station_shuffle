@@ -38,6 +38,8 @@ class User < ApplicationRecord
   end
   validates :profile, length: { maximum: 200 }, allow_blank: true
 
+  validates :uid, presence: true, uniqueness: { scope: :provider }, if: -> { uid.present? }
+
   # ユーザーがいいねするときの機能
   def like(post)
     like_posts << post

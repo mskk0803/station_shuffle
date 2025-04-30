@@ -1,26 +1,48 @@
-<h1>駅を探す</h1>
-<p>APIの仕様上、20件までしか取得されません、すみません、</p>
-<div data-controller="destinations">
-<%= form_with scope: @location, url: now_location_destinations_path, method: :post, local: true do |f| %>
-  <div>
-    <%= f.label :latitude %>
-    <%= f.text_field :latitude, data: { destinations_target: "latitude" } %>
+<div class="sticky top-[64px] z-30 bg-white">
+  <div class="flex justify-center flex-col p-4">
+    <h1 class="text-3xl font-bold text-center text-gray-800">
+      駅を探す
+    </h1>
   </div>
 
-  <div>
-    <%= f.label :longitude %>
-    <%= f.text_field :longitude, data: { destinations_target: "longitude" } %>
+  <div class="flex justify-center">
+    <div data-controller="destinations" class="w-full max-w-md p-6 bg-white rounded-box shadow">
+      <%= form_with scope: @location, url: now_location_destinations_path, method: :post, local: true, html: { class: "space-y-4" } do |f| %>
+
+        <div class="form-control">
+          <%= f.label :latitude, class: "label" do %>
+            <span class="label-text">緯度</span>
+          <% end %>
+          <%= f.text_field :latitude, data: { destinations_target: "latitude" },
+                class: "input input-bordered w-full bg-white", readonly: true %>
+        </div>
+
+        <div class="form-control">
+          <%= f.label :longitude, class: "label" do %>
+            <span class="label-text">経度</span>
+          <% end %>
+          <%= f.text_field :longitude, data: { destinations_target: "longitude" },
+                class: "input input-bordered w-full bg-white", readonly: true %>
+        </div>
+
+        <div class="form-control">
+          <%= f.label :radius, class: "label" do %>
+            <span class="label-text">半径(km)</span>
+          <% end %>
+          <div class="flex items-center gap-2">
+            <%= f.select :radius,
+                  options_for_select((1..5).map { |km| ["#{km}", 1000 * km] }, 1000),
+                  {}, data: { destinations_target: "radius" },
+                  class: "select select-bordered w-48 max-w-xs bg-white" %>
+            <span class="text-sm text-gray-500">※ 半径を選択</span>
+          </div>
+        </div>
+
+        <div class="form-control">
+          <%= f.submit "周辺の駅を取得", class: "btn btn-primary text-white" %>
+        </div>
+
+      <% end %>
+    </div>
   </div>
-
-  <div>
-    <%= f.label :radius %>
-    <%= f.select :radius, 
-        options_for_select((1..5).map { |km| [km, 1000 * km] }, 1000), 
-        {},
-        data: { destinations_target: "radius" } %>
-  </div>
-
-  <%= f.submit "周辺の駅を取得" %>
-<% end %>
-
 </div>

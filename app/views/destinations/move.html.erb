@@ -1,23 +1,39 @@
+<div class="sticky top-[64px] z-30 bg-white">
+  <div class="flex justify-center flex-col p-4">
+    <h1 class="text-3xl font-bold text-center text-gray-800">
+      移動中…
+    </h1>
+  </div>
 
+  <div class="flex justify-center">
+    <div data-controller="moves" class="w-full max-w-md p-6 bg-white rounded-box shadow space-y-4">
+      
+      <!-- 行き先情報 -->
+      <div class="text-center">
+        <p class="text-lg font-semibold text-gray-700">
+          <%= @decide_station["name"] %> まで移動中！
+        </p>
+      </div>
 
-<%=  @decide_station["name"] %>まで
-移動中…！
+      <!-- 地図表示 -->
+      <div class="w-full h-64 rounded-lg border" id="map" data-moves-target="map"></div>
 
-<div data-controller="moves">
-  現在地
-  <div id="map" data-moves-target="map" style="width: 100%; height: 400px;"></div>
-    <%= form_with scope: @location, url: move_destinations_path, method: :post, local: true do |f| %>
-      <%= f.hidden_field :latitude, data: { moves_target: "currentLat" } %>
-      <%= f.hidden_field :longitude, data: { moves_target: "currentLon" } %>
-      <%= f.submit "チェックイン可能か確認" %>
-    <% end %>
-                     
-      <input type="hidden" value="<%= @decide_station["latitude"] %>" 
-                          data-moves-target="stationLat"/>
-      <input type="hidden" value="<%= @decide_station["longitude"] %>" 
-                          data-moves-target="stationLon"/>
-      <input type="hidden" value="<%= @decide_station["name"] %>" 
-                          data-moves-target="name"/>
-  </div>   
+      <!-- チェックインフォーム -->
+      <%= form_with scope: @location, url: move_destinations_path, method: :post, local: true do |f| %>
+        <%= f.hidden_field :latitude, data: { moves_target: "currentLat" } %>
+        <%= f.hidden_field :longitude, data: { moves_target: "currentLon" } %>
+        <%= f.submit "チェックイン可能か確認", class: "btn btn-primary w-full mt-4 text-white" %>
+      <% end %>
 
-<%= button_to "戻る", suggest_station_destinations_path, method: :get %>
+      <!-- hidden inputs for JS -->
+      <input type="hidden" value="<%= @decide_station["latitude"] %>" data-moves-target="stationLat"/>
+      <input type="hidden" value="<%= @decide_station["longitude"] %>" data-moves-target="stationLon"/>
+      <input type="hidden" value="<%= @decide_station["name"] %>" data-moves-target="name"/>
+
+      <!-- 戻るボタン -->
+      <div class="mt-4">
+        <%= button_to "戻る", suggest_station_destinations_path, method: :get, class: "btn btn-sm btn-ghost text-gray-500" %>
+      </div>
+    </div>
+  </div>
+</div>

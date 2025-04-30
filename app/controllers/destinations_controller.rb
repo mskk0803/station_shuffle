@@ -101,7 +101,7 @@ class DestinationsController < ApplicationController
           # セッションに現在地を保存
           session[:pre_location] = { latitude: current_lat, longitude: current_lon }
           session[:pre_time] = current_time
-          flash[:notice] = "あと#{distance.round(2)}km!"
+          flash[:info] = "あと#{distance.round(2)}km!"
           redirect_to move_destinations_path
         end
       end
