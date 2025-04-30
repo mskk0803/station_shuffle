@@ -22,7 +22,7 @@
       <%= form_with scope: @location, url: move_destinations_path, method: :post, local: true do |f| %>
         <%= f.hidden_field :latitude, data: { moves_target: "currentLat" } %>
         <%= f.hidden_field :longitude, data: { moves_target: "currentLon" } %>
-        <%= f.submit "チェックイン可能か確認", class: "btn btn-primary w-full mt-4" %>
+        <%= f.submit "チェックイン可能か確認", class: "btn btn-primary w-full mt-4 text-white" %>
       <% end %>
 
       <!-- hidden inputs for JS -->

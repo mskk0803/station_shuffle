@@ -13,20 +13,20 @@
       </div>
       <div>
         <% if @user == current_user %>
-          <%= button_to edit_profile_path(@user), method: :get, class: "btn" do %>
+          <%= button_to edit_profile_path(@user), method: :get, class: "btn btn-primary text-white" do %>
             編集
           <% end %>
         <% else %>
           <% if current_user.following?(@user) %>
-            <%= button_to follow_path(id: @user.id), method: :delete, class: "btn btn-primary" do %>
+            <%= button_to follow_path(id: @user.id), method: :delete, class: "btn btn-primary text-white" do %>
               フォロー中
             <% end %>
           <% elsif current_user.request?(@user) %>
-            <%= button_to follow_request_cancel_path(current_user.sent_follow_request(@user).id), method: :delete, class: "btn btn-warning" do %>
+            <%= button_to follow_request_cancel_path(current_user.sent_follow_request(@user).id), method: :delete, class: "btn btn-warning text-white" do %>
               リクエスト中
             <% end %>
           <% else %>
-            <%= button_to follows_path(id: @user.id), method: :post, class: "btn btn-primary" do %>
+            <%= button_to follows_path(id: @user.id), method: :post, class: "btn btn-primary text-white" do %>
               フォロー
             <% end %>
           <% end %>
