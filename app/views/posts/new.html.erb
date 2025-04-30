@@ -1,28 +1,33 @@
-<div class="max-w-xl mx-auto p-6 bg-white rounded-box shadow space-y-6 mt-6">
-  <h1 class="text-2xl font-bold text-center text-gray-800">到着報告をする！</h1>
+<div class="flex justify-center flex-col p-4">
+  <h1 class="text-3xl font-bold text-center underline text-gray-800">
+    到着報告をする！
+  </h1>
+</div>
 
-  <%= form_for @post, html: { multipart: true } do |f| %>
-    <!-- 内容入力 -->
-    <div class="form-control">
-      <%= f.label :content, class: "label" do %>
-        <span class="label-text">コメント</span>
-      <% end %>
-      <%= f.text_area :content, class: "textarea textarea-bordered h-24 bg-white", placeholder: "感想などを記入してください" %>
-    </div>
+<div class="flex justify-center">
+  <div class="w-full max-w-md p-6 bg-white rounded-box shadow space-y-4">
+    <%= form_for @post, html: { multipart: true } do |f| %>
 
-    <!-- 画像アップロード -->
-    <div class="form-control">
-      <%= f.label :image, class: "label" do %>
-        <span class="label-text">写真をアップロード</span>
-      <% end %>
-      <%= f.file_field :image, class: "file-input file-input-bordered w-full max-w-xs bg-white" %>
-      <%= f.hidden_field :image_cache %>
-    </div>
+      <div class="form-control">
+        <%= f.label :content, class: "label" do %>
+          <span class="label-text">コメント</span>
+        <% end %>
+        <%= f.text_area :content, class: "textarea textarea-bordered h-24 bg-white", placeholder: "感想などを記入してください" %>
+      </div>
 
-    <div class="flex flex-col items-start gap-2 mt-6">
-      <%= f.submit "報告！", class: "btn btn-primary w-full" %>
-      <%= link_to "今度にする", posts_path, class: "link text-sm text-gray-500 hover:text-primary" %>
-    </div>
+      <div class="form-control">
+        <%= f.label :image, class: "label" do %>
+          <span class="label-text">写真をアップロード</span>
+        <% end %>
+        <%= f.file_field :image, class: "file-input file-input-bordered w-full max-w-xs bg-white" %>
+        <%= f.hidden_field :image_cache %>
+      </div>
 
-  <% end %>
+      <div class="flex flex-col items-start gap-2 mt-6">
+        <%= f.submit "報告！", class: "btn btn-primary w-full" %>
+        <%= link_to "今度にする", posts_path, class: "link text-sm text-gray-500 hover:text-primary" %>
+      </div>
+
+    <% end %>
+  </div>
 </div>
