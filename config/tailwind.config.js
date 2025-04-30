@@ -30,7 +30,7 @@ module.exports = {
           "neutral": "#1F2937",
           "base-100": "#34D399",
           "info": "#FCD34D",
-          "success": "#10B981",
+          "success": "#BCE1DF",
           "warning": "#F59E0B",
           "error": "#EF4444",
           "alert": "#F2A9A9"
