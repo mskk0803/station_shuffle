@@ -36,9 +36,10 @@ class PostsController < ApplicationController
   # フォローしていないユーザーの投稿を表示するアクション
   # フォローしていない非公開ユーザーを含めない
   def all_index
+    current_user_id = current_user.id
     public_user_ids = User.where(is_private: false).pluck(:id)
     following_user_ids = current_user.following.pluck(:id)
-    users_ids = (public_user_ids + following_user_ids).uniq
+    users_ids = (public_user_ids + following_user_ids).uniq.append(current_user_id)
     @posts = Post.includes(:user).where(user_id: users_ids).order(created_at: :desc)
     render :index
   end
