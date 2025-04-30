@@ -11,6 +11,7 @@
     <% if notification.follow? %>
       <div class="card bg-white shadow-xl w-full max-w-2xl">
         <div class="p-4">
+        
           <%= link_to notification.notifable.follower.name, profile_path(notification.notifable.follower), class: "font-semibold hover:underline" %>
           さんがあなたをフォローしました。
         </div>
@@ -18,6 +19,7 @@
     <% elsif notification.like? %>
       <div class="card bg-white shadow-xl w-full max-w-2xl">
         <div class="p-4">
+        <%= binding.pry %>
           <%= link_to notification.notifable.user.name, profile_path(notification.notifable.user), class: "font-semibold hover:underline" %>
           さんがあなたの投稿にいいねしました。
         </div>
