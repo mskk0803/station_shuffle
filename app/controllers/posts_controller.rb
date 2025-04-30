@@ -6,6 +6,7 @@ class PostsController < ApplicationController
   def new
     # 参考URL:https://tech.hukurouo.com/articles/2021-09-03-rails-form-preset
     @post = Post.new
+    @stations = current_user.checkins.order(created_at: :desc).limit(5).pluck(:station).uniq
   end
 
   def create
@@ -45,6 +46,6 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:content, :image, :image_cache)
+    params.require(:post).permit(:content, :image, :image_cache, :station)
   end
 end

@@ -9,6 +9,16 @@
     <%= form_for @post, html: { multipart: true } do |f| %>
 
       <div class="form-control">
+        <%= f.label :station, class: "label" do %>
+          <span class="label-text">最近のチェックイン駅</span>
+        <% end %>
+        <%= f.select :station,
+          options_for_select( @stations),
+          {},
+          class: "select select-bordered w-48 max-w-xs bg-white" %>
+      </div>
+
+      <div class="form-control">
         <%= f.label :content, class: "label" do %>
           <span class="label-text">コメント</span>
         <% end %>

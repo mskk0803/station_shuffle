@@ -11,6 +11,12 @@
         </time>
     </div>
     <div class="chat-bubble text-black bg-base-100">
+        <% if post.station.present? %>
+            <p class="break-words">
+                <%= post.station %>に到着!
+            </p>
+            <div class="divider my-1"></div>
+        <% end %>
         <p class="break-words">
             <%= post.content %>
         </p>
