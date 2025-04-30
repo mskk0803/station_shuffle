@@ -1,23 +1,42 @@
-
-
-<div data-controller="select-stations">
-  <button class="btn"
-          data-action="click->select-stations#selectAll">
-  全選択
-  </button>
-
-<%= form_with scope: :station, url: select_stations_destinations_path, method: :post, local: true do |f| %>
-  <div>
-    <% @stations.each_with_index do |station, i| %>
-      <div>
-        <%= check_box_tag "station[names][]", station.name, false, id: "station_name_#{i}", data: {select_stations_target:"stations"} %>
-        <%= f.label "name_#{i}", station.name, for: "station_name_#{i}" %>
-      </div>
-    <% end %>
+<div class="sticky top-[64px] z-30 bg-white">
+  <div class="flex justify-center flex-col p-4">
+    <h1 class="text-3xl font-bold text-center underline text-gray-800">
+      行き先を選ぶ
+    </h1>
   </div>
 
-  <%= f.submit "駅をシャッフルする" %>
-<% end %>
+  <div class="flex justify-center">
+    <div data-controller="select-stations" class="w-full max-w-md p-6 bg-white rounded-box shadow space-y-4">
+
+      <div class="flex justify-between items-center">
+        <h2 class="text-lg font-semibold">駅一覧</h2>
+        <button class="btn btn-sm btn-outline"
+                data-action="click->select-stations#selectAll">
+          全選択
+        </button>
+      </div>
+
+      <%= form_with scope: :station, url: select_stations_destinations_path, method: :post, local: true do |f| %>
+        <div class="form-control space-y-2 max-h-[300px] overflow-y-auto pr-2">
+          <% @stations.each_with_index do |station, i| %>
+            <label class="flex items-center gap-2 p-2 border rounded-md hover:bg-gray-50">
+              <%= check_box_tag "station[names][]", station.name, false,
+                    id: "station_name_#{i}",
+                    data: { select_stations_target: "stations" },
+                    class: "checkbox" %>
+              <span class="text-sm"><%= station.name %></span>
+            </label>
+          <% end %>
+        </div>
+
+        <div class="form-control mt-4">
+          <%= f.submit "駅をシャッフルする", class: "btn btn-primary w-full" %>
+        </div>
+      <% end %>
+      <div class="mt-4">
+        <%= button_to "戻る", now_location_destinations_path, method: :get, class: "btn btn-sm btn-ghost text-gray-500" %>
+      </div>
+    </div>
+  </div>
 </div>
 
-<%= button_to "戻る", now_location_destinations_path, method: :get %>

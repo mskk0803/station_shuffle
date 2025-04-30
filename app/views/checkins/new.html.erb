@@ -1,4 +1,7 @@
-<%= @station %>
-に到着！
+<div class="w-full max-w-md mx-auto p-6 bg-white rounded-box shadow space-y-6 text-center mt-6">
+  <h2 class="text-2xl font-bold text-gray-800">
+    <%= @station %> に到着！
+  </h2>
 
-<%= button_to "チェックイン！", checkins_path, method: :post %>
+  <%= button_to "チェックイン！", checkins_path, method: :post, class: "btn btn-primary w-full" %>
+</div>

@@ -32,7 +32,8 @@ module.exports = {
           "info": "#3B82F6",
           "success": "#10B981",
           "warning": "#F59E0B",
-          "error": "#EF4444"
+          "error": "#EF4444",
+          "alert": "#F2A9A9"
         }
       },
       "light"
