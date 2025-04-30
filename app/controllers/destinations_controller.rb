@@ -94,14 +94,14 @@ class DestinationsController < ApplicationController
         decide_lon = session[:decide_station]["longitude"].to_f
         distance = Location.distance(current_lat, current_lon, decide_lat, decide_lon)
         # 目的地から300m以内にいるか
-        if Location.in_radius?(move_distance)
+        if Location.in_radius?(distance)
           # 目的地に到着
           redirect_to new_checkin_path
         else
           # セッションに現在地を保存
           session[:pre_location] = { latitude: current_lat, longitude: current_lon }
           session[:pre_time] = current_time
-          flash[:notice] = "あと#{distance.round(2)}km!"
+          flash[:info] = "あと#{distance.round(2)}km!"
           redirect_to move_destinations_path
         end
       end
