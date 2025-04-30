@@ -26,3 +26,10 @@
       render partial: "post", locals: { posts: @posts }
     end %>
 </div>
+
+<!-- 投稿作成ボタン -->
+<div class="fixed bottom-20 right-6 z-50">
+  <%= link_to new_post_path, class: "btn btn-primary p-4 rounded-full shadow-lg text-white hover:bg-primary-focus" do %>
+      <i class="fa-regular fa-pen-to-square"></i>
+  <% end %>
+</div>
