@@ -10,13 +10,14 @@ class PostsController < ApplicationController
   end
 
   def create
-    post = current_user.posts.build(post_params)
+    @post = current_user.posts.build(post_params)
+    @stations = current_user.checkins.order(created_at: :desc).limit(5).pluck(:station).uniq
 
-    if post.save!
+    if @post.save
       # 後で変更
       redirect_to posts_path, success: "Post created successfully"
     else
-      flash.now[:danger] = "Post creation failed"
+      flash.now[:alert] = "投稿に失敗しました。"
       render :new, status: :unprocessable_entity
     end
   end
