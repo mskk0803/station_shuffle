@@ -98,3 +98,6 @@ gem "gmaps4rails", "~> 2.1.0"
 gem 'kaminari'
 
 gem 'meta-tags'
+
+gem 'rails-i18n'
+gem 'devise-i18n-views'

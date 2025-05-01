@@ -24,6 +24,8 @@ module StationShuffle
 
     # timezoneを東京に設定
     config.time_zone = "Tokyo"
+
+    config.i18n.default_locale = :ja
     # config.eager_load_paths << Rails.root.join("extras")
   end
 end

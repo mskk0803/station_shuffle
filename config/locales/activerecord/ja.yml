@@ -1,0 +1,59 @@
+ja:
+  activerecord:
+    models:
+      user: "ユーザー"
+      post: "投稿"
+      like: "いいね"
+      checkin: "チェックイン"
+      follow: "フォロー"
+      follow_request: "フォローリクエスト"
+      notification: "通知"
+    attributes:
+      user:
+        email: "メールアドレス"
+        encrypted_password: "パスワード"
+        name: "ユーザーネーム"
+        reset_password_token: "パスワードリセットトークン"
+        reset_password_sent_at: "パスワードリセット送信時刻"
+        remember_created_at: "ログイン保持作成日時"
+        profile: "プロフィール"
+        is_private: "非公開設定"
+        provider: "プロバイダー"
+        uid: "UID"
+        created_at: "作成日時"
+        updated_at: "更新日時"
+      post:
+        user_id: "ユーザーID"
+        content: "コメント"
+        image: "写真"
+        station: "駅名"
+        created_at: "作成日時"
+        updated_at: "更新日時"
+      like:
+        user_id: "ユーザーID"
+        post_id: "投稿ID"
+        created_at: "作成日時"
+        updated_at: "更新日時"
+      checkin:
+        user_id: "ユーザーID"
+        station: "駅名"
+        created_at: "作成日時"
+        updated_at: "更新日時"
+      follow:
+        follows_user_id: "フォローするユーザーID"
+        followed_user_id: "フォローされるユーザーID"
+        created_at: "作成日時"
+        updated_at: "更新日時"
+      follow_request:
+        requester_id: "リクエスト送信者ID"
+        requestee_id: "リクエスト受信者ID"
+        status: "ステータス"
+        created_at: "作成日時"
+        updated_at: "更新日時"
+      notification:
+        user_id: "ユーザーID"
+        notifable_type: "通知対象タイプ"
+        notifable_id: "通知対象ID"
+        read: "既読"
+        created_at: "作成日時"
+        updated_at: "更新日時"
