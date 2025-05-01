@@ -10,13 +10,14 @@ class PostsController < ApplicationController
   end
 
   def create
-    post = current_user.posts.build(post_params)
+    @post = current_user.posts.build(post_params)
+    @stations = current_user.checkins.order(created_at: :desc).limit(5).pluck(:station).uniq
 
-    if post.save!
+    if @post.save
       # 後で変更
       redirect_to posts_path, success: "Post created successfully"
     else
-      flash.now[:danger] = "Post creation failed"
+      flash.now[:alert] = "投稿に失敗しました。"
       render :new, status: :unprocessable_entity
     end
   end
@@ -29,7 +30,7 @@ class PostsController < ApplicationController
 
   # フォローしているユーザーの投稿を表示するアクション
   def following_index
-    @posts = Post.includes(:user).where(users: { id: current_user.following_ids + [ current_user.id ] }).order(created_at: :desc)
+    @posts = Post.includes(:user).where(users: { id: current_user.following_ids + [ current_user.id ] }).order(created_at: :desc).page(params[:page]).per(5)
     render :index
   end
 
@@ -40,7 +41,7 @@ class PostsController < ApplicationController
     public_user_ids = User.where(is_private: false).pluck(:id)
     following_user_ids = current_user.following.pluck(:id)
     users_ids = (public_user_ids + following_user_ids).uniq.append(current_user_id)
-    @posts = Post.includes(:user).where(user_id: users_ids).order(created_at: :desc)
+    @posts = Post.includes(:user).where(user_id: users_ids).order(created_at: :desc).page(params[:page]).per(5)
     render :index
   end
 

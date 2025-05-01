@@ -6,31 +6,33 @@
   </div>
 </div>
 
-<div class="flex flex-col items-center w-full mt-6 space-y-4 px-4">
-  <% @notifications.each do |notification| %>
-    <% if notification.follow? %>
-      <div class="card bg-white shadow-xl w-full max-w-2xl">
-        <div class="p-4">
-        
-          <%= link_to notification.notifable.follower.name, profile_path(notification.notifable.follower), class: "font-semibold hover:underline" %>
-          さんがあなたをフォローしました。
+<%= turbo_frame_tag "notifications-page-#{@notifications.current_page}" do %>
+  <div class="flex flex-col items-center w-full mt-6 space-y-4 px-4">
+    <% @notifications.each do |notification| %>
+      <% if notification.follow? %>
+        <div class="card bg-white shadow-xl w-full max-w-2xl">
+          <div class="p-4">
+          
+            <%= link_to notification.notifable.follower.name, profile_path(notification.notifable.follower), class: "font-semibold hover:underline" %>
+            さんがあなたをフォローしました。
+          </div>
         </div>
-      </div>
-    <% elsif notification.like? %>
-      <div class="card bg-white shadow-xl w-full max-w-2xl">
-        <div class="p-4">
-        <%= binding.pry %>
-          <%= link_to notification.notifable.user.name, profile_path(notification.notifable.user), class: "font-semibold hover:underline" %>
-          さんがあなたの投稿にいいねしました。
+      <% elsif notification.like? %>
+        <div class="card bg-white shadow-xl w-full max-w-2xl">
+          <div class="p-4">
+            <%= link_to notification.notifable.user.name, profile_path(notification.notifable.user), class: "font-semibold hover:underline" %>
+            さんがあなたの投稿にいいねしました。
+          </div>
         </div>
-      </div>
-    <% elsif notification.follow_request? && notification.notifable&.requester %>
-      <div class="card bg-white shadow-xl w-full max-w-2xl">
-        <div class="p-4">
-          <%= link_to notification.notifable.requester.name, profile_path(notification.notifable.requester), class: "font-semibold hover:underline" %>
-          さんからフォローリクエストがきています。
+      <% elsif notification.follow_request? && notification.notifable&.requester %>
+        <div class="card bg-white shadow-xl w-full max-w-2xl">
+          <div class="p-4">
+            <%= link_to notification.notifable.requester.name, profile_path(notification.notifable.requester), class: "font-semibold hover:underline" %>
+            さんからフォローリクエストがきています。
+          </div>
         </div>
-      </div>
+      <% end %>
     <% end %>
-  <% end %>
-</div>
+  </div>
+  <%= turbo_frame_tag "notifications-page-#{@notifications.next_page}", loading: :lazy, src: path_to_next_page(@notifications) %>
+<% end %>

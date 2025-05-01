@@ -93,3 +93,11 @@ gem "gon"
 
 # 2025-04-24 gmaps4railsのインストール
 gem "gmaps4rails", "~> 2.1.0"
+
+# 2025-05-01 ページネーション系Gemのインストール
+gem "kaminari"
+
+gem "meta-tags"
+
+gem "rails-i18n"
+gem "devise-i18n-views"

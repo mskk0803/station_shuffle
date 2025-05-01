@@ -1,10 +1,12 @@
-<div class="flex justify-center flex-col p-4">
-  <h1 class="text-3xl font-bold text-center underline text-gray-800">
-    到着報告をする！
-  </h1>
+<div class="sticky top-[64px] z-30 bg-white shadow">
+  <div class="flex justify-center flex-col p-4">
+    <h1 class="text-3xl font-bold text-center text-gray-800">
+      到着報告
+    </h1>
+  </div>
 </div>
 
-<div class="flex justify-center">
+<div class="flex justify-center mt-6">
   <div class="w-full max-w-md p-6 bg-white rounded-box shadow space-y-4">
     <%= form_for @post, html: { multipart: true } do |f| %>
 
@@ -22,7 +24,12 @@
         <%= f.label :content, class: "label" do %>
           <span class="label-text">コメント</span>
         <% end %>
-        <%= f.text_area :content, class: "textarea textarea-bordered h-24 bg-white", placeholder: "感想などを記入してください" %>
+        <%= f.text_area :content, class: "textarea textarea-bordered h-24 w-96 bg-white", placeholder: "感想などを記入してください" %>
+      </div>
+      <div>
+        <% if @post.errors[:content].any? %>
+          <p class="text-sm text-red-600 mt-1">コメント<%= @post.errors[:content].first %></p>
+        <% end %>
       </div>
 
       <div class="form-control">

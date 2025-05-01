@@ -7,6 +7,7 @@
     <meta name="mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <%= show_meta_tags %>
 
     <%= yield :head %>
 
@@ -28,41 +29,50 @@
 
   <body>
     <%= render "shared/header" %>
-    <div class="flex flex-col min-h-screen bg-white">
-      <% if flash[:notice] %>
-        <div class="alert alert-success shadow-lg">
-          <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none"
-              viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M5 13l4 4L19 7" />
-          </svg>
-          <span><%= flash[:notice] %></span>
-        </div>
-      <% end %>
+    <div class="flex flex-col min-h-screen bg-[url('background.png')] bg-fixed bg-cover">
+      <div class="bg-white/30 min-h-screen backdrop-blur-sm">
+        <% if flash[:notice] %>
+          <div class="alert alert-success shadow-lg">
+            <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none"
+                viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M5 13l4 4L19 7" />
+            </svg>
+            <span><%= flash[:notice] %></span>
+          </div>
+        <% end %>
 
-      <% if flash[:alert] %>
-        <div class="alert alert-error shadow-lg">
-          <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none"
-              viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M6 18L18 6M6 6l12 12" />
-          </svg>
-          <span><%= flash[:alert] %></span>
-        </div>
-      <% end %>
+        <% if flash[:alert] %>
+          <div class="alert alert-error shadow-lg">
+            <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none"
+                viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M6 18L18 6M6 6l12 12" />
+            </svg>
+            <span><%= flash[:alert] %></span>
+          </div>
+        <% end %>
 
-      <% if flash[:info] %>
-        <div class="alert alert-info shadow-lg">
-          <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none"
-              viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M13 16h-1v-4h-1m1-4h.01M12 20a8 8 0 1 0 0-16 8 8 0 0 0 0 16z" />
-          </svg>
-          <span><%= flash[:info] %></span>
-        </div>
-      <% end %>
-      <%= yield %>
+        <% if flash[:info] %>
+          <div class="alert alert-info shadow-lg">
+            <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none"
+                viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M13 16h-1v-4h-1m1-4h.01M12 20a8 8 0 1 0 0-16 8 8 0 0 0 0 16z" />
+            </svg>
+            <span><%= flash[:info] %></span>
+          </div>
+        <% end %>
+        <%= yield %>
+      </div>
     </div>
+    <% if controller_name == "posts" && action_name.in?(%w[index all_index following_index]) %>
+      <div class="fixed right-6 bottom-20 z-50">
+        <%= link_to new_post_path, class: "btn btn-primary p-4 rounded-full shadow-lg text-white hover:bg-primary-focus" do %>
+          <i class="fa-regular fa-pen-to-square"></i>
+        <% end %>
+      </div>
+    <% end %>
     <%= render "shared/footer" %>
   </body>
 </html>

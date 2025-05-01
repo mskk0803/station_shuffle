@@ -4,9 +4,10 @@
       駅を探す
     </h1>
   </div>
+</div>
 
   <div class="flex justify-center">
-    <div data-controller="destinations" class="w-full max-w-md p-6 bg-white rounded-box shadow">
+    <div data-controller="destinations" class="w-full max-w-md p-6 rounded-box shadow bg-white">
       <%= form_with scope: @location, url: now_location_destinations_path, method: :post, local: true, html: { class: "space-y-4" } do |f| %>
 
         <div class="form-control">
@@ -45,4 +46,4 @@
       <% end %>
     </div>
   </div>
-</div>
+
