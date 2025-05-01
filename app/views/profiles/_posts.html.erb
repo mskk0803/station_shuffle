@@ -1,11 +1,14 @@
-<div class="flex flex-col items-center w-full space-y-4 mt-6">
-  <% if posts.empty? %>
-    <p>投稿はありません</p>
-  <% else %>
-    <% posts.each do |post| %>   
-      <div class="w-full max-w-2xl">
-          <%= render partial: "shared/my_post", locals: { post: post } %>  
-      </div>
-    <% end %>
+<% if posts.present? %>
+  <%= turbo_frame_tag "posts-page-#{posts.current_page}" do %>
+    <div class="flex flex-col items-center w-full space-y-4 mt-6">  
+        <% posts.each do |post| %>
+            <div class="w-full max-w-2xl">
+              <% if current_user.post?(post) %>
+                <%= render partial: "shared/my_post", locals: { post: post } %>  
+              <% end %>
+            </div>
+        <% end %>
+    </div>
+    <%= turbo_frame_tag "posts-page-#{posts.next_page}", loading: :lazy, src: path_to_next_page(posts) %>
   <% end %>
-</div>
+<% end %>

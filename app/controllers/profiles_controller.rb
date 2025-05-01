@@ -22,12 +22,12 @@ class ProfilesController < ApplicationController
   end
 
   def posts
-    @posts = @user.posts.order(created_at: :desc)
+    @posts = @user.posts.order(created_at: :desc).page(params[:page]).per(5)
     render :show
   end
 
   def likes
-    @likes = @user.like_posts
+    @likes = @user.like_posts.page(params[:page]).per(5)
     render :show
   end
 

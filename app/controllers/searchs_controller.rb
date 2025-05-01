@@ -7,7 +7,7 @@ class SearchsController < ApplicationController
     @users = []
     @posts = []
     if params[:search].present?
-      @users = User.search_by_name(params[:search])
+      @users = User.search_by_name(params[:search]).page(params[:page]).per(5)
     end
     render :index
   end
@@ -16,7 +16,7 @@ class SearchsController < ApplicationController
     @users = []
     @posts = []
     if params[:search].present?
-      @posts = Post.includes(:user).search_by_content(params[:search])
+      @posts = Post.includes(:user).search_by_content(params[:search]).page(params[:page]).per(5)
     end
     render :index
   end
