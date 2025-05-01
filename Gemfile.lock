@@ -216,6 +216,8 @@ GEM
       net-smtp
     marcel (1.0.4)
     matrix (0.4.2)
+    meta-tags (2.22.1)
+      actionpack (>= 6.0.0, < 8.1)
     method_source (1.1.0)
     mini_magick (5.2.0)
       benchmark
@@ -487,6 +489,7 @@ DEPENDENCIES
   jsbundling-rails
   kamal
   kaminari
+  meta-tags
   mini_magick
   omniauth (= 1.9.1)
   omniauth-google-oauth2
