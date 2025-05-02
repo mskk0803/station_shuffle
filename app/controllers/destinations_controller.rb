@@ -83,7 +83,7 @@ class DestinationsController < ApplicationController
     # セッションから情報を取得
     if request.get?
       # セッションに情報があるか？
-      if session[:decide_station].present? && session[pre_location].present?
+      if session[:decide_station].present? && session[:pre_location].present?
         @decide_station = session[:decide_station]
       else
         flash[:alert] = "現在地取得からやり直して下さい。"
@@ -112,7 +112,7 @@ class DestinationsController < ApplicationController
         decide_lon = session[:decide_station]["longitude"].to_f
         distance = Location.distance(current_lat, current_lon, decide_lat, decide_lon)
         # 目的地から300m以内にいるか
-        if Location.in_radius?(move_distance)
+        if Location.in_radius?(distance)
           # 目的地に到着
           redirect_to new_checkin_path
         else
