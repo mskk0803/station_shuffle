@@ -51,6 +51,9 @@ group :development, :test do
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
+
+  # 2025-05-02 Rspecを追加
+  gem "rspec-rails", '~> 7.0.0'
 end
 
 group :development do
