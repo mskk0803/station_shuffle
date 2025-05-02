@@ -23,7 +23,7 @@ module.exports = {
   daisyui: {
     themes:[
       {
-        ekiplat: {
+        ekipuratto: {
           "primary": "#34D399",
           "secondary": "#FCD34D",
           "accent": "#60A5FA",
