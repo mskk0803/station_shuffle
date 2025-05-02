@@ -29,8 +29,14 @@ class DestinationsController < ApplicationController
   def select_stations
     # セッションから駅情報を取得
     if request.get?
-      @stations = session[:stations].map do |station|
-        Station.new(station)
+      # セッションがあるか？
+      if session[:stations].present? && session[:pre_location].present?
+        @stations = session[:stations].map do |station|
+          Station.new(station)
+        end
+      else
+        flash[:alert] = "現在地取得からやり直して下さい。"
+        redirect_to now_location_destinations_path
       end
     elsif request.post?
       if params[:station].nil?
@@ -56,8 +62,14 @@ class DestinationsController < ApplicationController
   def suggest_station
     # セッションから情報を取得
     if request.get?
-      @suggest_station = session[:suggest_station]
-      @pre_location = session[:pre_location]
+      # セッションに情報があるか？
+      if session[:suggest_station].present? && session[:pre_location].present?
+        @suggest_station = session[:suggest_station]
+        @pre_location = session[:pre_location]
+      else
+        flash[:alert] = "現在地取得からやり直して下さい。"
+        redirect_to now_location_destinations_path
+      end
     elsif request.post?
       session[:decide_station] = session[:suggest_station]
       # 時間を登録
@@ -70,7 +82,13 @@ class DestinationsController < ApplicationController
   def move
     # セッションから情報を取得
     if request.get?
-      @decide_station = session[:decide_station]
+      # セッションに情報があるか？
+      if session[:decide_station].present? && session[pre_location].present?
+        @decide_station = session[:decide_station]
+      else
+        flash[:alert] = "現在地取得からやり直して下さい。"
+        redirect_to now_location_destinations_path
+      end
     elsif request.post?
       current_lat = params[:latitude].to_f
       current_lon = params[:longitude].to_f
