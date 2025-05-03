@@ -54,6 +54,7 @@ group :development, :test do
 
   # 2025-05-02 Rspecを追加
   gem "rspec-rails", '~> 7.0.0'
+  gem 'factory_bot_rails'
 end
 
 group :development do
