@@ -9,4 +9,12 @@ class FollowRequest < ApplicationRecord
 
   validates :requester_id, presence: true
   validates :requestee_id, presence: true
+
+  validates :requester_id, uniqueness: { scope: :requestee_id }
+  validate :cannot_request_self
+
+  private
+  def cannot_request_self
+    errors.add(:base, "自分自身にフォローリクエストを送ることはできません") if requester_id == requestee_id
+  end
 end
