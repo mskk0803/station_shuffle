@@ -19,8 +19,10 @@ class User < ApplicationRecord
   has_many :requesters, through: :inverse_follow_requests, source: :requester
   has_many :notifications, dependent: :destroy
 
-  validates :name, presence: true
+  validates :name, presence: true, length: { maximum: 20 }
   validates :email, presence: true
+  validates :password, confirmation: true, presence: true, length: { minimum: 6 }
+  validates :password_confirmation, presence: true, length: { minimum: 6 }
   # trueかflaseが含まれているかのバリデーション
   # trueだと非公開、デフォルトはfalse
   validates :is_private, inclusion: { in: [ true, false ] }
