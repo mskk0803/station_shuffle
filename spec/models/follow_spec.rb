@@ -1,10 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe Follow, type: :model do
-  describe "バリデーションが有効な場合" do
-    let(:user1){ create(:user) }
-    let(:user2){ create(:user) }
+  let(:user1){ create(:user) }
+  let(:user2){ create(:user) }
 
+  describe "バリデーションが有効な場合" do
     it "有効な場合は保存できる" do
       follow = build(:follow, follower: user1, followed: user2)
       expect(follow).to be_valid
@@ -17,9 +17,6 @@ RSpec.describe Follow, type: :model do
     end
   end
   describe "無効な場合" do
-    let(:user1){ create(:user) }
-    let(:user2){ create(:user) }
-    
     it "同じユーザーを2回フォローできない（組み合わせがユニークでない）" do
       create(:follow, follower: user1, followed: user2)
       duplicate = build(:follow, follower: user1, followed: user2)

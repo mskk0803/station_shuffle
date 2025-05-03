@@ -1,10 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe Post, type: :model do
-  describe "有効な場合" do
-    let(:user){ create(:user) }
-    let(:post){ create(:post, user: user) }
+  let(:user){ create(:user) }
+  let(:post){ create(:post, user: user) }
 
+  describe "有効な場合" do
     it "保存できる" do
       post = build(:post, user: user)
       expect(post).to be_valid
@@ -17,9 +17,6 @@ RSpec.describe Post, type: :model do
   end
 
   describe "無効な場合" do
-    let(:user){ create(:user) }
-    let(:post){ create(:post, user: user) }
-
     it "コメントがない場合" do
       post = build(:post, user: user, content: nil)
       expect(post).to be_invalid
