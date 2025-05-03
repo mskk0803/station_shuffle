@@ -34,7 +34,7 @@ class User < ApplicationRecord
 
   # nameとprofile,is_private以外を更新する場合はpasswordとpassword_confirmationを必須にする
   # 参考URL：https://qiita.com/tmzkysk/items/a0c874715ba38eb23350
-  with_options unless: -> { name.present? || :profile? || :is_private? } do
+  with_options unless: -> { name.present? || profile_changed? || is_private_changed?  } do
     validates :password, presence: true
     validates :password_confirmation, presence: true
   end
