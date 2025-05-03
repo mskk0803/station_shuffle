@@ -9,7 +9,7 @@ class Notification < ApplicationRecord
   scope :unread, -> { where(read: false) }
 
   # 通知の種類
-  def notifiable_types
+  def notifable_types
     %w[Follow Like FollowRequest]
   end
 

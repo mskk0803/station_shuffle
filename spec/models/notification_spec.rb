@@ -84,6 +84,48 @@ RSpec.describe Notification, type: :model do
       notification = build(:follow_request_notification, user: user1, notifable: follow_request)
       expect(notification.follow_request?).to be true
     end
-
   end
+    describe "#notifable_types" do
+    it "正しい通知タイプを返す" do
+      notification = Notification.new
+      expect(notification.notifable_types).to match_array(%w[Follow Like FollowRequest])
+    end
+  end
+
+  describe "#valid_notifable_type?" do
+    let(:notification) { Notification.new }
+
+    context "有効なタイプの場合" do
+      it "Follow は true を返す" do
+        expect(notification.valid_notifable_type?("Follow")).to be true
+      end
+
+      it "Like は true を返す" do
+        expect(notification.valid_notifable_type?("Like")).to be true
+      end
+
+      it "FollowRequest は true を返す" do
+        expect(notification.valid_notifable_type?("FollowRequest")).to be true
+      end
+
+      it "シンボルや小文字でも true を返す（例: :like）" do
+        expect(notification.valid_notifable_type?(:like)).to be true
+      end
+    end
+
+    context "無効なタイプの場合" do
+      it "Post は false を返す" do
+        expect(notification.valid_notifable_type?("Post")).to be false
+      end
+
+      it "nil は false を返す" do
+        expect(notification.valid_notifable_type?(nil)).to be false
+      end
+
+      it "空文字列は false を返す" do
+        expect(notification.valid_notifable_type?("")).to be false
+      end
+    end
+  end
+
 end
