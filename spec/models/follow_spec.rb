@@ -9,6 +9,12 @@ RSpec.describe Follow, type: :model do
       expect(follow).to be_valid
     end
 
+    it "フォローとフォロワーが逆でも保存できる" do
+      follow = create(:follow, follower: user1, followed: user2)
+      follow2 = create(:follow, follower: user2, followed: user1)
+      expect(follow2).to be_valid
+    end
+
     it "同じユーザーを2回フォローできない（組み合わせがユニークでない）" do
       create(:follow, follower: user1, followed: user2)
       duplicate = build(:follow, follower: user1, followed: user2)
