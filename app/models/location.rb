@@ -7,7 +7,7 @@ class Location
 
   validates :latitude, presence: true, numericality: true
   validates :longitude, presence: true, numericality: true
-  validates :radius, presence: true, numericality: { only_integer: true, greater_than: 1000, less_than: 5000 }
+  validates :radius, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 1000, less_than_or_equal_to: 5000 }
 
 
   # APIで駅を取得する
@@ -61,7 +61,7 @@ class Location
     time_diff = (current_time - pre_time).to_i
     # 移動速度
     speed = distance / time_diff
-    speed > 8
+    speed >= 8
   end
 
   # 目的地からの半径判定(300m以内でtrue)

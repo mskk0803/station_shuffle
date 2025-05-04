@@ -14,6 +14,9 @@ class Follow < ApplicationRecord
   private
 
   def cannot_follow_self
-    errors.add(:base, "自分自身をフォローすることはできません") if follows_user_id == followed_user_id
+    return if follows_user_id.nil? || followed_user_id.nil?
+    if follows_user_id == followed_user_id
+      errors.add(:base, "自分自身をフォローすることはできません")
+    end
   end
 end

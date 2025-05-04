@@ -3,7 +3,13 @@ class CheckinsController < ApplicationController
   skip_before_action :location_session_delete
 
   def new
-    @station = session[:decide_station]["name"]
+    # セッションに情報があるか？
+    if session[:decide_station].present?
+      @station = session[:decide_station]["name"]
+    else
+      flash[:alert] = "現在地取得からやり直して下さい。"
+      redirect_to now_location_destinations_path
+    end
   end
 
   def create
