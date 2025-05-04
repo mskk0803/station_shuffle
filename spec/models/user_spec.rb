@@ -145,12 +145,12 @@ RSpec.describe User, type: :model do
   end
 
   describe "フォロー機能" do
-    let(:user1){ create(:user) }
-    let(:user2){ create(:user) }
+    let(:user1) { create(:user) }
+    let(:user2) { create(:user) }
 
     describe "#follow" do
       it "フォローできる" do
-        expect{
+        expect {
           user1.follow(user2)
         }.to change { user1.following.include?(user2) }.from(false).to(true)
       end
@@ -159,7 +159,7 @@ RSpec.describe User, type: :model do
     describe "#unfollow" do
       it "フォローを外すことができる" do
         user1.follow(user2)
-        expect{
+        expect {
           user1.unfollow(user2)
         }.to change { user1.following.include?(user2) }.from(true).to(false)
       end
@@ -168,32 +168,32 @@ RSpec.describe User, type: :model do
     describe "#following?" do
       it "フォロー中の場合はtrueを返す" do
         user1.follow(user2)
-        expect( user1.following?(user2) ).to be true
+        expect(user1.following?(user2)).to be true
       end
 
       it "フォローしていない場合はfalseを返す" do
-        expect( user1.following?(user2) ).to be false
+        expect(user1.following?(user2)).to be false
       end
     end
 
     describe "#follower?" do
       it "フォロワーの場合はtrueを返す" do
         user1.follow(user2)
-        expect( user2.follower?(user1) ).to be true
+        expect(user2.follower?(user1)).to be true
       end
 
       it "フォロワーでない場合はfalseを返す" do
-        expect( user2.follower?(user1) ).to be false
+        expect(user2.follower?(user1)).to be false
       end
     end
   end
 
   describe "フォローリクエスト送信機能" do
-    let(:user1){ create(:user) }
-    let(:user2){ create(:user, is_private: true) }
+    let(:user1) { create(:user) }
+    let(:user2) { create(:user, is_private: true) }
     describe "#send_request" do
       it "フォローリクエストを送信できる" do
-        expect{
+        expect {
           user1.send_request(user2)
       }.to change { user1.requested_users.include?(user2) }.from(false).to(true)
       end
@@ -202,7 +202,7 @@ RSpec.describe User, type: :model do
     describe "#destroy_request" do
       it "自分が送信したフォローリクエストを取り消せる" do
         user1.send_request(user2)
-        expect{
+        expect {
           user1.destroy_request(user2)
         }.to change { user1.requested_users.include?(user2) }.from(true).to(false)
       end
@@ -262,30 +262,30 @@ RSpec.describe User, type: :model do
   end
 
   describe "通知機能" do
-    let(:user1){ create(:user) }
-    let(:user2){ create(:user) }
-    let(:post){ create(:post, user: user2) }
-    let(:like){ create(:like, post: post, user: user1) }
+    let(:user1) { create(:user) }
+    let(:user2) { create(:user) }
+    let(:post) { create(:post, user: user2) }
+    let(:like) { create(:like, post: post, user: user1) }
 
     describe "#create_notification" do
       it "userに対し通知を作成できる" do
         expect {
           user2.create_notification(like)
-      }.to change{ Notification.count }.by(1)
+      }.to change { Notification.count }.by(1)
       end
     end
 
     describe "#unread_notifications_count" do
       it "通知をカウントできる" do
         user2.create_notification(like)
-        expect(  user2.unread_notifications_count ).to eq(1)
+        expect(user2.unread_notifications_count).to eq(1)
       end
     end
 
     describe "#mark_all_notifications_as_read" do
       it "通知を既読にする" do
         user2.create_notification(like)
-        expect{
+        expect {
           user2.mark_all_notifications_as_read
         }.to change { user2.notifications.where(read: true).count  }.by(1)
       end

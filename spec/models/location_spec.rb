@@ -52,7 +52,7 @@ RSpec.describe Location, type: :model do
 
         # モックの駅データ（フェイクデータ）
         fake_station_data = [
-          double("Spot", name: "清瀬駅", lat: 35.7720582 , lng: 139.5198932)
+          double("Spot", name: "清瀬駅", lat: 35.7720582, lng: 139.5198932)
         ]
 
         # GooglePlaces::Clientのspotsメソッドをスタブ

@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe FollowRequest, type: :model do
-  let(:user1){ create(:user) }
-  let(:user2){ create(:user) }
-  
+  let(:user1) { create(:user) }
+  let(:user2) { create(:user) }
+
   describe "有効な場合" do
     it "有効な場合は保存できる" do
       follow_request = build(:follow_request, requester: user1, requestee: user2)

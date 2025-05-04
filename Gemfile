@@ -53,8 +53,8 @@ group :development, :test do
   gem "rubocop-rails-omakase", require: false
 
   # 2025-05-02 Rspecを追加
-  gem "rspec-rails", '~> 7.0.0'
-  gem 'factory_bot_rails'
+  gem "rspec-rails", "~> 7.0.0"
+  gem "factory_bot_rails"
 end
 
 group :development do
@@ -66,9 +66,9 @@ group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
   gem "selenium-webdriver"
-  
+
   # 2025-05-03　Sinmplecovの追加
-  gem 'simplecov', require: false
+  gem "simplecov", require: false
 end
 
 # 2025-03-09 devise導入

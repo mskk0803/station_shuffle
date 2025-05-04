@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Post, type: :model do
-  let(:user){ create(:user) }
-  let(:post){ create(:post, user: user) }
+  let(:user) { create(:user) }
+  let(:post) { create(:post, user: user) }
 
   describe "有効な場合" do
     it "保存できる" do
@@ -17,7 +17,7 @@ RSpec.describe Post, type: :model do
 
     it "255文字以内で入力できる" do
       text = "a" * 255
-      post = build(:post, user: user, content: text )
+      post = build(:post, user: user, content: text)
       expect(post).to be_valid
     end
   end
@@ -57,7 +57,7 @@ RSpec.describe Post, type: :model do
 
     it "contentに256文字以上入力できない" do
       text = "a" * 256
-      post = build(:post, user: user, content: text )
+      post = build(:post, user: user, content: text)
       expect(post).not_to be_valid
     end
   end

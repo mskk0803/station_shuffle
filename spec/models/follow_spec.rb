@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Follow, type: :model do
-  let(:user1){ create(:user) }
-  let(:user2){ create(:user) }
+  let(:user1) { create(:user) }
+  let(:user2) { create(:user) }
 
   describe "バリデーションが有効な場合" do
     it "有効な場合は保存できる" do

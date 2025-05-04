@@ -1,13 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe Notification, type: :model do
-
-  let(:user1){ create(:user) }
-  let(:user2){ create(:user) }
-  let(:post){ create(:post, user_id: user2.id, content: "notificationtest") }
-  let(:like){ create(:like, user_id: user1.id, post_id: post.id)}
-  let(:follow){ create(:follow, follower: user1, followed: user2) }
-  let(:follow_request){ create(:follow_request, requester: user2, requestee: user1) }
+  let(:user1) { create(:user) }
+  let(:user2) { create(:user) }
+  let(:post) { create(:post, user_id: user2.id, content: "notificationtest") }
+  let(:like) { create(:like, user_id: user1.id, post_id: post.id) }
+  let(:follow) { create(:follow, follower: user1, followed: user2) }
+  let(:follow_request) { create(:follow_request, requester: user2, requestee: user1) }
 
   describe "全てのフィールドが有効な場合" do
     it "Likeの通知が有効であること" do
@@ -127,5 +126,4 @@ RSpec.describe Notification, type: :model do
       end
     end
   end
-
 end

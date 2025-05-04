@@ -1,11 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe Like, type: :model do
-
-  let(:user1){ create(:user) }
-  let(:user2){ create(:user) }
-  let(:post1){ create(:post, user_id: user1.id) }
-  let(:post2){ create(:post, user_id: user2.id) }
+  let(:user1) { create(:user) }
+  let(:user2) { create(:user) }
+  let(:post1) { create(:post, user_id: user1.id) }
+  let(:post2) { create(:post, user_id: user2.id) }
 
   describe "全てのフィールドが有効な場合" do
     it "有効であること" do
