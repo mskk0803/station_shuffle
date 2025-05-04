@@ -23,5 +23,10 @@ RSpec.describe Station, type: :model do
       station = build(:station, longitude: nil)
       expect(station).not_to be_valid
     end
+
+    it "緯度と経度が数値でない場合は無効" do
+      station = build(:station, latitude: "緯度", longitude: "経度")
+      expect(station).not_to be_valid
+    end
   end
 end
