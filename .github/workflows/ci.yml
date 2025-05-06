@@ -69,6 +69,9 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
 
+      - name: Build DB
+        rub:  bin/rails db:create
+
       - name: Run RSpec
         env:
           RAILS_ENV: test
