@@ -1,4 +1,12 @@
-<h1>ホーム</h1>
-<p>本リリースでは、こちらに使い方などを記載予定です。</p>
+<div class="flex flex-col items-center justify-center min-h-screen bg-gray-50 px-4 py-12 space-y-8">
+  <div class="text-center space-y-4">
+    <h1 class="text-3xl font-bold text-gray-800">今日はどこへ出かけよう？</h1>
+    <h2 class="text-2xl text-primary font-semibold">知らない駅へ Let's GO!</h2>
+    <p class="text-gray-600 text-lg">「えきぷらっと」は、おでかけ共有系SNSです。</p>
+  </div>
 
-<p>右上ハンバーガーメニューからログインしてご利用ください。</p>
+  <div class="space-y-4 w-full max-w-xs">
+    <%= link_to "ログインして皆の投稿を見る", posts_path, class: "btn btn-primary w-full text-white" %>
+    <%= link_to "さっそく駅を探す", now_location_destinations_path, class: "btn btn-outline w-full" %>
+  </div>
+</div>
