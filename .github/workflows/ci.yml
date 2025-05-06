@@ -69,15 +69,18 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
 
-      - name: Build DB
-        run:  bin/rails db:create
+      - name: db craete
+        run: |
+          cp config/database.yml.ci config/database.yml
+          bundle exec rails db:create RAILS_ENV=test
+          bundle exec rails db:migrate RAILS_ENV=test
 
       - name: Run RSpec
         env:
           RAILS_ENV: test
           DATABASE_URL: postgres://postgres:postgres@localhost:5432
           # REDIS_URL: redis://localhost:6379/0
-        run: bundle exec rspec spec/models spec/requests  spec/system
+        run: bundle exec rspec
 
       # - name: Keep screenshots from failed system tests
       #   uses: actions/upload-artifact@v4
