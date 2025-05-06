@@ -90,7 +90,7 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = {
     address: "smtp.gmail.com",
     port: 87,
-    domain: "station-shuffle.onrender.com", # 自分のアプリのドメイン
+    domain: "www.ekipuratto.com", # 自分のアプリのドメイン
     user_name: ENV["MAILER_SENDER"],
     password: ENV["MAILER_PASSWORD"],
     authentication: "plain",
@@ -98,7 +98,7 @@ Rails.application.configure do
   }
 
   # Enable DNS rebinding protection and other `Host` header attacks.
-  # config.hosts = [
+  config.hosts << "www.ekipuratto.com"
   #   "example.com",     # Allow requests from example.com
   #   /.*\.example\.com/ # Allow requests from subdomains like `www.example.com`
   # ]
