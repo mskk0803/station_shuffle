@@ -3,5 +3,5 @@ test:
   encoding: unicode
   username: postgres
   password: password
-  host: 127.0.0.1
+  host: db
   database: station_shuffle_test
