@@ -21,8 +21,8 @@ class User < ApplicationRecord
 
   validates :name, presence: true, length: { maximum: 20 }
   validates :email, presence: true
-  # validates :password, confirmation: true, presence: true, length: { minimum: 6 }
-  # validates :password_confirmation, presence: true, length: { minimum: 6 }
+  validates :password, confirmation: true, presence: true, length: { minimum: 6 }
+  validates :password_confirmation, presence: true, length: { minimum: 6 }
   # trueかflaseが含まれているかのバリデーション
   # trueだと非公開、デフォルトはfalse
   validates :is_private, inclusion: { in: [ true, false ] }
@@ -34,9 +34,9 @@ class User < ApplicationRecord
 
   # nameとprofile,is_private以外を更新する場合はpasswordとpassword_confirmationを必須にする
   # 参考URL：https://qiita.com/tmzkysk/items/a0c874715ba38eb23350
-  with_options if: -> { new_record? } do
-    validates :password, presence: true, confirmation: true, length: { minimum: 6 }
-    validates :password_confirmation, presence: true, length: { minimum: 6 }
+  with_options unless: -> { name.present? || profile_changed? || is_private_changed?  } do
+    validates :password, presence: true
+    validates :password_confirmation, presence: true
   end
   validates :profile, length: { maximum: 200 }, allow_blank: true
 

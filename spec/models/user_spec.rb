@@ -51,7 +51,6 @@ RSpec.describe User, type: :model do
     end
 
     it "パスワード確認が入力されていない" do
-      binding.pry
       user = build(:user)
       user.password_confirmation = nil
       user.valid?
@@ -91,7 +90,7 @@ RSpec.describe User, type: :model do
       user.password_confirmation = nil
 
       expect(user).not_to be_valid
-      expect(user.errors[:name]).to include("を入力してください")
+      expect(user.errors[:password]).to include("を入力してください")
     end
   end
 
