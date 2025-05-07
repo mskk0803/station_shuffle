@@ -84,7 +84,7 @@ Rails.application.configure do
 
   # 2025-03-09 ActionMailerの設定。URLは本番環境のものを設定する。
   # 参考：https://railsguides.jp/action_mailer_basics.html
-  config.action_mailer.default_url_options = {host: "https://station-shuffle.onrender.com", protocol: "https" }
+  config.action_mailer.default_url_options = { host: "https://station-shuffle.onrender.com", protocol: "https" }
 
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.delivery_method = :smtp
