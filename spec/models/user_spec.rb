@@ -51,7 +51,6 @@ RSpec.describe User, type: :model do
     end
 
     it "パスワード確認が入力されていない" do
-      binding.pry
       user = build(:user)
       user.password_confirmation = nil
       user.valid?
