@@ -13,10 +13,10 @@ class ProfilesController < ApplicationController
   def update
     user = current_user
     if user.update(profile_params)
-      flash[:notice] = "Profile updated successfully"
+      flash[:notice] = "プロフィールの更新に成功しました。"
       redirect_to profile_posts_path(current_user.id)
     else
-      flash[:alert] = "Failed to update profile"
+      flash[:alert] = "プロフィールの更新に失敗しました。"
       render :edit
     end
   end
