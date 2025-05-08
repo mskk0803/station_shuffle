@@ -1,6 +1,6 @@
 <div class="chat chat-start">
     <div class="chat-header">
-        <%= link_to profile_path(post.user.id) do %>
+        <%= link_to profile_path(post.user.id), data: {turbo: false} do %>
             <%= post.user.name %>
             <% if post.user.is_private %>
                 <i class="fa-solid fa-lock"></i>

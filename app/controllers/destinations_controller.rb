@@ -7,18 +7,23 @@ class DestinationsController < ApplicationController
     if request.get?
       @location = Location.new
     elsif request.post?
-      location = Location.new(location_params)
-      @stations = location.get_stations
+      if location_params[:latitude].present? && location_params[:longitude].present? && location_params[:radius].present?
+        location = Location.new(location_params)
+        @stations = location.get_stations
 
-      if @stations.blank?
-        flash[:alert] = "指定の範囲では駅が見つかりませんでした。"
-        redirect_to now_location_destinations_path
+        if @stations.blank?
+          flash[:alert] = "指定の範囲では駅が見つかりませんでした。"
+          redirect_to now_location_destinations_path
+        else
+          # セッションに初期位置を保存
+          session[:pre_location] = { latitude: location.latitude, longitude: location.longitude }
+          # 駅データを保存
+          session[:stations] = @stations.map { |station| { name: station.name, latitude: station.latitude, longitude: station.longitude } }
+          redirect_to select_stations_destinations_path
+        end
       else
-        # セッションに初期位置を保存
-        session[:pre_location] = { latitude: location.latitude, longitude: location.longitude }
-        # 駅データを保存
-        session[:stations] = @stations.map { |station| { name: station.name, latitude: station.latitude, longitude: station.longitude } }
-        redirect_to select_stations_destinations_path
+        flash[:alert] = "位置情報をオンにしてください。"
+        redirect_to now_location_destinations_path
       end
     end
   end
