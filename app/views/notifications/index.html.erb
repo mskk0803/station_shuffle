@@ -12,22 +12,21 @@
       <% if notification.follow? %>
         <div class="card bg-white shadow-xl w-full max-w-2xl">
           <div class="p-4">
-          
-            <%= link_to notification.notifable.follower.name, profile_path(notification.notifable.follower), class: "font-semibold hover:underline" %>
+            <%= link_to notification.notifable.follower.name, profile_path(notification.notifable.follower), class: "font-semibold hover:underline", data: { turbo: false } %>
             さんがあなたをフォローしました。
           </div>
         </div>
       <% elsif notification.like? %>
         <div class="card bg-white shadow-xl w-full max-w-2xl">
           <div class="p-4">
-            <%= link_to notification.notifable.user.name, profile_path(notification.notifable.user), class: "font-semibold hover:underline" %>
+            <%= link_to notification.notifable.user.name, profile_path(notification.notifable.user), class: "font-semibold hover:underline", data: { turbo: false } %>
             さんがあなたの投稿にいいねしました。
           </div>
         </div>
       <% elsif notification.follow_request? && notification.notifable&.requester %>
         <div class="card bg-white shadow-xl w-full max-w-2xl">
           <div class="p-4">
-            <%= link_to notification.notifable.requester.name, profile_path(notification.notifable.requester), class: "font-semibold hover:underline" %>
+            <%= link_to notification.notifable.requester.name, profile_path(notification.notifable.requester), class: "font-semibold hover:underline", data: { turbo: false } %>
             さんからフォローリクエストがきています。
           </div>
         </div>
