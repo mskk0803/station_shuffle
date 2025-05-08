@@ -24,7 +24,7 @@
         <%= f.label :content, class: "label" do %>
           <span class="label-text">コメント</span>
         <% end %>
-        <%= f.text_area :content, class: "textarea textarea-bordered h-24 w-96 bg-white", placeholder: "感想などを記入してください" %>
+        <%= f.text_area :content, class: "textarea textarea-bordered h-24 w-full max-w-md bg-white", placeholder: "感想などを記入してください" %>
       </div>
       <div>
         <% if @post.errors[:content].any? %>
