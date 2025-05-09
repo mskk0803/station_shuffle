@@ -30,7 +30,14 @@ class PostsController < ApplicationController
 
   # フォローしているユーザーの投稿を表示するアクション
   def following_index
-    @posts = Post.includes(:user).where(users: { id: current_user.following_ids + [ current_user.id ] }).order(created_at: :desc).page(params[:page]).per(5)
+    users_ids = current_user.following_ids.append(current_user.id)
+    @posts = Post.joins(:user)
+                .where(users: { id: users_ids })
+                .includes(:user)
+                .order(created_at: :desc)
+                .page(params[:page]).per(5)
+    @my_post_ids = current_user.posts.pluck(:id)
+    @my_like_post_ids = current_user.like_posts.pluck(:id)
     render :index
   end
 
@@ -39,9 +46,15 @@ class PostsController < ApplicationController
   def all_index
     current_user_id = current_user.id
     public_user_ids = User.where(is_private: false).pluck(:id)
-    following_user_ids = current_user.following.pluck(:id)
+    following_user_ids = current_user.following_ids
     users_ids = (public_user_ids + following_user_ids).uniq.append(current_user_id)
-    @posts = Post.includes(:user).where(user_id: users_ids).order(created_at: :desc).page(params[:page]).per(5)
+    @posts = Post.joins(:user)
+                .where(users: { id: users_ids })
+                .includes(:user)
+                .order(created_at: :desc)
+                .page(params[:page]).per(5)
+    @my_post_ids = current_user.posts.pluck(:id)
+    @my_like_post_ids = current_user.like_posts.pluck(:id)
     render :index
   end
 

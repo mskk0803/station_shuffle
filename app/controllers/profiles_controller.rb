@@ -23,11 +23,13 @@ class ProfilesController < ApplicationController
 
   def posts
     @posts = @user.posts.order(created_at: :desc).page(params[:page]).per(5)
+    @my_post_ids = @user.posts.pluck(:id)
     render :show
   end
 
   def likes
-    @likes = @user.like_posts.page(params[:page]).per(5)
+    @likes = @user.like_posts.order(created_at: :desc).page(params[:page]).per(5)
+    @my_like_post_ids = @user.like_posts.pluck(:id)
     render :show
   end
 
