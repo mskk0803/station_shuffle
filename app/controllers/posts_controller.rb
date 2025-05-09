@@ -36,8 +36,8 @@ class PostsController < ApplicationController
                 .includes(:user)
                 .order(created_at: :desc)
                 .page(params[:page]).per(5)
-    @my_post_ids = current_user.posts.pluck(:id)
-    @my_like_post_ids = current_user.like_posts.pluck(:id)
+    # @my_post_ids = current_user.posts.pluck(:id)
+    # @my_like_post_ids = current_user.like_posts.pluck(:id)
     render :index
   end
 
@@ -53,8 +53,8 @@ class PostsController < ApplicationController
                 .includes(:user)
                 .order(created_at: :desc)
                 .page(params[:page]).per(5)
-    @my_post_ids = current_user.posts.pluck(:id)
-    @my_like_post_ids = current_user.like_posts.pluck(:id)
+    # @my_post_ids = current_user.posts.pluck(:id)
+    # @my_like_post_ids = current_user.like_posts.pluck(:id)
     render :index
   end
 
