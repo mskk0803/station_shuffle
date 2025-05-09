@@ -1,12 +1,80 @@
-<div class="flex flex-col items-center justify-center min-h-screen bg-gray-50 px-4 py-12 space-y-8">
-  <div class="text-center space-y-4">
-    <h1 class="text-3xl font-bold text-gray-800">今日はどこへ出かけよう？</h1>
-    <h2 class="text-2xl text-primary font-semibold">知らない駅へ Let's GO!</h2>
-    <p class="text-gray-600 text-lg">「えきぷらっと」は、おでかけ共有系SNSです。</p>
+<div class="max-w-3xl mx-auto px-4 py-8 space-y-8 flex-justify-center mt-24">
+  <div class="text-center mb-24">
+    <h1 class="text-3xl font-bold mb-2">🚉 えきぷらっとで、新しい場所を探しに行こう！</h1>
+    <p class="text-lg text-gray-600">ランダムに選ばれた駅へ出かけて、日常をちょっとした冒険に。</p>
+    <br>
+    <div class="flex flex-col items-center gap-y-4 mt-4">
+      <%= link_to "ログインして皆の投稿を見る", posts_path, class: "btn btn-primary text-white w-48" %>
+      <%= link_to "さっそく駅を探す", now_location_destinations_path, class: "btn btn-outline bg-white w-48" %>
+    </div>
   </div>
 
-  <div class="space-y-4 w-full max-w-xs">
-    <%= link_to "ログインして皆の投稿を見る", posts_path, class: "btn btn-primary w-full text-white" %>
-    <%= link_to "さっそく駅を探す", now_location_destinations_path, class: "btn btn-outline w-full" %>
+  <div class="card bg-white/70 shadow-md">
+    <div class="card-body">
+      <h2 class="card-title text-xl">🗺️ このアプリでできること</h2>
+      <p>
+        近くの駅を検索・ランダムに1つ選び、現地でチェックイン(訪問記録)・投稿することで、日常に小さな冒険を提供します。
+      </p>
+    </div>
   </div>
+
+  <div class="card bg-white/70 shadow-md">
+    <div class="card-body space-y-4">
+      <h2 class="card-title text-xl">🔰 使い方ガイド</h2>
+
+      <div>
+        <h3 class="font-semibold text-lg">1. 近くの駅を探す</h3>
+        <p>位置情報の使用を許可すると、あなたの近くの駅が一覧で表示されます。</p>
+      </div>
+
+      <div>
+        <h3 class="font-semibold text-lg">2. 行きたい駅を選んでシャッフル！</h3>
+        <p>
+          表示された駅から気になる駅を選び、「駅をシャッフルする」ボタンを押しましょう。<br>
+          選ばれた1駅が<b>「今日の目的地」</b>になります。
+        </p>
+      </div>
+
+      <div>
+        <h3 class="font-semibold text-lg">3. 実際に行ってチェックイン</h3>
+        <p>
+          その駅まで実際に移動し、「チェックイン」ボタンを押すと訪問記録が残せます。<br>
+          一定距離内にいないとチェックインはできません。
+        </p>
+      </div>
+
+      <div>
+        <h3 class="font-semibold text-lg">4. 投稿して記録を残そう</h3>
+        <p>
+          写真やコメントを添えて訪問記録を投稿できます。<br>
+          あとで投稿することも可能です。<br>
+          アカウントの公開・非公開はあなたの設定で自由に選べます。
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card bg-white/70 shadow-md">
+    <div class="card-body">
+      <h2 class="card-title text-xl">👤 ユーザー登録なしでも使えます</h2>
+      <p>
+        駅検索とシャッフル機能はゲストとしても利用可能。<br>
+        チェックインや投稿はログインが必要です。
+      </p>
+    </div>
+  </div>
+
+  <div class="card bg-white/70 shadow-md">
+    <div class="card-body">
+      <h2 class="card-title text-xl">🛡️ フェイクGPS対策も実装！</h2>
+      <p>
+        位置情報の急激な変化や不自然な移動速度は、チェックイン(訪問記録)が無効となる場合があります。<br>
+        正しい使い方で楽しんでください。
+      </p>
+    </div>
+  </div>
+    <div class="flex flex-col items-center gap-y-4 mt-4">
+      <%= link_to "ログインして皆の投稿を見る", posts_path, class: "btn btn-primary text-white w-48" %>
+      <%= link_to "さっそく駅を探す", now_location_destinations_path, class: "btn btn-outline bg-white w-48" %>
+    </div>
 </div>
