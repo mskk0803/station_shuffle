@@ -1,4 +1,5 @@
 require_relative "boot"
+require "rack/attack"
 
 require "rails/all"
 
