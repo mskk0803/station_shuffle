@@ -6,12 +6,15 @@ export default class extends Controller {
   static targets = ["currentLat", "currentLon", "stationLat", "stationLon", "name", "map"]
 
   connect() {
+    console.log("Connection Start")
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
 
+          console.log("GeolocationStart")
           const currentLat = position.coords.latitude
           const currentLon = position.coords.longitude
+          console.log(currentLat, currentLon)
 
           const stationLat = parseFloat(this.stationLatTarget.value)
           const stationLon = parseFloat(this.stationLonTarget.value)
@@ -32,6 +35,7 @@ export default class extends Controller {
 
           // 参考URL：https://qiita.com/Boukenkayuta/items/9775aa550905163f0354
           const currentPosition = { lat: currentLat, lng: currentLon } // 東京駅の位置
+          console.log(currentPosition)
           //縁の薄い青丸
           new google.maps.Circle({
             strokeColor: '#115EC3',
@@ -42,7 +46,7 @@ export default class extends Controller {
             map: this.map,
             center: currentPosition,
             radius: 100
-        });        
+            });        
           //  中央の濃い青丸
           new google.maps.Marker({
               position: currentPosition,
@@ -55,15 +59,18 @@ export default class extends Controller {
                 strokeWeight: 2,
                 scale: 7
               }, 
-          });
-
+            });
           this.currentLatTarget.value = currentLat
           this.currentLonTarget.value = currentLon
-
         },
         (error) => {
           console.error("位置情報の取得に失敗しました:", error)
-        }
+        },
+          {
+            enableHighAccuracy: true,
+            timeout: 10000,
+            maximumAge: 0
+          }
       )
     } else {
       console.error("このブラウザでは位置情報がサポートされていません。")
