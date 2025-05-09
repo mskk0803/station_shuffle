@@ -1,4 +1,5 @@
 require_relative "boot"
+require "rack/attack"
 
 require "rails/all"
 
@@ -26,6 +27,9 @@ module StationShuffle
     config.time_zone = "Tokyo"
 
     config.i18n.default_locale = :ja
+
+    # security
+    config.middleware.use Rack::Attack
     # config.eager_load_paths << Rails.root.join("extras")
   end
 end

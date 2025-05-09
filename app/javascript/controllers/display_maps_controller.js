@@ -11,12 +11,6 @@ export default class extends Controller {
     const preLat = parseFloat(this.preLatTarget.value)
     const preLon = parseFloat(this.preLonTarget.value)
 
-    // Google Maps APIが読み込まれていることを確認
-    if (typeof google === "undefined") {
-      console.error("Google Maps APIが読み込まれていません。")
-      return
-    }
-
     const position = { lat: latitude, lng: longitude }
 
     this.map = new google.maps.Map(this.mapTarget, {

@@ -110,3 +110,8 @@ gem "rails-i18n"
 gem "devise-i18n-views"
 
 gem "fog-aws"
+
+# セキュリティ対策
+group :production do
+  gem "rack-attack"
+end

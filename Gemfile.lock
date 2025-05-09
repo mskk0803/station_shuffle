@@ -338,6 +338,8 @@ GEM
     raabro (1.4.0)
     racc (1.8.1)
     rack (2.2.13)
+    rack-attack (6.7.0)
+      rack (>= 1.0, < 4)
     rack-session (1.0.2)
       rack (< 3)
     rack-test (2.2.0)
@@ -557,6 +559,7 @@ DEPENDENCIES
   propshaft
   pry-rails
   puma (>= 5.0)
+  rack-attack
   rails (~> 7.2)
   rails-i18n
   rspec-rails (~> 7.0.0)
