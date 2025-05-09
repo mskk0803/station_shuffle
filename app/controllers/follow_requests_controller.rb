@@ -10,20 +10,20 @@ class FollowRequestsController < ApplicationController
 
     # 通知を作成
     current_user.create_notification(follow)
-    redirect_to request.referer || root_path, success: "フォローリクエストを承認しました", status: :see_other
+    redirect_to profile_posts_path(@user), notice: "フォローリクエストを承認しました"
   end
 
   # フォローリクエストを拒否
   def reject
     current_user.reject_request(@follow_request.requester_id)
-    redirect_to request.referer || root_path, success: "フォローリクエストを拒否しました", status: :see_other
+    redirect_to profile_posts_path(@user), notice: "フォローリクエストを拒否しました", status: :see_other
   end
 
   # フォローリクエストをキャンセル
   def cancel
     # 自分が送ったリクエストをキャンセル
     current_user.destroy_request(@follow_request.requestee_id)
-    redirect_to request.referer || root_path, success: "フォローリクエストをキャンセルしました", status: :see_other
+    redirect_to profile_posts_path(@follow_request.requestee_id), notice: "フォローリクエストをキャンセルしました", status: :see_other
   end
 
   private

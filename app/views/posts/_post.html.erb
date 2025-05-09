@@ -2,7 +2,7 @@
   <div class="flex flex-col items-center w-full space-y-4 mt-6">  
       <% posts.each do |post| %>
           <div class="w-full max-w-2xl">
-            <% if current_user.post?(post) %>
+            <% if @my_post_ids.include?(post.id) %>
               <%= render partial: "shared/my_post", locals: { post: post } %>  
             <% else %>
               <%= render partial: "shared/other_post", locals: { post: post } %>  
