@@ -60,8 +60,11 @@ class Location
     # 時間差
     time_diff = (current_time - pre_time).to_i
     # 移動速度
-    speed = distance / time_diff
-    speed >= 8
+    distance_m = distance * 1000
+    speed = distance_m / time_diff
+
+    # 新幹線は秒速80m
+    speed >= 80
   end
 
   # 目的地からの半径判定(300m以内でtrue)
