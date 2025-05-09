@@ -15,7 +15,7 @@ class PostsController < ApplicationController
 
     if @post.save
       # 後で変更
-      redirect_to posts_path, success: "投稿しました！"
+      redirect_to posts_path, notice: "投稿しました！"
     else
       flash.now[:alert] = "投稿に失敗しました。"
       render :new, status: :unprocessable_entity
@@ -25,7 +25,7 @@ class PostsController < ApplicationController
   def destroy
     post = Post.find(params[:id])
     post.destroy
-    redirect_to posts_path, success: "ポストを削除しました。", status: :see_other
+    redirect_to posts_path, notice: "ポストを削除しました。", status: :see_other
   end
 
   # フォローしているユーザーの投稿を表示するアクション
