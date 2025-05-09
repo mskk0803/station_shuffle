@@ -5,3 +5,4 @@ FactoryBot.define do
     radius { 1000 }
   end
 end
+

@@ -12,7 +12,7 @@
     <!-- 行き先情報 -->
     <div class="text-center">
       <p class="text-lg font-semibold text-gray-700">
-        <%= @decide_station["name"] %> まで移動中！
+        <%= @decide_station["name"] %> まで<%= @distance.round(2) %>km！
       </p>
     </div>
 
