@@ -3,28 +3,30 @@ import { Controller } from "@hotwired/stimulus"
 // Connects to data-controller="moves"
 export default class extends Controller {
 
-  static targets = ["currentLat", "currentLon", "stationLat", "stationLon", "name", "map"]
+  static targets = ["currentLat", "currentLon", "stationLat", "stationLon", "name", "map", "button"]
 
   connect() {
     console.log("Connection Start")
+    window.requestAnimationFrame(() => {
+      this.getCurrentLocation()
+    })
+  }
+
+  getCurrentLocation(){
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
-
-          console.log("GeolocationStart")
           const currentLat = position.coords.latitude
           const currentLon = position.coords.longitude
-          console.log(currentLat, currentLon)
 
           const stationLat = parseFloat(this.stationLatTarget.value)
           const stationLon = parseFloat(this.stationLonTarget.value)
           const name = this.nameTarget.value
-
           const stationPositon = { lat: stationLat, lng: stationLon }
-
+          const currentPosition = { lat: currentLat, lng: currentLon } // 東京駅の位置
           this.map = new google.maps.Map(this.mapTarget, {
             zoom: 15,
-            center: stationPositon,
+            center: currentPosition,
           })
       
           new google.maps.Marker({
@@ -34,7 +36,6 @@ export default class extends Controller {
           })
 
           // 参考URL：https://qiita.com/Boukenkayuta/items/9775aa550905163f0354
-          const currentPosition = { lat: currentLat, lng: currentLon } // 東京駅の位置
           console.log(currentPosition)
           //縁の薄い青丸
           new google.maps.Circle({
