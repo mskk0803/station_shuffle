@@ -1,12 +1,6 @@
 module ApplicationHelper
   # 参考URL：https://qiita.com/suzuyu0115/items/7f83f84b640640b7e498
-  def show_meta_tags
-    assign_meta_tags if display_meta_tags.blank?
-    display_meta_tags
-  end
-
-  def assign_meta_tags(options = {})
-    def default_meta_tags
+  def default_meta_tags
     {
       site: "えきぷらっと",
       title: "えきぷらっと",
@@ -17,8 +11,7 @@ module ApplicationHelper
       canonical: request.original_url,   # 優先するurlを指定する
       noindex: ! Rails.env.production?,
       icon: [                    # favicon、apple用アイコンを指定する
-        { href: image_url("favicon.ico") },
-        { href: image_url("icon.jpg"), rel: "apple-touch-icon", sizes: "180x180", type: "image/jpg" }
+        { href: image_url("favicon.ico") }
       ],
       og: {
         site_name: "えきぷらっと",
@@ -37,6 +30,5 @@ module ApplicationHelper
         app_id: ""
       }
     }
-  end
   end
 end

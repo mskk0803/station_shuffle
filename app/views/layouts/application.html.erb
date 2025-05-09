@@ -7,17 +7,25 @@
     <meta name="mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    <%= show_meta_tags %>
+    <%
+=begin%>
+ <%= show_meta_tags %> 
+<%
+=end%>
 
     <%= yield :head %>
 
     <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
     <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
 
-
+<%
+=begin%>
+ 
     <link rel="icon" href="/icon.png" type="image/png">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/icon.png"> 
+    <link rel="apple-touch-icon" href="/icon.png">  
+<%
+=end%>
     <%= favicon_link_tag("favicon.ico") %>
 
     <%# Includes all stylesheet files in app/assets/stylesheets %>
@@ -26,6 +34,7 @@
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
     <script src="https://kit.fontawesome.com/aae308f39f.js" crossorigin="anonymous"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV["GOOGLE_MAP_API_KEY"] %>" async defer></script>
+    <%= display_meta_tags(default_meta_tags) %>
   </head>
 
   <body>
