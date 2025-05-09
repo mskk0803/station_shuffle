@@ -1,5 +1,5 @@
 <%= turbo_frame_tag "like-buttons-#{post.id}" do %>
-  <% if @my_like_post_ids.include?(post.id) %>
+  <% if current_user.like?(post) %>
     <%= render "shared/unlike", post: post %>
   <% else %>
     <%= render "shared/like", post: post %>
