@@ -96,24 +96,24 @@ RSpec.describe Location, type: :model do
   end
 
   describe '.moving_invalid?' do
-    it '秒速8㎞を超えると不正と判定' do
+    it '秒速80mを超えると不正と判定' do
       pre_time = Time.current
       current_time = pre_time + 1
-      distance = 8.1 # km
+      distance = 0.081
       expect(Location.moving_invalid?(pre_time, current_time, distance)).to be true
     end
 
-    it '秒速8㎞ちょうどは不正と判定される' do
+    it '秒速80mちょうどは不正と判定される' do
       pre_time = Time.current
       current_time = pre_time + 1
-      distance = 8.0 # km
+      distance = 0.08
       expect(Location.moving_invalid?(pre_time, current_time, distance)).to be true
     end
 
-    it '秒速8㎞より小さい場合不正と判定されない' do
+    it '秒速80mより小さい場合不正と判定されない' do
       pre_time = Time.current
       current_time = pre_time + 1
-      distance = 7.9 # km
+      distance = 0.079
       expect(Location.moving_invalid?(pre_time, current_time, distance)).to be false
     end
   end
