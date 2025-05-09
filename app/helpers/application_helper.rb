@@ -8,7 +8,7 @@ module ApplicationHelper
       separator: "|",
       description: "今日はどこにお出かけしよう？駅探検系SNS",
       keywords: "お出かけ,駅",   # キーワードを「,」区切りで設定する
-      canonical: request.original_url,   # 優先するurlを指定する
+      canonical: "https://www.ekipuratto.com/",   # 優先するurlを指定する
       noindex: ! Rails.env.production?,
       icon: [                    # favicon、apple用アイコンを指定する
         { href: image_url("favicon.ico") }
@@ -18,7 +18,7 @@ module ApplicationHelper
         title: "えきぷらっと",
         description: "今日はどこにお出かけしよう？駅探検系SNS",
         type: "website",
-        url: request.original_url,
+        url: "https://www.ekipuratto.com",
         image: image_url("ogp.png"),
         locale: "ja_JP"
       },
