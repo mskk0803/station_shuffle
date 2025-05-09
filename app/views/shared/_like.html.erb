@@ -1,3 +1,5 @@
-<%= button_to likes_path(post_id: post.id), method: :post, data: { turbo: false } do %>
-    <i class="fa-regular fa-heart" style="color:red;"></i> 
+<%= button_to likes_path(post_id: post.id),
+            method: :post,
+            data: { turbo_method: :post, turbo_frame: "like-buttons-#{post.id}" } do %>
+  <i class="fa-regular fa-heart"></i>
 <% end %>
