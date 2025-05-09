@@ -113,5 +113,5 @@ gem "fog-aws"
 
 # セキュリティ対策
 group :production do
-  gem 'rack-attack'
+  gem "rack-attack"
 end
