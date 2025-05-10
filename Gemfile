@@ -92,7 +92,7 @@ gem "carrierwave"
 gem "mini_magick"
 
 # 2025-04-24 omniauthのインストール
-gem "omniauth", "1.9.1"
+gem "omniauth", "2.1.3"
 gem "omniauth-google-oauth2"
 
 # 2025-04-24 gonのインストール いらないので後で消す
