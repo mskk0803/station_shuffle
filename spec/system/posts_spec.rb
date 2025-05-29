@@ -187,7 +187,47 @@ RSpec.describe "Posts", type: :system do
 
         visit following_index_posts_path
         expect(page).not_to have_button("削除")
+      end
 
+      it "自分の投稿にはいいねボタンが表示されない" do
+        # 自分の投稿を作成
+        post
+        visit following_index_posts_path
+        expect(page).not_to have_selector("button#like-#{post.id}")
+      end
+
+      it "自分以外の投稿にはいいねボタンが表示される" do
+        # 自分以外の投稿を作成
+        following_user
+        following_post
+        user.follow(following_user)
+
+        visit following_index_posts_path
+        expect(page).to have_selector("button#like-#{following_post.id}")
+      end
+
+      it "いいねボタンが押された場合、いいねができる" do
+        # 自分以外の投稿を作成
+        following_user
+        following_post
+        user.follow(following_user)
+
+        visit following_index_posts_path
+        find("#like-#{following_post.id}").click
+        expect(page).to have_selector("button#unlike-#{following_post.id}")
+      end
+
+      it "いいねボタンが押された場合、いいねが解除できる" do
+        # 自分以外の投稿を作成
+        following_user
+        following_post
+        user.follow(following_user)
+
+        # いいねをする
+        user.like(following_post)
+        visit following_index_posts_path
+        find("#unlike-#{following_post.id}").click
+        expect(page).to have_selector("button#like-#{following_post.id}")
       end
     end
 
