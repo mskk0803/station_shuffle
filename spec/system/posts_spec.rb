@@ -120,10 +120,12 @@ RSpec.describe "Posts", type: :system do
     context "ログインしている場合" do
       before do
         sign_in(user)
-        post
       end
 
       it "自分の投稿が表示される" do
+        # 自分の投稿を作成
+        post
+
         visit following_index_posts_path
         expect(page).to have_content(post.content)
       end
@@ -168,6 +170,25 @@ RSpec.describe "Posts", type: :system do
         visit following_index_posts_path
         expect(page).not_to have_content(another_private_post.content)
       end
+
+      it "自分の投稿には削除ボタンが表示される" do
+        # 自分の投稿を作成
+        post
+
+        visit following_index_posts_path
+        expect(page).to have_button("削除")
+      end
+
+      it "自分以外の投稿には削除ボタンは表示されない" do
+        # 自分以外の投稿を作成
+        following_user
+        following_post
+        user.follow(following_user)
+
+        visit following_index_posts_path
+        expect(page).not_to have_button("削除")
+
+      end
     end
 
     context "ログインしていない場合" do
@@ -182,6 +203,8 @@ RSpec.describe "Posts", type: :system do
     context "ログインしている場合" do
       before do
         sign_in(user)
+      end
+      it "フォローしていない非公開ユーザー以外のすべてのユーザーの投稿が表示される" do
         # 自分の投稿を作成
         post
         # フォロー中のユーザーとその投稿を作成
@@ -203,14 +226,31 @@ RSpec.describe "Posts", type: :system do
         # フォローしていない非公開ユーザーとその投稿を作成
         another_private_user
         another_private_post
-      end
-      it "フォローしていない非公開ユーザー以外のすべてのユーザーの投稿が表示される" do
+
         visit all_index_posts_path
         expect(page).to have_content(post.content)
         expect(page).to have_content(following_post.content)
         expect(page).to have_content(private_post.content)
         expect(page).to have_content(another_post.content)
         expect(page).not_to have_content(another_private_post.content)
+      end
+
+      it "自分の投稿には削除ボタンが表示される" do
+        # 自分の投稿を作成
+        post
+
+        visit all_index_posts_path
+        expect(page).to have_button("削除")
+      end
+
+      it "自分以外の投稿には削除ボタンは表示されない" do
+        # 自分以外の投稿を作成
+        following_user
+        following_post
+        user.follow(following_user)
+
+        visit all_index_posts_path
+        expect(page).not_to have_button("削除")
       end
     end
 
