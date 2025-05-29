@@ -1,5 +1,6 @@
 <%= button_to like_path(current_user.likes.find_by(post_id: post.id)),
             method: :delete,
-            data: { turbo_method: :delete, turbo_frame: "like-buttons-#{post.id}" } do %>
+            data: { turbo_method: :delete, turbo_frame: "like-buttons-#{post.id}"},
+            id: "unlike-#{post.id}" do %>
   <i class="fa-solid fa-heart" style="color: red;"></i>
 <% end %>
