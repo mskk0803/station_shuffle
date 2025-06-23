@@ -16,7 +16,6 @@ class ProfilesController < ApplicationController
   end
 
   def update
-
     if @user == current_user
       if @user.update(profile_params)
         flash[:notice] = "プロフィールの更新に成功しました。"

@@ -6,7 +6,7 @@ RSpec.describe "Follows", type: :system do
 
   let(:user) { create(:user) }
   let(:another_user) { create(:user) }
-  let(:private_user) { create(:user, is_private: true)}
+  let(:private_user) { create(:user, is_private: true) }
 
   describe "#create" do
     before do
@@ -19,7 +19,7 @@ RSpec.describe "Follows", type: :system do
         expect {
           click_button "フォロー"
           expect(page).to have_button("フォロー中")
-        }.to change{ user.follows.count }.by(1)
+        }.to change { user.follows.count }.by(1)
       end
 
       it "フォロー通知が作成される" do
@@ -28,7 +28,7 @@ RSpec.describe "Follows", type: :system do
         expect {
           click_button "フォロー"
           expect(page).to have_button("フォロー中")
-        }.to change{ another_user.notifications.count }.by(1)
+        }.to change { another_user.notifications.count }.by(1)
       end
     end
     context "非公開ユーザーをフォローしていない場合" do
@@ -38,7 +38,7 @@ RSpec.describe "Follows", type: :system do
         expect {
           click_button "フォロー"
           expect(page).to have_button("リクエスト中")
-        }.to change{ user.follow_requests.count }.by(1)
+        }.to change { user.follow_requests.count }.by(1)
       end
 
       it "通知が作成される" do
@@ -47,7 +47,7 @@ RSpec.describe "Follows", type: :system do
         expect {
           click_button "フォロー"
           expect(page).to have_button("リクエスト中")
-        }.to change{ private_user.notifications.count }.by(1)
+        }.to change { private_user.notifications.count }.by(1)
       end
     end
   end
@@ -63,7 +63,7 @@ RSpec.describe "Follows", type: :system do
         expect {
           click_button "フォロー中"
           expect(page).to have_button("フォロー")
-        }.to change{ user.follows.count }.by(-1)
+        }.to change { user.follows.count }.by(-1)
       end
     end
   end

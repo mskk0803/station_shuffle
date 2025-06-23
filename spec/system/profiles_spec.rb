@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe "Profiles", type: :system do
-
   let(:user) { create(:user) }
   let(:my_post) { create(:post, user: user) }
   let(:checkin) { create(:checkin, user: user, station: "東京駅") }
@@ -85,7 +84,6 @@ RSpec.describe "Profiles", type: :system do
           end
         end
       end
-
     end
 
     context "ログインしていない場合" do
@@ -119,7 +117,6 @@ RSpec.describe "Profiles", type: :system do
           expect(page).to have_content("他のユーザーのプロフィールは編集できません。")
         end
       end
-
     end
 
     context "ログインしていない場合" do
@@ -220,7 +217,6 @@ RSpec.describe "Profiles", type: :system do
           end
         end
       end
-
     end
     context "ログインしていない場合" do
       before do

@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe "FollowRequests", type: :system do
-
   let(:user) { create(:user) }
   let(:private_user) { create(:user) }
 
@@ -21,7 +20,7 @@ RSpec.describe "FollowRequests", type: :system do
       expect {
         click_button "承認"
         expect(page).not_to have_button "承認"
-      }.to change{ user.follows.count }.by(1)
+      }.to change { user.follows.count }.by(1)
     end
 
     it "承認後はフォローリクエストテーブルから消える" do
@@ -29,9 +28,8 @@ RSpec.describe "FollowRequests", type: :system do
       expect {
         click_button "承認"
         expect(page).not_to have_button "承認"
-      }.to change{ user.requested_users.count }.by(-1)
+      }.to change { user.requested_users.count }.by(-1)
     end
-
   end
 
   describe "#reject" do
@@ -44,7 +42,7 @@ RSpec.describe "FollowRequests", type: :system do
       expect {
         click_button "拒否"
         expect(page).not_to have_button "拒否"
-      }.to change{ user.follows.count }.by(0)
+      }.to change { user.follows.count }.by(0)
     end
 
     it "拒否後はフォローリクエストテーブルから消える" do
@@ -52,7 +50,7 @@ RSpec.describe "FollowRequests", type: :system do
       expect {
         click_button "拒否"
         expect(page).not_to have_button "拒否"
-      }.to change{ user.requested_users.count }.by(-1)
+      }.to change { user.requested_users.count }.by(-1)
     end
   end
 
@@ -66,7 +64,7 @@ RSpec.describe "FollowRequests", type: :system do
       expect {
         click_button "リクエスト中"
         expect(page).to have_button "フォロー"
-      }.to change{ user.follows.count }.by(0)
+      }.to change { user.follows.count }.by(0)
     end
 
     it "キャンセル後はフォローリクエストテーブルから消える" do
@@ -74,7 +72,7 @@ RSpec.describe "FollowRequests", type: :system do
       expect {
         click_button "リクエスト中"
         expect(page).to have_button "フォロー"
-      }.to change{ user.requested_users.count }.by(-1)
+      }.to change { user.requested_users.count }.by(-1)
     end
   end
 end

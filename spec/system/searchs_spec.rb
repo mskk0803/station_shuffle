@@ -17,7 +17,6 @@ RSpec.describe "Searchs", type: :system do
       end
     end
     context "ログインしていない場合" do
-
       it "ログインページにリダイレクトされる" do
         visit searchs_path
         expect(page).to have_current_path(new_user_session_path)
