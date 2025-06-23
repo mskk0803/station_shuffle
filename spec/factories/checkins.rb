@@ -1,6 +1,5 @@
 FactoryBot.define do
-  factory :post do
-    content { "Rspecテストです" }
+  factory :checkin do
     station { "東京駅" }
     association :user
   end

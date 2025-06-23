@@ -24,8 +24,12 @@ class PostsController < ApplicationController
 
   def destroy
     post = Post.find(params[:id])
-    post.destroy
-    redirect_to posts_path, notice: "ポストを削除しました。", status: :see_other
+    if post.user == current_user
+      post.destroy
+      redirect_to posts_path, notice: "投稿を削除しました。", status: :see_other
+    else
+      redirect_to posts_path, alert: "他のユーザーの投稿は削除できません。"
+    end
   end
 
   # フォローしているユーザーの投稿を表示するアクション

@@ -60,6 +60,9 @@ jobs:
       - name: Install packages
         run: sudo apt-get update && sudo apt-get install --no-install-recommends -y build-essential git libpq-dev node-gyp pkg-config python-is-python3 google-chrome-stable
 
+      - name: install imagemaggick
+        run: sudo apt-get update && sudo apt-get install -y imagemagick
+        
       - name: Checkout code
         uses: actions/checkout@v4
 
@@ -74,6 +77,11 @@ jobs:
           cp config/database.yml.ci config/database.yml
           bundle exec rails db:create RAILS_ENV=test
           bundle exec rails db:migrate RAILS_ENV=test
+      
+      - name: Precompile assets
+        run: bundle exec rails assets:precompile
+        env:
+          RAILS_ENV: test
 
       - name: Run RSpec
         env:

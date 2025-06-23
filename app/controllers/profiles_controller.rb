@@ -1,41 +1,53 @@
 class ProfilesController < ApplicationController
-  before_action :authenticate_user!, only: %i[show]
-  before_action :set_user, only: %i[show posts likes checkins following_user followers_user]
+  before_action :authenticate_user!
+  before_action :set_user, only: %i[edit show update posts likes checkins following_user followers_user]
 
   def show
     redirect_to profile_posts_path(@user.id)
   end
 
   def edit
-    @user = current_user
+    if @user == current_user
+      @user = current_user
+    else
+      flash[:alert] = "他のユーザーのプロフィールは編集できません。"
+      redirect_to profile_posts_path(@user.id)
+    end
   end
 
   def update
-    user = current_user
-    if user.update(profile_params)
-      flash[:notice] = "プロフィールの更新に成功しました。"
-      redirect_to profile_posts_path(current_user.id)
+    if @user == current_user
+      if @user.update(profile_params)
+        flash[:notice] = "プロフィールの更新に成功しました。"
+        redirect_to profile_posts_path(current_user.id)
+      else
+        flash[:alert] = "プロフィールの更新に失敗しました。"
+        render :edit, status: :unprocessable_entity
+      end
     else
-      flash[:alert] = "プロフィールの更新に失敗しました。"
-      render :edit
+      flash[:alert] = "他のユーザーのプロフィールは更新できません。"
+      redirect_to profile_posts_path(@user.id)
     end
   end
 
   def posts
     @posts = @user.posts.order(created_at: :desc).page(params[:page]).per(5)
-    # @my_post_ids = @user.posts.pluck(:id)
     render :show
   end
 
   def likes
     @likes = @user.like_posts.order(created_at: :desc).page(params[:page]).per(5)
-    # @my_like_post_ids = @user.like_posts.pluck(:id)
     render :show
   end
 
   def checkins
-    @checkins = @user.checkins.order(created_at: :desc)
-    render :show
+    if @user == current_user
+      @checkins = @user.checkins.order(created_at: :desc)
+      render :show
+    else
+      flash[:alert] = "他のユーザーのチェックインは表示できません。"
+      redirect_to profile_posts_path(@user.id)
+    end
   end
 
   # フォロー一覧
