@@ -27,17 +27,17 @@ gem "tzinfo-data", platforms: %i[ windows jruby ]
 
 # Use the database-backed adapters for Rails.cache, Active Job, and Action Cable
 gem "solid_cache"
-gem "solid_queue"
-gem "solid_cable"
+gem "solid_queue", "~> 1.1.5"
+gem "solid_cable", "~> 3.0.11"
 
 # Reduces boot times through caching; required in config/boot.rb
-gem "bootsnap", require: false
+gem "bootsnap", "~> 1.18.6", require: false
 
 # Deploy this application anywhere as a Docker container [https://kamal-deploy.org]
-gem "kamal", require: false
+gem "kamal", "~> 2.7.0", require: false
 
 # Add HTTP asset caching/compression and X-Sendfile acceleration to Puma [https://github.com/basecamp/thruster/]
-gem "thruster", require: false
+gem "thruster", "~> 0.1.14", require: false
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
@@ -53,7 +53,7 @@ group :development, :test do
   gem "rubocop-rails-omakase", require: false
 
   # 2025-05-02 Rspecを追加
-  gem "rspec-rails", "~> 7.0.0"
+  gem "rspec-rails", "~> 8.0.1"
   gem "factory_bot_rails"
 end
 
@@ -65,7 +65,7 @@ end
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
-  gem "selenium-webdriver"
+  gem "selenium-webdriver", "~> 4.33.0"
 
   # 2025-05-03　Sinmplecovの追加
   gem "simplecov", require: false
@@ -84,8 +84,8 @@ gem "dotenv-rails"
 gem "google_places"
 
 # 2025-03-19 taileindcssのインストール
-gem "tailwindcss-rails"
-gem "tailwindcss-ruby", "3.4.17"
+gem "tailwindcss-rails", "~> 3.3.1"
+gem "tailwindcss-ruby"
 
 # 2025-04-15 carrierwaveのインストール
 gem "carrierwave"
