@@ -53,7 +53,7 @@ group :development, :test do
   gem "rubocop-rails-omakase", require: false
 
   # 2025-05-02 Rspecを追加
-  gem "rspec-rails", "~> 7.0.0"
+  gem "rspec-rails", "~> 8.0.1"
   gem "factory_bot_rails"
 end
 
