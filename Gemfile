@@ -84,7 +84,7 @@ gem "dotenv-rails"
 gem "google_places"
 
 # 2025-03-19 taileindcssのインストール
-gem "tailwindcss-rails", "~> 3.3.1"
+gem "tailwindcss-rails", "~> 4.2.3"
 gem "tailwindcss-ruby"
 
 # 2025-04-15 carrierwaveのインストール
